@@ -1,0 +1,25 @@
+# Exclude version control system files and directories
+.git
+.gitignore
+
+# Exclude Python bytecode files
+__pycache__
+*.pyc
+
+# Exclude development and system files
+*.log
+*.tmp
+*.swp
+
+# IDE
+.idea
+
+# Exclude any other unnecessary files and directories
+*.DS_Store
+
+# Exclude folders and files
+data
+notebooks
+reports
+README.md
+Dockerfile
