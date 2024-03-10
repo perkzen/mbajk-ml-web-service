@@ -15,19 +15,6 @@ class DataFetcher:
         self.lat = lat
         self.lon = lon
 
-    def __create_forecast_url(self, past_days: int = 0, forecast_days: int = 1):
-        base_url = "https://api.open-meteo.com/v1/forecast?"
-        params = {
-            "latitude": self.lat,
-            "longitude": self.lon,
-            "hourly": "temperature_2m,relative_humidity_2m,dew_point_2m,apparent_temperature,precipitation,"
-                      "surface_pressure,rain",
-            "past_days": past_days,
-            "forecast_days": forecast_days
-        }
-        forecast_url = base_url + "&".join([f"{key}={value}" for key, value in params.items()])
-        return forecast_url
-
     def fetch_stations(self):
         stations_response = requests.get(self.stations_url)
         stations_response.raise_for_status()
@@ -43,6 +30,28 @@ class DataFetcher:
             )
             for station in stations
         ]
+
+    def fetch_weather(self) -> List[Weather]:
+        weather_url = self.__create_forecast_url()
+        weather_response = requests.get(weather_url)
+        weather_response.raise_for_status()
+
+        parsed_data = self.__parse_forecast_response(weather_response.json())
+
+        return self.__map_to_weather_data(parsed_data)
+
+    def __create_forecast_url(self, past_days: int = 0, forecast_days: int = 1):
+        base_url = "https://api.open-meteo.com/v1/forecast?"
+        params = {
+            "latitude": self.lat,
+            "longitude": self.lon,
+            "hourly": "temperature_2m,relative_humidity_2m,dew_point_2m,apparent_temperature,precipitation,"
+                      "surface_pressure,rain",
+            "past_days": past_days,
+            "forecast_days": forecast_days
+        }
+        forecast_url = base_url + "&".join([f"{key}={value}" for key, value in params.items()])
+        return forecast_url
 
     @staticmethod
     def __parse_forecast_response(response: dict):
@@ -69,12 +78,3 @@ class DataFetcher:
             )
             weather_data_list.append(weather_data)
         return weather_data_list
-
-    def fetch_weather(self) -> List[Weather]:
-        weather_url = self.__create_forecast_url()
-        weather_response = requests.get(weather_url)
-        weather_response.raise_for_status()
-
-        parsed_data = self.__parse_forecast_response(weather_response.json())
-
-        return self.__map_to_weather_data(parsed_data)
