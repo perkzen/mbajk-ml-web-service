@@ -1,0 +1,352 @@
+[
+  {
+    "available_bike_stands": "8",
+    "apparent_temperature": "24.7",
+    "surface_pressure": "984.3",
+    "temperature": "25.100",
+    "dew_point": "12.4"
+  },
+  {
+    "available_bike_stands": "7",
+    "apparent_temperature": "23.3",
+    "surface_pressure": "984.5",
+    "temperature": "24.200",
+    "dew_point": "10.9"
+  },
+  {
+    "available_bike_stands": "6",
+    "apparent_temperature": "23.3",
+    "surface_pressure": "984.5",
+    "temperature": "24.200",
+    "dew_point": "10.9"
+  },
+  {
+    "available_bike_stands": "8",
+    "apparent_temperature": "23.3",
+    "surface_pressure": "984.5",
+    "temperature": "24.200",
+    "dew_point": "10.9"
+  },
+  {
+    "available_bike_stands": "12",
+    "apparent_temperature": "23.3",
+    "surface_pressure": "984.5",
+    "temperature": "24.200",
+    "dew_point": "10.9"
+  },
+  {
+    "available_bike_stands": "12",
+    "apparent_temperature": "23.3",
+    "surface_pressure": "984.5",
+    "temperature": "24.200",
+    "dew_point": "10.9"
+  },
+  {
+    "available_bike_stands": "8",
+    "apparent_temperature": "23.3",
+    "surface_pressure": "984.5",
+    "temperature": "24.200",
+    "dew_point": "10.9"
+  },
+  {
+    "available_bike_stands": "5",
+    "apparent_temperature": "21.7",
+    "surface_pressure": "984.4",
+    "temperature": "21.500",
+    "dew_point": "12.1"
+  },
+  {
+    "available_bike_stands": "7",
+    "apparent_temperature": "21.7",
+    "surface_pressure": "984.4",
+    "temperature": "21.500",
+    "dew_point": "12.1"
+  },
+  {
+    "available_bike_stands": "7",
+    "apparent_temperature": "21.7",
+    "surface_pressure": "984.4",
+    "temperature": "21.500",
+    "dew_point": "12.1"
+  },
+  {
+    "available_bike_stands": "7",
+    "apparent_temperature": "21.7",
+    "surface_pressure": "984.4",
+    "temperature": "21.500",
+    "dew_point": "12.1"
+  },
+  {
+    "available_bike_stands": "7",
+    "apparent_temperature": "21.7",
+    "surface_pressure": "984.4",
+    "temperature": "21.500",
+    "dew_point": "12.1"
+  },
+  {
+    "available_bike_stands": "6",
+    "apparent_temperature": "21.7",
+    "surface_pressure": "984.4",
+    "temperature": "21.500",
+    "dew_point": "12.1"
+  },
+  {
+    "available_bike_stands": "5",
+    "apparent_temperature": "20.4",
+    "surface_pressure": "984.7",
+    "temperature": "20.400",
+    "dew_point": "11.9"
+  },
+  {
+    "available_bike_stands": "0",
+    "apparent_temperature": "20.4",
+    "surface_pressure": "984.7",
+    "temperature": "20.400",
+    "dew_point": "11.9"
+  },
+  {
+    "available_bike_stands": "1",
+    "apparent_temperature": "20.4",
+    "surface_pressure": "984.7",
+    "temperature": "20.400",
+    "dew_point": "11.9"
+  },
+  {
+    "available_bike_stands": "1",
+    "apparent_temperature": "20.4",
+    "surface_pressure": "984.7",
+    "temperature": "20.400",
+    "dew_point": "11.9"
+  },
+  {
+    "available_bike_stands": "2",
+    "apparent_temperature": "20.4",
+    "surface_pressure": "984.7",
+    "temperature": "20.400",
+    "dew_point": "11.9"
+  },
+  {
+    "available_bike_stands": "0",
+    "apparent_temperature": "20.4",
+    "surface_pressure": "984.7",
+    "temperature": "20.400",
+    "dew_point": "11.9"
+  },
+  {
+    "available_bike_stands": "0",
+    "apparent_temperature": "18.5",
+    "surface_pressure": "985.3",
+    "temperature": "18.200",
+    "dew_point": "13.1"
+  },
+  {
+    "available_bike_stands": "0",
+    "apparent_temperature": "18.5",
+    "surface_pressure": "985.3",
+    "temperature": "18.200",
+    "dew_point": "13.1"
+  },
+  {
+    "available_bike_stands": "0",
+    "apparent_temperature": "18.5",
+    "surface_pressure": "985.3",
+    "temperature": "18.203",
+    "dew_point": "13.1"
+  },
+  {
+    "available_bike_stands": "1",
+    "apparent_temperature": "18.5",
+    "surface_pressure": "985.3",
+    "temperature": "18.200",
+    "dew_point": "13.1"
+  },
+  {
+    "available_bike_stands": "0",
+    "apparent_temperature": "18.5",
+    "surface_pressure": "985.3",
+    "temperature": "18.200",
+    "dew_point": "13.1"
+  },
+  {
+    "available_bike_stands": "0",
+    "apparent_temperature": "18.5",
+    "surface_pressure": "985.3",
+    "temperature": "18.200",
+    "dew_point": "13.1"
+  },
+  {
+    "available_bike_stands": "0",
+    "apparent_temperature": "18.1",
+    "surface_pressure": "985.2",
+    "temperature": "17.8",
+    "dew_point": "13.1"
+  },
+  {
+    "available_bike_stands": "0",
+    "apparent_temperature": "18.1",
+    "surface_pressure": "985.2",
+    "temperature": "17.8",
+    "dew_point": "13.1"
+  },
+  {
+    "available_bike_stands": "0",
+    "apparent_temperature": "18.1",
+    "surface_pressure": "985.2",
+    "temperature": "17.8",
+    "dew_point": "13.1"
+  },
+  {
+    "available_bike_stands": "0",
+    "apparent_temperature": "18.1",
+    "surface_pressure": "985.2",
+    "temperature": "17.8",
+    "dew_point": "13.1"
+  },
+  {
+    "available_bike_stands": "0",
+    "apparent_temperature": "18.1",
+    "surface_pressure": "985.2",
+    "temperature": "17.8",
+    "dew_point": "13.1"
+  },
+  {
+    "available_bike_stands": "0",
+    "apparent_temperature": "18.1",
+    "surface_pressure": "985.2",
+    "temperature": "17.8",
+    "dew_point": "13.1"
+  },
+  {
+    "available_bike_stands": "0",
+    "apparent_temperature": "17.2",
+    "surface_pressure": "985.2",
+    "temperature": "17.4",
+    "dew_point": "12.3"
+  },
+  {
+    "available_bike_stands": "0",
+    "apparent_temperature": "17.2",
+    "surface_pressure": "985.2",
+    "temperature": "17.4",
+    "dew_point": "12.3"
+  },
+  {
+    "available_bike_stands": "0",
+    "apparent_temperature": "17.2",
+    "surface_pressure": "985.2",
+    "temperature": "17.4",
+    "dew_point": "12.3"
+  },
+  {
+    "available_bike_stands": "0",
+    "apparent_temperature": "17.2",
+    "surface_pressure": "985.2",
+    "temperature": "17.4",
+    "dew_point": "12.3"
+  },
+  {
+    "available_bike_stands": "0",
+    "apparent_temperature": "17.2",
+    "surface_pressure": "985.2",
+    "temperature": "17.4",
+    "dew_point": "12.3"
+  },
+  {
+    "available_bike_stands": "0",
+    "apparent_temperature": "17.2",
+    "surface_pressure": "985.2",
+    "temperature": "17.4",
+    "dew_point": "12.3"
+  },
+  {
+    "available_bike_stands": "1",
+    "apparent_temperature": "16.9",
+    "surface_pressure": "985.0",
+    "temperature": "17.1",
+    "dew_point": "12.4"
+  },
+  {
+    "available_bike_stands": "1",
+    "apparent_temperature": "16.9",
+    "surface_pressure": "985.0",
+    "temperature": "17.1",
+    "dew_point": "12.4"
+  },
+  {
+    "available_bike_stands": "1",
+    "apparent_temperature": "16.9",
+    "surface_pressure": "985.0",
+    "temperature": "17.1",
+    "dew_point": "12.4"
+  },
+  {
+    "available_bike_stands": "1",
+    "apparent_temperature": "16.9",
+    "surface_pressure": "985.0",
+    "temperature": "17.1",
+    "dew_point": "12.4"
+  },
+  {
+    "available_bike_stands": "1",
+    "apparent_temperature": "16.9",
+    "surface_pressure": "985.0",
+    "temperature": "17.1",
+    "dew_point": "12.4"
+  },
+  {
+    "available_bike_stands": "2",
+    "apparent_temperature": "16.9",
+    "surface_pressure": "985.0",
+    "temperature": "17.1",
+    "dew_point": "12.4"
+  },
+  {
+    "available_bike_stands": "2",
+    "apparent_temperature": "16.0",
+    "surface_pressure": "985.1",
+    "temperature": "16.2",
+    "dew_point": "12.0"
+  },
+  {
+    "available_bike_stands": "2",
+    "apparent_temperature": "16.0",
+    "surface_pressure": "985.1",
+    "temperature": "16.2",
+    "dew_point": "12.0"
+  },
+  {
+    "available_bike_stands": "2",
+    "apparent_temperature": "16.0",
+    "surface_pressure": "985.1",
+    "temperature": "16.2",
+    "dew_point": "12.0"
+  },
+  {
+    "available_bike_stands": "2",
+    "apparent_temperature": "16.0",
+    "surface_pressure": "985.1",
+    "temperature": "16.2",
+    "dew_point": "12.0"
+  },
+  {
+    "available_bike_stands": "2",
+    "apparent_temperature": "16.0",
+    "surface_pressure": "985.1",
+    "temperature": "16.2",
+    "dew_point": "12.0"
+  },
+  {
+    "available_bike_stands": "2",
+    "apparent_temperature": "16.0",
+    "surface_pressure": "985.1",
+    "temperature": "16.2",
+    "dew_point": "12.0"
+  },
+  {
+    "available_bike_stands": "2",
+    "apparent_temperature": "16.1",
+    "surface_pressure": "984.7",
+    "temperature": "16.2",
+    "dew_point": "12.0"
+  }
+]
