@@ -1,7 +1,5 @@
 from pydantic import BaseModel
 
-from .weather import Weather
-
 
 class BikeStation(BaseModel):
     available_bike_stands: int
@@ -10,5 +8,21 @@ class BikeStation(BaseModel):
     address: str
 
 
-class BikeStationWithWeather(BikeStation, Weather):
-    pass
+class BikeStationWithWeather(BaseModel):
+    # Weather
+    date: str
+    temperature: float
+    relative_humidity: float
+    dew_point: float
+    apparent_temperature: float
+    precipitation: float
+    rain: float
+    surface_pressure: float
+
+    # BikeStation
+    name: str
+    address: str
+    available_bike_stands: int
+    available_bikes: int
+
+

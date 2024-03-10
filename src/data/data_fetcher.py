@@ -1,8 +1,9 @@
 from typing import List
+from datetime import datetime
 
 import requests
 
-from entities import BikeStation, Weather
+from entities import BikeStation, BikeStationWithWeather, Weather
 
 
 class DataFetcher:
@@ -15,7 +16,7 @@ class DataFetcher:
         self.lat = lat
         self.lon = lon
 
-    def fetch_stations(self):
+    def get_stations(self):
         stations_response = requests.get(self.stations_url)
         stations_response.raise_for_status()
 
@@ -31,7 +32,7 @@ class DataFetcher:
             for station in stations
         ]
 
-    def fetch_weather(self) -> List[Weather]:
+    def get_weather_forecast(self) -> List[Weather]:
         weather_url = self.__create_forecast_url()
         weather_response = requests.get(weather_url)
         weather_response.raise_for_status()
@@ -39,6 +40,37 @@ class DataFetcher:
         parsed_data = self.__parse_forecast_response(weather_response.json())
 
         return self.__map_to_weather_data(parsed_data)
+
+    def get_stations_with_weather(self) -> List[BikeStationWithWeather]:
+        stations = self.get_stations()
+        weather = self.__get_current_weather()
+
+        return [
+            BikeStationWithWeather(
+                available_bike_stands=station.available_bike_stands,
+                available_bikes=station.available_bikes,
+                name=station.name,
+                address=station.address,
+                temperature=weather.temperature,
+                relative_humidity=weather.relative_humidity,
+                dew_point=weather.dew_point,
+                apparent_temperature=weather.apparent_temperature,
+                precipitation=weather.precipitation,
+                rain=weather.rain,
+                surface_pressure=weather.surface_pressure,
+                date=weather.date
+            )
+            for station in stations
+        ]
+
+    def __get_current_weather(self) -> Weather:
+        now = datetime.now().strftime('%Y-%m-%dT%H:00')
+
+        weather = self.get_weather_forecast()
+
+        for w in weather:
+            if w.date == now:
+                return w
 
     def __create_forecast_url(self, past_days: int = 0, forecast_days: int = 1):
         base_url = "https://api.open-meteo.com/v1/forecast?"
