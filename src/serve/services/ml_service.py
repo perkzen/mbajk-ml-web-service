@@ -25,7 +25,7 @@ class MLService:
         return predicted[0]
 
     def __prepare_data(self, data: List[BikeStationDto]) -> np.ndarray[Any, np.dtype]:
-        data = [item.dict() for item in data]
+        data = [item.model_dump() for item in data]
         data_values = []
         for item in data:
             values = list(item.values())
