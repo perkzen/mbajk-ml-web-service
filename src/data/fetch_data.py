@@ -3,7 +3,6 @@ import sys
 import time
 import schedule
 from datetime import datetime
-
 from data_fetcher import DataFetcher
 from dataset_manager import DatasetManager
 

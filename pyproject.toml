@@ -9,6 +9,7 @@ readme = "README.md"
 serve = "uvicorn src.serve.server:app --reload"
 fetch_data = "python3 src/data/fetch_data.py"
 train = "python3 src/models/train_model.py"
+predict = "python3 src/models/predict_model.py"
 test = "pytest"
 lint = "ruff check ."
 
