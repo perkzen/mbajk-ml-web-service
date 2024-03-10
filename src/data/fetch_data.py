@@ -39,7 +39,7 @@ if __name__ == "__main__":
     fetcher = DataFetcher(lat=46.5547, lon=15.6467)
     manager = DatasetManager(data_path="data/raw")
 
-    schedule.every(2).seconds.do(task, fetcher, manager)
+    schedule.every(1).hours.do(task, fetcher, manager)
 
     while True:
         schedule.run_pending()
