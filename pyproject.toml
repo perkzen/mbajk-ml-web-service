@@ -7,9 +7,9 @@ readme = "README.md"
 
 [tool.poe.tasks]
 serve = "uvicorn src.serve.server:app --reload"
-fetch_data = "python3 src/data/fetch_data.py"
-train = "python3 src/models/train_model.py"
-predict = "python3 src/models/predict_model.py"
+fetch_data = "python3 -m src.data.scripts.fetch_data"
+train = "python3 -m src.models.scripts.train_model"
+predict = "python3 -m src.models.scripts.predict_model"
 test = "pytest"
 lint = "ruff check ."
 

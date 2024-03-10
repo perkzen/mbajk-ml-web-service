@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 
-from entities import BikeStationWithWeather
+from .entities import BikeStationWithWeather
 
 
 class DatasetManager:

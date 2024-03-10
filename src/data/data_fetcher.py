@@ -3,7 +3,7 @@ from datetime import datetime
 
 import requests
 
-from entities import BikeStation, BikeStationWithWeather, Weather
+from .entities import BikeStation, BikeStationWithWeather, Weather
 
 
 class DataFetcher:
