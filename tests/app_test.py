@@ -1,9 +1,6 @@
-import warnings
 from fastapi.testclient import TestClient
 
 from src.serve.server import app
-
-warnings.filterwarnings("ignore")
 
 client = TestClient(app)
 
