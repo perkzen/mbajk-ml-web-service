@@ -27,6 +27,11 @@ jobs:
         run: |
           poetry install --with dev
 
+      - name: Run linter
+        run: |
+          poetry run poe lint
+        continue-on-error: false
+
       - name: Run tests
         run: |
           poetry run poe test

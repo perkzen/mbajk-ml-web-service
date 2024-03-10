@@ -9,6 +9,7 @@ readme = "README.md"
 serve = "uvicorn src.serve.server:app --reload"
 fetch_data = "python3 src/data/fetch_data.py"
 test = "pytest"
+lint = "ruff check ."
 
 [tool.poetry.dependencies]
 python = "^3.12"
@@ -27,6 +28,7 @@ requests = "^2.31.0"
 jupyter = "^1.0.0"
 poethepoet = "^0.25.0"
 pytest = "^8.0.2"
+ruff = "^0.3.2"
 
 [build-system]
 requires = ["poetry-core"]
