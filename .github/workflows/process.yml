@@ -34,5 +34,5 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add .
-          git diff-index --quiet HEAD || (git commit -a -m "action: fetch latest data" --allow-empty)
+          git diff-index --quiet HEAD || (git commit -a -m "action: process data" --allow-empty)
           git push
