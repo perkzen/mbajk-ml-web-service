@@ -24,7 +24,11 @@ def task(data_fetcher: DataFetcher, dataset_manager: DatasetManager):
     for station in stations:
         # this condition is for development purposes
         if station.name == "GOSPOSVETSKA C. - TURNERJEVA UL.":
-            dataset_manager.save(station)
+            df = dataset_manager.save("raw", station)
+
+            if len(df) > 3:
+                df = dataset_manager.clean(df)
+                dataset_manager.save_df(df, "processed", station.name)
 
     end_time = datetime.now()
     execution_time = end_time - start_time
@@ -36,9 +40,9 @@ signal.signal(signal.SIGINT, signal_handler)
 
 if __name__ == "__main__":
     fetcher = DataFetcher(lat=46.5547, lon=15.6467)
-    manager = DatasetManager(data_path="data/raw")
+    manager = DatasetManager(data_path="data")
 
-    schedule.every(1).hours.do(task, fetcher, manager)
+    schedule.every(1).seconds.do(task, fetcher, manager)
 
     while True:
         schedule.run_pending()
