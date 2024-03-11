@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "mbjak-ml-web-service"
+name = "mbajk-ml-web-service"
 version = "0.1.0"
 description = ""
 authors = ["perkzen <perko.domen@gmail.com>"]
