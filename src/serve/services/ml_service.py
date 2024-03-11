@@ -6,6 +6,7 @@ from keras import Model
 from keras.models import load_model
 from sklearn.preprocessing import MinMaxScaler
 from ..dto.bike_station_dto import BikeStationDto
+from ...config import WINDOW_SIZE
 
 
 class MLService:
@@ -36,10 +37,10 @@ class MLService:
 
         scaled_data = self.scaler.transform(data)
 
-        return self.__create_series(scaled_data, 50, list(range(0, len(data_values[0]))))
+        return self.__create_time_series(scaled_data, WINDOW_SIZE, list(range(0, len(data_values[0]))))
 
     @staticmethod
-    def __create_series(data, window_size, feature_cols) -> np.ndarray[Any, np.dtype]:
+    def __create_time_series(data, window_size, feature_cols) -> np.ndarray[Any, np.dtype]:
         sequences = []
         n_samples = len(data)
 

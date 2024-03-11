@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 from keras.models import load_model
 from sklearn.metrics import mean_squared_error, mean_absolute_error, explained_variance_score
-
+from src.config import WINDOW_SIZE
 from src.models import create_time_series, create_test_train_split
 
 
@@ -34,7 +34,7 @@ if __name__ == "__main__":
     dataset = dataset[features]
 
     train_data, test_data = create_test_train_split(dataset)
-    window_size = 50
+    window_size = WINDOW_SIZE
 
     target_col_idx = dataset.columns.get_loc(target_col)
     feature_cols_idx = [dataset.columns.get_loc(col) for col in features]

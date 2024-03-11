@@ -1,6 +1,8 @@
 import joblib
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
+
+from src.config import WINDOW_SIZE
 from src.models import create_time_series, create_test_train_split, build_model
 
 if __name__ == "__main__":
@@ -17,7 +19,7 @@ if __name__ == "__main__":
     train_data = scaler.fit_transform(train_data)
     test_data = scaler.transform(test_data)
 
-    window_size = 50
+    window_size = WINDOW_SIZE
 
     target_col_idx = dataset.columns.get_loc(target_col)
     feature_cols_idx = [dataset.columns.get_loc(col) for col in features]

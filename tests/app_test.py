@@ -1,6 +1,7 @@
 from fastapi.testclient import TestClient
-
+from src.config import WINDOW_SIZE
 from src.serve.server import app
+
 
 client = TestClient(app)
 
@@ -50,7 +51,7 @@ def test_success_prediction():
                 "rain": 0.0,
                 "surface_pressure": 1000.0,
             }
-            for _ in range(50)
+            for _ in range(WINDOW_SIZE)
         ],
     )
     assert response.status_code == 200
