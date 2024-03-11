@@ -22,13 +22,11 @@ def task(data_fetcher: DataFetcher, dataset_manager: DatasetManager):
     stations = data_fetcher.get_stations_with_weather()
 
     for station in stations:
-        # this condition is for development purposes
-        if station.name == "GOSPOSVETSKA C. - TURNERJEVA UL.":
-            df = dataset_manager.save("raw", station)
+        df = dataset_manager.save("raw", station)
 
-            if len(df) > 3:
-                df = dataset_manager.clean(df)
-                dataset_manager.save_df(df, "processed", station.name)
+        if len(df) > 3:
+            df = dataset_manager.clean(df)
+            dataset_manager.save_df(df, "processed", station.name)
 
     end_time = datetime.now()
     execution_time = end_time - start_time
