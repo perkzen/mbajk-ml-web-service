@@ -1,8 +1,11 @@
 name: test cron jobs
 
+
+
 on:
   schedule:
     - cron: '* * * * *'
+  workflow_dispatch:
 
 jobs:
   test:
