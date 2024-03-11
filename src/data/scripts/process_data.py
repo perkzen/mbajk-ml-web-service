@@ -16,13 +16,17 @@ def main() -> None:
 
         stations = df_stations.to_dict(orient="records")
 
+        # we need at least 4 rows to calculate mutual information
+        if len(df_weather) < 3:
+            return
+
         df_weather['merge_key'] = 1
         df_stations['merge_key'] = 1
 
         for station in stations:
-            df = pd.merge(df_weather, df_stations, on='merge_key')
+            df = pd.merge(df_weather, df_stations[df_stations['number'] == station['number']], on='merge_key')
             df = processor.clean(df)
-            manager.save("processed", f"mbajk_{station['name']}", df, override=True)
+            manager.save("processed", f"mbajk_station_{station["number"]}", df, override=True)
 
     except FileNotFoundError:
         print("[Process Data] - No data to process")

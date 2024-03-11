@@ -3,7 +3,7 @@ from datetime import datetime
 
 import requests
 
-from .entities import BikeStation, BikeStationWithWeather, Weather
+from .entities import BikeStation, Weather
 
 
 class DataFetcher:
@@ -22,6 +22,8 @@ class DataFetcher:
 
         stations = stations_response.json()
 
+        now = datetime.now().strftime('%Y-%m-%dT%H:00')
+
         return [
             BikeStation(
                 available_bike_stands=station["available_bike_stands"],
@@ -29,7 +31,8 @@ class DataFetcher:
                 bike_stands=station["bike_stands"],
                 name=station["name"],
                 address=station["address"],
-                number=station["number"]
+                number=station["number"],
+                date=now
             )
             for station in stations
         ]
@@ -42,29 +45,6 @@ class DataFetcher:
         parsed_data = self.__parse_forecast_response(weather_response.json())
 
         return self.__map_to_weather_data(parsed_data)
-
-    def get_stations_with_weather(self) -> List[BikeStationWithWeather]:
-        stations = self.get_stations()
-        weather = self.get_current_weather()
-
-        return [
-            BikeStationWithWeather(
-                available_bike_stands=station.available_bike_stands,
-                available_bikes=station.available_bikes,
-                bike_stands=station.bike_stands,
-                name=station.name,
-                address=station.address,
-                temperature=weather.temperature,
-                relative_humidity=weather.relative_humidity,
-                dew_point=weather.dew_point,
-                apparent_temperature=weather.apparent_temperature,
-                precipitation=weather.precipitation,
-                rain=weather.rain,
-                surface_pressure=weather.surface_pressure,
-                date=weather.date
-            )
-            for station in stations
-        ]
 
     def get_current_weather(self) -> Weather:
         now = datetime.now().strftime('%Y-%m-%dT%H:00')
