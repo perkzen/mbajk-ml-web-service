@@ -1,7 +1,5 @@
 name: test cron jobs
 
-
-
 on:
   schedule:
     - cron: '* * * * *'
