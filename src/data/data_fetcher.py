@@ -26,6 +26,7 @@ class DataFetcher:
             BikeStation(
                 available_bike_stands=station["available_bike_stands"],
                 available_bikes=station["available_bikes"],
+                bike_stands=station["bike_stands"],
                 name=station["name"],
                 address=station["address"]
             )
@@ -49,6 +50,7 @@ class DataFetcher:
             BikeStationWithWeather(
                 available_bike_stands=station.available_bike_stands,
                 available_bikes=station.available_bikes,
+                bike_stands=station.bike_stands,
                 name=station.name,
                 address=station.address,
                 temperature=weather.temperature,
