@@ -32,7 +32,7 @@ The web service is based on the FastAPI framework. It provides two endpoints:
 
 - `/` - health check endpoint, returns "OK
 ```json
-
+{
   "status": "ok",
   "date": "2024-03-11T10:31:54.783620"
 }
