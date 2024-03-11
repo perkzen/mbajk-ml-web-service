@@ -1,11 +1,13 @@
 import joblib
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
-
 from src.config import WINDOW_SIZE
 from src.models import create_time_series, create_test_train_split, build_model
+from src.utils.decorators import execution_timer
 
-if __name__ == "__main__":
+
+@execution_timer("Train Model")
+def main() -> None:
     dataset = pd.read_csv("data/processed/mbajk_processed.csv")
     dataset.drop(columns=["date"], inplace=True)
 
@@ -32,3 +34,7 @@ if __name__ == "__main__":
 
     joblib.dump(scaler, "models/minmax_scaler.gz")
     model.save(f"models/mbajk_{model.name}_model.keras")
+
+
+if __name__ == "__main__":
+    main()

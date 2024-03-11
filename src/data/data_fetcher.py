@@ -28,7 +28,8 @@ class DataFetcher:
                 available_bikes=station["available_bikes"],
                 bike_stands=station["bike_stands"],
                 name=station["name"],
-                address=station["address"]
+                address=station["address"],
+                number=station["number"]
             )
             for station in stations
         ]
@@ -44,7 +45,7 @@ class DataFetcher:
 
     def get_stations_with_weather(self) -> List[BikeStationWithWeather]:
         stations = self.get_stations()
-        weather = self.__get_current_weather()
+        weather = self.get_current_weather()
 
         return [
             BikeStationWithWeather(
@@ -65,7 +66,7 @@ class DataFetcher:
             for station in stations
         ]
 
-    def __get_current_weather(self) -> Weather:
+    def get_current_weather(self) -> Weather:
         now = datetime.now().strftime('%Y-%m-%dT%H:00')
 
         weather = self.get_weather_forecast()

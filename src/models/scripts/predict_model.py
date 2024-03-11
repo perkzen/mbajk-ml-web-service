@@ -5,6 +5,7 @@ from keras.models import load_model
 from sklearn.metrics import mean_squared_error, mean_absolute_error, explained_variance_score
 from src.config import WINDOW_SIZE
 from src.models import create_time_series, create_test_train_split
+from src.utils.decorators import execution_timer
 
 
 def evaluate_model_performance(y_true, y_pred, dataset, scaler):
@@ -21,7 +22,8 @@ def evaluate_model_performance(y_true, y_pred, dataset, scaler):
     return mse, mae, evs
 
 
-if __name__ == "__main__":
+@execution_timer("Predict Model")
+def main() -> None:
     model = load_model("models/mbajk_GRU_model.keras")
     scaler = joblib.load("models/minmax_scaler.gz")
 
@@ -59,3 +61,7 @@ if __name__ == "__main__":
         file.write(f"Test MSE: {mse_test}\n")
         file.write(f"Test MAE: {mae_test}\n")
         file.write(f"Test EVS: {evs_test}\n")
+
+
+if __name__ == "__main__":
+    main()

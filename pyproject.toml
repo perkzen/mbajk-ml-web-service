@@ -7,7 +7,8 @@ readme = "README.md"
 
 [tool.poe.tasks]
 serve = "uvicorn src.serve.server:app --reload"
-fetch_data = "python3 -m src.data.scripts.fetch_data"
+fetch = "python3 -m src.data.scripts.fetch_data"
+process = "python3 -m src.data.scripts.process_data"
 train = "python3 -m src.models.scripts.train_model"
 predict = "python3 -m src.models.scripts.predict_model"
 test = "pytest"
@@ -24,7 +25,6 @@ scipy = "^1.12.0"
 fastapi = "^0.110.0"
 uvicorn = { extras = ["standard"], version = "^0.28.0" }
 requests = "^2.31.0"
-schedule = "^1.2.1"
 joblib = "^1.3.2"
 
 

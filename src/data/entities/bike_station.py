@@ -7,6 +7,7 @@ class BikeStation(BaseModel):
     bike_stands: int
     name: str
     address: str
+    number: int
 
 
 class BikeStationWithWeather(BaseModel):

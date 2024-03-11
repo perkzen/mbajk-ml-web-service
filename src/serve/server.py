@@ -18,7 +18,6 @@ def health_check():
 
 @app.post("/mbjak/predict")
 def predict(data: List[BikeStationDto]):
-    # 50 is window size (we should write it in a config file
     if len(data) != WINDOW_SIZE:
         raise HTTPException(status_code=400, detail=f"Data must contain {WINDOW_SIZE} items")
 
