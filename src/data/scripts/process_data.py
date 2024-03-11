@@ -22,7 +22,7 @@ def main() -> None:
         for station in stations:
             df = pd.merge(df_weather, df_stations, on='merge_key')
             df = processor.clean(df)
-            manager.save("processed", f"mbajk_{station['name']}", df)
+            manager.save("processed", f"mbajk_{station['name']}", df, override=True)
 
     except FileNotFoundError:
         print("[Process Data] - No data to process")
