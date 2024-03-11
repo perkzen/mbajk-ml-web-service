@@ -27,13 +27,6 @@ class DatasetManager:
             return df
 
     def clean(self, df: pd.DataFrame) -> pd.DataFrame:
-        # filename = f"{self.data_path}/{dataset_path}"
-        #
-        # if not os.path.exists(filename):
-        #     raise FileNotFoundError(f"File {filename} not found")
-        #
-        # df = pd.read_csv(filename)
-
         df["date"] = pd.to_datetime(df["date"])
         df.sort_values(by="date", inplace=True)
 
