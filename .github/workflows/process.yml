@@ -2,12 +2,12 @@ name: Process data
 
 on:
   schedule:
-    - cron: '* * * * *'
+    - cron: '0 * * * *'
   workflow_dispatch:
 
 
 jobs:
-  fetch:
+  process:
     runs-on: ubuntu-latest
     steps:
 
