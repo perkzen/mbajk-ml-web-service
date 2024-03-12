@@ -1,4 +1,4 @@
-name: Fetch And Process Latest Data
+name: Fetch/Process
 
 on:
   schedule:
