@@ -23,6 +23,7 @@ def health_check():
 def get_bike_stations() -> List[BikeStation]:
     return bike_stations_service.get_bike_stations()
 
+
 @app.get("/mbjak/stations/{number}")
 def get_bike_station_by_number(number: int) -> BikeStation:
     return bike_stations_service.get_bike_station_by_number(number)

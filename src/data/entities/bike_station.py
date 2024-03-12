@@ -8,3 +8,4 @@ class BikeStation(BaseModel):
     name: str
     address: str
     number: int
+    date: str

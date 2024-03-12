@@ -16,11 +16,13 @@ class DataFetcher:
         self.lat = lat
         self.lon = lon
 
-    def get_stations(self):
+    def get_bike_stations(self):
         stations_response = requests.get(self.stations_url)
         stations_response.raise_for_status()
 
         stations = stations_response.json()
+
+        now = datetime.now().strftime('%Y-%m-%dT%H:%M:%S')
 
         return [
             BikeStation(
@@ -29,7 +31,8 @@ class DataFetcher:
                 bike_stands=station["bike_stands"],
                 name=station["name"],
                 address=station["address"],
-                number=station["number"]
+                number=station["number"],
+                date=now
             )
             for station in stations
         ]
@@ -44,12 +47,14 @@ class DataFetcher:
         return self.__map_to_weather_data(parsed_data)
 
     def get_current_weather(self) -> Weather:
-        now = datetime.now().strftime('%Y-%m-%dT%H:00')
+        date_hour = datetime.now().strftime('%Y-%m-%dT%H:00')
 
         weather = self.get_weather_forecast()
 
         for w in weather:
-            if w.date == now:
+            if w.date == date_hour:
+                now = datetime.now().strftime('%Y-%m-%dT%H:%M:%S')
+                w.date = now
                 return w
 
     def __create_forecast_url(self, past_days: int = 0, forecast_days: int = 1):

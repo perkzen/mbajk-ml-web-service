@@ -5,6 +5,10 @@ from src.data.data_processor import DataProcessor
 from src.utils.decorators import execution_timer
 
 
+def get_station_data(df: pd.DataFrame, station_number: int) -> pd.DataFrame:
+    return df[df["number"] == station_number]
+
+
 @execution_timer("Process Data")
 def main() -> None:
     manager = DataManager(data_path="data")
@@ -16,17 +20,15 @@ def main() -> None:
 
         stations = df_stations.to_dict(orient="records")
 
-        # we need at least 4 rows to calculate mutual information
-        if len(df_weather) < 3:
-            return
-
-        df_weather['merge_key'] = 1
-        df_stations['merge_key'] = 1
-
         for station in stations:
-            df = pd.merge(df_weather, df_stations[df_stations['number'] == station['number']], on='merge_key')
-            df = processor.clean(df)
-            manager.save("processed", f"mbajk_station_{station["number"]}", df, override=True)
+            station_number = station["number"]
+            df = pd.merge(df_weather, get_station_data(df_stations, station_number), on='date', how='inner')
+            try:
+                df = processor.clean(df)
+                manager.save("processed", f"mbajk_station_{station_number}", df, override=True)
+            except ValueError:
+                # Information gain throws exception if there is not enough data to calculate mutual information
+                print(f"[Process Data] - Not enough data to process for station {station_number}")
 
     except FileNotFoundError:
         print("[Process Data] - No data to process")

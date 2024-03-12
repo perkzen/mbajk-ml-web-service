@@ -3,12 +3,14 @@ import pandas as pd
 
 class BikeStationsService:
 
-    @staticmethod
-    def get_bike_stations():
-        df = pd.read_csv("data/raw/mbajk_stations.csv")
-        return df.to_dict(orient="records")
+    def get_bike_stations(self):
+        stations = self.__load_data()
+        return stations.to_dict(orient="records")
+
+    def get_bike_station_by_number(self, number: int):
+        stations = self.__load_data()
+        return stations[stations["number"] == number].to_dict(orient="records")[-1]
 
     @staticmethod
-    def get_bike_station_by_number(number: int):
-        df = pd.read_csv("data/raw/mbajk_stations.csv")
-        return df[df["number"] == number].to_dict(orient="records")[0]
+    def __load_data():
+        return pd.read_csv("data/raw/mbajk_stations.csv")

@@ -10,7 +10,7 @@ class DataProcessor:
         df["date"] = pd.to_datetime(df["date"])
         df.sort_values(by="date", inplace=True)
 
-        df.drop(columns=["name", "address", "date", "number", "bike_stands", "merge_key", "available_bikes"],
+        df.drop(columns=["name", "address", "date", "number", "bike_stands", "available_bikes"],
                 inplace=True)
 
         target = "available_bike_stands"
