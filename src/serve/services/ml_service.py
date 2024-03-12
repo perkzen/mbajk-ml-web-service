@@ -5,7 +5,7 @@ import pandas as pd
 from keras import Model
 from keras.models import load_model
 from sklearn.preprocessing import MinMaxScaler
-from ..dto.bike_station_dto import BikeStationDto
+from ..dto.predict_bikes_dto import BikeStationDto
 from ...config import WINDOW_SIZE
 
 

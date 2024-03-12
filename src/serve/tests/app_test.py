@@ -2,7 +2,6 @@ from fastapi.testclient import TestClient
 from src.config import WINDOW_SIZE
 from src.serve.server import app
 
-
 client = TestClient(app)
 
 
@@ -59,3 +58,27 @@ def test_success_prediction():
     assert isinstance(response.json()["prediction"], int)
     assert response.json()["prediction"] >= 0
     assert response.json()["prediction"] <= 100
+
+
+def test_get_bike_stations():
+    response = client.get("/mbjak/stations")
+    assert response.status_code == 200
+    assert isinstance(response.json(), list)
+    assert len(response.json()) > 0
+    assert "number" in response.json()[0]
+    assert "name" in response.json()[0]
+    assert "address" in response.json()[0]
+    assert "bike_stands" in response.json()[0]
+    assert "available_bike_stands" in response.json()[0]
+    assert "available_bikes" in response.json()[0]
+
+
+def test_get_bike_station_by_number():
+    response = client.get("/mbjak/stations/1")
+    assert response.status_code == 200
+    assert "number" in response.json()
+    assert "name" in response.json()
+    assert "address" in response.json()
+    assert "bike_stands" in response.json()
+    assert "available_bike_stands" in response.json()
+    assert "available_bikes" in response.json()
