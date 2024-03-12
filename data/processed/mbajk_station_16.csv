@@ -1,8 +1,8 @@
-available_bike_stands,surface_pressure,relative_humidity,apparent_temperature,temperature
-9,980.4,58.0,9.8,12.3
-9,980.4,58.0,9.8,12.3
-9,980.4,58.0,9.8,12.3
-9,980.4,58.0,9.8,12.3
-9,980.4,58.0,9.8,12.3
-19,980.4,58.0,9.8,12.3
-17,980.7,52.0,9.3,12.7
+available_bike_stands,relative_humidity,apparent_temperature,precipitation,dew_point
+9,58.0,9.8,0.0,4.2
+9,58.0,9.8,0.0,4.2
+9,58.0,9.8,0.0,4.2
+9,58.0,9.8,0.0,4.2
+9,58.0,9.8,0.0,4.2
+19,58.0,9.8,0.0,4.2
+17,52.0,9.3,0.0,3.1
