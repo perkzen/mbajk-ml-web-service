@@ -1,39 +1,15 @@
-from typing import List
-from fastapi import FastAPI, HTTPException
-from datetime import datetime
-from .dto.predict_bikes_dto import PredictBikesDTO
-from .services.bike_stations_service import BikeStationsService
-from .services.ml_service import MLService
-from ..config import WINDOW_SIZE
-from ..data.entities import BikeStation
+from fastapi import FastAPI
+from starlette.responses import RedirectResponse
+
+from .routers import health_router, bike_stations_router, prediction_router
 
 app = FastAPI()
 
-ml_service = MLService("mbajk_GRU_model", "minmax")
-bike_stations_service = BikeStationsService()
+app.include_router(health_router)
+app.include_router(bike_stations_router)
+app.include_router(prediction_router)
 
 
 @app.get("/")
-def health_check():
-    date = datetime.now()
-    return {"status": "ok", "date": date}
-
-
-@app.get("/mbjak/stations")
-def get_bike_stations() -> List[BikeStation]:
-    return bike_stations_service.get_bike_stations()
-
-
-@app.get("/mbjak/stations/{number}")
-def get_bike_station_by_number(number: int) -> BikeStation:
-    return bike_stations_service.get_bike_station_by_number(number)
-
-
-@app.post("/mbjak/predict")
-def predict(data: List[PredictBikesDTO]):
-    if len(data) != WINDOW_SIZE:
-        raise HTTPException(status_code=400, detail=f"Data must contain {WINDOW_SIZE} items")
-
-    prediction = int(ml_service.predict(data))
-
-    return PredictBikesDTO(prediction=prediction)
+def root():
+    return RedirectResponse(url="/docs")
