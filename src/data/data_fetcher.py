@@ -22,8 +22,6 @@ class DataFetcher:
 
         stations = stations_response.json()
 
-        now = datetime.now().strftime('%Y-%m-%dT%H:00')
-
         return [
             BikeStation(
                 available_bike_stands=station["available_bike_stands"],
@@ -31,8 +29,7 @@ class DataFetcher:
                 bike_stands=station["bike_stands"],
                 name=station["name"],
                 address=station["address"],
-                number=station["number"],
-                date=now
+                number=station["number"]
             )
             for station in stations
         ]
