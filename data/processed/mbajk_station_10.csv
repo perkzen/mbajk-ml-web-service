@@ -1,7 +1,8 @@
-available_bike_stands,temperature,relative_humidity,apparent_temperature,dew_point
-0,12.3,58.0,9.8,4.2
-0,12.3,58.0,9.8,4.2
-0,12.3,58.0,9.8,4.2
-0,12.3,58.0,9.8,4.2
-0,12.3,58.0,9.8,4.2
-6,12.3,58.0,9.8,4.2
+available_bike_stands,temperature,apparent_temperature,dew_point,rain
+0,12.3,9.8,4.2,0.0
+0,12.3,9.8,4.2,0.0
+0,12.3,9.8,4.2,0.0
+0,12.3,9.8,4.2,0.0
+0,12.3,9.8,4.2,0.0
+6,12.3,9.8,4.2,0.0
+14,12.7,9.3,3.1,0.0
