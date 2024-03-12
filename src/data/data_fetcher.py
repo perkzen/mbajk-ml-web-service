@@ -57,6 +57,12 @@ class DataFetcher:
                 w.date = now
                 return w
 
+    def get_bike_station(self, number: int) -> BikeStation:
+        stations = self.get_bike_stations()
+        for station in stations:
+            if station.number == number:
+                return station
+
     def __create_forecast_url(self, past_days: int = 0, forecast_days: int = 1):
         base_url = "https://api.open-meteo.com/v1/forecast?"
         params = {

@@ -1,7 +1,7 @@
 from typing import List
 from fastapi import FastAPI, HTTPException
 from datetime import datetime
-from .dto.predict_bikes_dto import BikeStationDto
+from .dto.predict_bikes_dto import PredictBikesDTO
 from .services.bike_stations_service import BikeStationsService
 from .services.ml_service import MLService
 from ..config import WINDOW_SIZE
@@ -30,9 +30,10 @@ def get_bike_station_by_number(number: int) -> BikeStation:
 
 
 @app.post("/mbjak/predict")
-def predict(data: List[BikeStationDto]):
+def predict(data: List[PredictBikesDTO]):
     if len(data) != WINDOW_SIZE:
         raise HTTPException(status_code=400, detail=f"Data must contain {WINDOW_SIZE} items")
 
     prediction = int(ml_service.predict(data))
-    return {"prediction": prediction}
+
+    return PredictBikesDTO(prediction=prediction)

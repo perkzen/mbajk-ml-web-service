@@ -1,16 +1,16 @@
-import pandas as pd
+from typing import List
+from src.config import MARIBOR_LAT, MARIBOR_LON
+from src.data.data_fetcher import DataFetcher
+from src.data.entities import BikeStation
 
 
 class BikeStationsService:
 
-    def get_bike_stations(self):
-        stations = self.__load_data()
-        return stations.to_dict(orient="records")
+    def __init__(self):
+        self.fetcher = DataFetcher(lat=MARIBOR_LAT, lon=MARIBOR_LON)
 
-    def get_bike_station_by_number(self, number: int):
-        stations = self.__load_data()
-        return stations[stations["number"] == number].to_dict(orient="records")[-1]
+    def get_bike_stations(self) -> List[BikeStation]:
+        return self.fetcher.get_bike_stations()
 
-    @staticmethod
-    def __load_data():
-        return pd.read_csv("data/raw/mbajk_stations.csv")
+    def get_bike_station_by_number(self, number: int) -> BikeStation:
+        return self.fetcher.get_bike_station(number)

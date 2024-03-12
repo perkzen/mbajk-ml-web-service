@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
 
-class BikeStationDto(BaseModel):
+class PredictBikesDTO(BaseModel):
     available_bike_stands: int
     apparent_temperature: float
     surface_pressure: float

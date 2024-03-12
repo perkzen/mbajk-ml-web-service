@@ -6,7 +6,7 @@ authors = ["perkzen <perko.domen@gmail.com>"]
 readme = "README.md"
 
 [tool.poe.tasks]
-serve = "uvicorn src.serve.server:app --reload"
+serve = "uvicorn src.serve.main:app --reload"
 fetch = "python3 -m src.data.scripts.fetch_data"
 process = "python3 -m src.data.scripts.process_data"
 train = "python3 -m src.models.scripts.train_model"

@@ -5,7 +5,7 @@ import pandas as pd
 from keras import Model
 from keras.models import load_model
 from sklearn.preprocessing import MinMaxScaler
-from ..dto.predict_bikes_dto import BikeStationDto
+from ..dto.predict_bikes_dto import PredictBikesDTO
 from ...config import WINDOW_SIZE
 
 
@@ -14,7 +14,7 @@ class MLService:
         self.model: Model = load_model(f"models/{model_name}.keras")
         self.scaler: MinMaxScaler = joblib.load(f"models/{scaler_name}_scaler.gz")
 
-    def predict(self, data: List[BikeStationDto]) -> int:
+    def predict(self, data: List[PredictBikesDTO]) -> int:
         prepared_data = self.__prepare_data(data)
 
         predicted = self.model.predict(prepared_data)
@@ -25,7 +25,7 @@ class MLService:
 
         return predicted[0]
 
-    def __prepare_data(self, data: List[BikeStationDto]) -> np.ndarray[Any, np.dtype]:
+    def __prepare_data(self, data: List[PredictBikesDTO]) -> np.ndarray[Any, np.dtype]:
         data = [item.model_dump() for item in data]
         data_values = []
         for item in data:

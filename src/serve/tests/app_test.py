@@ -1,6 +1,6 @@
 from fastapi.testclient import TestClient
 from src.config import WINDOW_SIZE
-from src.serve.server import app
+from src.serve.main import app
 
 client = TestClient(app)
 
