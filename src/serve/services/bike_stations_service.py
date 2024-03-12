@@ -5,7 +5,7 @@ class BikeStationsService:
 
     @staticmethod
     def get_bike_stations():
-        df = pd.read_csv(f"data/raw/mbajk_stations.csv")
+        df = pd.read_csv("data/raw/mbajk_stations.csv")
         return df.to_dict(orient="records")
 
     @staticmethod
