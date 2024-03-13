@@ -1,4 +1,5 @@
 import pandas as pd
+from multiprocessing import Pool
 from src.data.data_manager import DataManager
 from src.data.data_processor import DataProcessor
 from src.utils.decorators import execution_timer
@@ -6,6 +7,16 @@ from src.utils.decorators import execution_timer
 
 def get_station_data(df: pd.DataFrame, station_number: int) -> pd.DataFrame:
     return df[df["number"] == station_number]
+
+
+def process_station(station_data):
+    station_number, df_weather, df_stations, processor, manager = station_data
+    df = pd.merge(df_weather, get_station_data(df_stations, station_number), on='date', how='inner')
+    try:
+        df = processor.clean(df)
+        manager.save("processed", f"mbajk_station_{station_number}", df, override=True)
+    except ValueError:
+        print(f"[Process Data] - Not enough data to process for station {station_number}")
 
 
 @execution_timer("Process Data")
@@ -18,16 +29,10 @@ def main() -> None:
         df_stations = manager.get_dataframe("raw", "mbajk_stations")
 
         stations = df_stations.to_dict(orient="records")
+        station_data = [(station["number"], df_weather, df_stations, processor, manager) for station in stations]
 
-        for station in stations:
-            station_number = station["number"]
-            df = pd.merge(df_weather, get_station_data(df_stations, station_number), on='date', how='inner')
-            try:
-                df = processor.clean(df)
-                manager.save("processed", f"mbajk_station_{station_number}", df, override=True)
-            except ValueError:
-                # Information gain throws exception if there is not enough data to calculate mutual information
-                print(f"[Process Data] - Not enough data to process for station {station_number}")
+        with Pool() as pool:
+            pool.map(process_station, station_data)
 
     except FileNotFoundError:
         print("[Process Data] - No data to process")
