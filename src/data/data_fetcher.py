@@ -32,7 +32,10 @@ class DataFetcher:
                 name=station["name"],
                 address=station["address"],
                 number=station["number"],
-                date=now
+                date=now,
+                lat=station["position"]["lat"],
+                lon=station["position"]["lng"],
+                last_updated=station["last_update"]
             )
             for station in stations
         ]

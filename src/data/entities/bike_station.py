@@ -9,3 +9,6 @@ class BikeStation(BaseModel):
     address: str
     number: int
     date: str
+    lat: float
+    lon: float
+    last_updated: int
