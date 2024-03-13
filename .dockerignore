@@ -18,7 +18,6 @@ __pycache__
 *.DS_Store
 
 # Exclude folders and files
-data
 notebooks
 reports
 README.md
