@@ -19,6 +19,6 @@ def build_model(input_shape):
     model.add(Dense(units=1))
 
     optimizer = Adam(learning_rate=0.01)
-    model.compile(optimizer=optimizer, loss="mean_squared_error")
+    model.compile(optimizer=optimizer, loss="mean_squared_logarithmic_error")
 
     return model
