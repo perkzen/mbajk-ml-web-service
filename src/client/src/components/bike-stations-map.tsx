@@ -1,5 +1,5 @@
 'use client';
-import { GoogleMap, Marker, MarkerF, useJsApiLoader } from '@react-google-maps/api';
+import { GoogleMap, MarkerF, useJsApiLoader } from '@react-google-maps/api';
 import { env } from '@/env.mjs';
 import { memo, useCallback, useState } from 'react';
 
@@ -42,6 +42,9 @@ const BikeStationsMap = () => {
       zoom={10}
       onLoad={onLoad}
       onUnmount={onUnmount}
+      options={{
+        disableDefaultUI: true,
+      }}
     >
       <MarkerF position={center} label={{
         color: 'white',
