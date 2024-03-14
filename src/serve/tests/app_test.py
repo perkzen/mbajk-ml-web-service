@@ -18,17 +18,17 @@ def test_fail_predict():
         "/mbajk/predict",
         json=[
             {
-                "available_bike_stands": 10,
-                "temperature": 20.0,
-                "dew_point": 10.0,
-                "apparent_temperature": 20.0,
-                "surface_pressure": 1000.0,
-            }
+                "available_bike_stands": 7,
+                "surface_pressure": 984.45,
+                "temperature": 24.425,
+                "apparent_temperature": 23.65,
+                "relative_humidity": 43.5
+            },
         ],
     )
     assert response.status_code == 400
     assert "detail" in response.json()
-    assert response.json()["detail"] == "Data must contain 50 items"
+    assert response.json()["detail"] == f"Data must contain {WINDOW_SIZE} items"
 
 
 def test_success_prediction():
@@ -36,11 +36,11 @@ def test_success_prediction():
         "/mbajk/predict",
         json=[
             {
-                "available_bike_stands": 10,
-                "temperature": 20.0,
-                "dew_point": 10.0,
-                "apparent_temperature": 20.0,
-                "surface_pressure": 1000.0,
+                "available_bike_stands": 7,
+                "surface_pressure": 984.45,
+                "temperature": 24.425,
+                "apparent_temperature": 23.65,
+                "relative_humidity": 43.5
             }
             for _ in range(WINDOW_SIZE)
         ],

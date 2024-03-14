@@ -10,7 +10,7 @@ def main() -> None:
     model = load_model("models/mbajk_GRU_model.keras")
     scaler = joblib.load("models/minmax_scaler.gz")
 
-    X_train, y_train, X_test, y_test, _ = prepare_model_data(dataset=dataset, scaler=scaler)
+    X_train, y_train, X_test, y_test = prepare_model_data(dataset=dataset, scaler=scaler)
 
     mse_train, mae_train, evs_train = evaluate_model_performance(y_train, model.predict(X_train), dataset, scaler)
     mse_test, mae_test, evs_test = evaluate_model_performance(y_test, model.predict(X_test), dataset, scaler)

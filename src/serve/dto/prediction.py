@@ -1,12 +1,13 @@
 from pydantic import BaseModel
 
 
+# Order of the fields is important for inverse transformation
 class PredictBikesDTO(BaseModel):
     available_bike_stands: int
-    apparent_temperature: float
     surface_pressure: float
     temperature: float
-    dew_point: float
+    apparent_temperature: float
+    relative_humidity: float
 
 
 class PredictionDTO(BaseModel):

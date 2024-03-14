@@ -20,9 +20,7 @@ def scale_data(scaler: MinMaxScaler, train_data: pd.DataFrame, test_data: pd.Dat
     return train_data, test_data
 
 
-def prepare_model_data(dataset: pd.DataFrame, scaler: MinMaxScaler = MinMaxScaler()) -> Tuple[
-    np.ndarray[Any, np.dtype], np.ndarray[Any, np.dtype], np.ndarray[Any, np.dtype], np.ndarray[
-        Any, np.dtype], MinMaxScaler]:
+def prepare_model_data(dataset: pd.DataFrame, scaler: MinMaxScaler):
     target_col = "available_bike_stands"
     features = list(dataset.columns)
 
@@ -35,7 +33,7 @@ def prepare_model_data(dataset: pd.DataFrame, scaler: MinMaxScaler = MinMaxScale
     X_train, y_train = create_time_series(train_data, WINDOW_SIZE, target_col_idx, feature_cols_idx)
     X_test, y_test = create_time_series(test_data, WINDOW_SIZE, target_col_idx, feature_cols_idx)
 
-    return X_train, y_train, X_test, y_test, scaler
+    return X_train, y_train, X_test, y_test
 
 
 def evaluate_model_performance(y_true, y_pred, dataset, scaler):
