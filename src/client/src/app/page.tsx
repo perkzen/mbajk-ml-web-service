@@ -1,12 +1,20 @@
-import BikeStationsMap from '@/components/bike-stations-map';
+import BikeStationsMap from '@/components/map/bike-stations-map';
 import { getBikeStations } from '@/lib/api';
+import { QueryClient } from '@tanstack/react-query';
+import { BIKE_STATIONS_KEY } from '@/lib/hooks/bike-stations';
 
 export default async function Home() {
-  const stations = await getBikeStations();
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery({
+    queryKey: [BIKE_STATIONS_KEY],
+    queryFn: getBikeStations,
+  });
+
 
   return (
-    <main className="flex w-full min-h-screen">
-      <BikeStationsMap stations={stations} />
-    </main>
+    <div className={'flex flex-grow flex-col w-full'}>
+      <BikeStationsMap  />
+    </div>
   );
 }

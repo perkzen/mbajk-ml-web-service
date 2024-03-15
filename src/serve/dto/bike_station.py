@@ -13,6 +13,7 @@ class BikeStationDTO(BaseModel):
     date: str
     lat: float
     lon: float
+    last_updated: int
 
     @classmethod
     def from_entity(cls, entity: BikeStation):
@@ -26,4 +27,5 @@ class BikeStationDTO(BaseModel):
             date=entity.date,
             lat=entity.lat,
             lon=entity.lon,
+            last_updated=entity.last_updated
         )
