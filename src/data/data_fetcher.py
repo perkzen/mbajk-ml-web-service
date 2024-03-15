@@ -40,14 +40,26 @@ class DataFetcher:
             for station in stations
         ]
 
-    def get_weather_forecast(self) -> List[Weather]:
-        weather_url = self.__create_forecast_url()
+    def get_weather_forecast(self, days: int = 1) -> List[Weather]:
+        weather_url = self.__create_forecast_url(forecast_days=days)
         weather_response = requests.get(weather_url)
         weather_response.raise_for_status()
 
         parsed_data = self.__parse_forecast_response(weather_response.json())
 
         return self.__map_to_weather_data(parsed_data)
+
+    def get_weather_forecast_for_next_n_hours(self, hours: int = 1) -> List[Weather]:
+        now = datetime.now()
+        current_hour = now.hour
+
+        measurements_in_one_day = 24
+        n_future_days = max(1, (current_hour + hours) // measurements_in_one_day) + 1  # +1 for the current day
+        weather = self.get_weather_forecast(days=n_future_days)
+
+        now = datetime.now().strftime('%Y-%m-%dT%H:00')
+
+        return [w for w in weather if w.date > now][:hours]
 
     def get_current_weather(self) -> Weather:
         date_hour = datetime.now().strftime('%Y-%m-%dT%H:00')
