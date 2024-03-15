@@ -7,6 +7,7 @@ import { Drawer } from '@/components/ui/drawer';
 import BikeStationInfoWindow from '@/components/map/info-window/bike-station-info-window';
 import { useQueryParams } from '@/lib/hooks/use-querey-params';
 import { useBikeStations } from '@/lib/hooks/bike-stations';
+import BikeStationTabs from '@/components/map/bike-station-tabs';
 
 
 const center = {
@@ -22,7 +23,7 @@ const BikeStationsMap = () => {
   const { urlQuery, updateQueryParams, deleteQueryParams } = useQueryParams();
 
   const handleOpen = (stationNumber: number) => {
-    updateQueryParams({ station: stationNumber });
+    updateQueryParams({ ...urlQuery, station: stationNumber });
     setIsOpen(true);
   };
 
@@ -34,7 +35,6 @@ const BikeStationsMap = () => {
     if (!open) {
       deleteQueryParams('station');
     }
-
     setIsOpen(open);
   };
 
@@ -46,16 +46,24 @@ const BikeStationsMap = () => {
           defaultZoom={14}
           gestureHandling={'greedy'}
           disableDefaultUI={true}
-          className={'w-full h-full flex-grow'}
+          className={'w-full h-full flex-grow relative'}
           mapId={'google-map-id'}
         >
+          <BikeStationTabs />
           {stations.map((station) => (
-            <StationMarker station={station} key={station.number} onClick={() => handleOpen(station.number)} />
+            <StationMarker
+              key={station.number}
+              lat={station.lat}
+              lon={station.lon}
+              number={station[urlQuery.show]}
+              onClick={() => handleOpen(station.number)} />
           ))}
         </GoogleMap>
       </APIProvider>
       <BikeStationInfoWindow handleClose={handleClose} />
-    </Drawer>);
+    </Drawer>
+
+  );
 };
 
 export default BikeStationsMap;

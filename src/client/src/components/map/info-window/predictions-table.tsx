@@ -22,7 +22,7 @@ export const columns: ColumnDef<BikeStationPrediction>[] = [
 
   {
     accessorKey: 'date',
-    header: 'Hour',
+    header: 'Time',
     cell: ({ row }) => (
       <div>{row.getValue('date')}</div>
     ),

@@ -1,8 +1,12 @@
 'use client';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
+import { BikeStation } from '@/lib/models';
+
+export type DisplayProperty = Extract<keyof BikeStation, 'available_bikes' | 'available_bike_stands'>;
 
 interface URLQueryParams {
   station: number | null;
+  show: DisplayProperty;
 }
 
 export const useQueryParams = () => {
@@ -32,6 +36,7 @@ export const useQueryParams = () => {
   const parseQueryParams = (): URLQueryParams => {
     return {
       station: Number(query.get('station')),
+      show: query.get('show') as DisplayProperty || 'available_bike_stands',
     };
   };
 

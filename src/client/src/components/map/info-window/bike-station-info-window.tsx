@@ -19,13 +19,16 @@ const BikeStationInfoWindow = ({ handleClose }: BikeStationInfoWindowProps) => {
   });
 
   return (
-    <DrawerContent className="flex flex-col rounded-t-[10px] h-full w-[400px] mt-24 fixed top-2 bottom-0 left-0">
+    <DrawerContent className="flex flex-col rounded-t-[10px] h-full  w-full sm:w-[400px] mt-24 fixed top-2 bottom-0 left-0">
       <div className="mx-auto w-full max-w-sm">
         <DrawerHeader>
-          <DrawerTitle className={'flex flex-row gap-2'}>{data?.name}
-            <div className={'font-light text-gray-400'}> - n'{data?.number}</div>
+          <DrawerTitle className={'flex flex-row text-wrap'}>
+            <div className={"leading-6"}>
+              {data?.name}
+              <span className={'font-light text-gray-400'}> - n'{data?.number}</span>
+            </div>
           </DrawerTitle>
-          <DrawerDescription>Last updated: {timeSince(Number(data?.last_updated))}</DrawerDescription>
+          <DrawerDescription className={"text-start"}>Last updated: {timeSince(Number(data?.last_updated))}</DrawerDescription>
         </DrawerHeader>
         <div className="flex flex-col p-4 pb-0 gap-8">
           <div className="flex flex-row gap-4">

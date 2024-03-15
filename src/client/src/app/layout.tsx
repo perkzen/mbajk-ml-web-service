@@ -21,12 +21,12 @@ export default function RootLayout({
   return (
     <html lang="en">
     <body className={cn(inter.className, 'flex flex-col w-full min-h-screen')}>
-    <Navbar />
-    <main className={'flex flex-1 flex-col w-full'}>
-      <Providers>
+    <Providers>
+      <Navbar />
+      <main className={'flex flex-1 flex-col w-full'}>
         {children}
-      </Providers>
-    </main>
+      </main>
+    </Providers>
     </body>
     </html>
   );
