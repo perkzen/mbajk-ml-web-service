@@ -10,7 +10,6 @@ const Navbar = () => {
         <Image src={Logo} alt={'MBajk AI'} width={24} height={24} className={'rounded-full'} />
         <div className={'text-white text-lg font-semibold'}>mbajk ejaj</div>
       </div>
-
       <div className={'ml-auto bg-black h-fit rounded-full p-2'}>
         <Link target="_blank" href={'https://github.com/perkzen/mbajk-ml-web-service'}>
           <Github size={24} stroke={'#fff'} />

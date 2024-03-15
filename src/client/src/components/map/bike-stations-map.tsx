@@ -1,7 +1,7 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { env } from '@/env.mjs';
-import { APIProvider, Map as GoogleMap } from '@vis.gl/react-google-maps';
+import { APIProvider, Map as GoogleMap, useMap } from '@vis.gl/react-google-maps';
 import StationMarker from '@/components/map/station-marker';
 import { Drawer } from '@/components/ui/drawer';
 import BikeStationInfoWindow from '@/components/map/info-window/bike-station-info-window';
@@ -34,6 +34,12 @@ const BikeStationsMap = () => {
     }
     setIsOpen(open);
   };
+
+  useEffect(() => {
+    if (urlQuery.station) {
+      setIsOpen(true);
+    }
+  }, [urlQuery.station]);
 
   return (
     <Drawer open={isOpen} dismissible={true} direction={'left'} onOpenChange={handleOpenChange}>
