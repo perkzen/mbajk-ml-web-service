@@ -74,3 +74,12 @@ def test_get_bike_station_by_number():
     assert "bike_stands" in response.json()
     assert "available_bike_stands" in response.json()
     assert "available_bikes" in response.json()
+
+
+def test_predict_multiple():
+    response = client.post("/mbajk/predict/3")
+    assert response.status_code == 200
+    assert isinstance(response.json(), list)
+    assert len(response.json()) == 3
+    assert "prediction" in response.json()[0]
+    assert "date" in response.json()[0]
