@@ -27,10 +27,6 @@ const BikeStationsMap = () => {
     setIsOpen(true);
   };
 
-  const handleClose = () => {
-    setIsOpen(false);
-  };
-
   const handleOpenChange = (open: boolean) => {
     if (!open) {
       deleteQueryParams('station');
@@ -60,7 +56,7 @@ const BikeStationsMap = () => {
           ))}
         </GoogleMap>
       </APIProvider>
-      <BikeStationInfoWindow handleClose={handleClose} />
+      <BikeStationInfoWindow />
     </Drawer>
 
   );
