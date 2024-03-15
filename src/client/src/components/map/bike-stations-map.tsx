@@ -8,6 +8,7 @@ import BikeStationInfoWindow from '@/components/map/info-window/bike-station-inf
 import { useQueryParams } from '@/lib/hooks/use-querey-params';
 import { useBikeStations } from '@/lib/hooks/bike-stations';
 import BikeStationTabs from '@/components/map/bike-station-tabs';
+import MapActions from '@/components/map/map-actions';
 
 
 const center = {
@@ -45,6 +46,7 @@ const BikeStationsMap = () => {
           className={'w-full h-full flex-grow relative'}
           mapId={'google-map-id'}
         >
+          <MapActions />
           <BikeStationTabs />
           {stations.map((station) => (
             <StationMarker

@@ -17,7 +17,7 @@ const BikeStationInfoWindow = () => {
 
   return (
     <DrawerContent
-      className="flex flex-col rounded-t-[10px] h-full  w-full sm:w-[400px] mt-24 fixed top-2 bottom-0 left-0">
+      className="flex flex-col rounded-t-[10px] h-full  w-full sm:w-[400px] fixed top-24 bottom-0 left-0">
       <LoadingProvider isLoading={isLoading || isFetching || isPending}>
         <div className="mx-auto w-full max-w-sm">
           <DrawerHeader>
