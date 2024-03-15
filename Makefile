@@ -8,3 +8,12 @@ up:
 
 down:
 	$(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE) down
+
+dev-server:
+	@poetry run poe serve
+
+dev-client:
+		@cd src/client && npm run dev
+
+dev:
+	@$(MAKE) dev-server & $(MAKE) dev-client
