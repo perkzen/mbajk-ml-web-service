@@ -10,7 +10,6 @@ import LoadingProvider from '@/components/providers/loading-provider';
 const BikeStationInfoWindow = () => {
   const { urlQuery } = useQueryParams();
 
-
   const { data, isLoading, isFetching, isPending } = useBikeStationByNumber(Number(urlQuery.station), {
     enabled: !!urlQuery.station,
   });

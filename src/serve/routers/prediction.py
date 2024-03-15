@@ -28,7 +28,7 @@ def predict(data: List[PredictBikesDTO]) -> PredictionDTO:
     return PredictionDTO(prediction=prediction, date=date_str)
 
 
-@router.post("/predict/{n_future}")
+@router.get("/predict/{n_future}")
 def predict_multiple(n_future: int) -> List[PredictionDTO]:
     data = data_service.get_latest_data()
     predictions = ml_service.predict_multiple(data, n_future)

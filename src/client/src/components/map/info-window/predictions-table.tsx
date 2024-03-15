@@ -4,22 +4,12 @@ import {
 } from '@tanstack/table-core';
 import { flexRender, useReactTable } from '@tanstack/react-table';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { BikeStationPrediction } from '@/lib/models';
+import { Prediction } from '@/lib/models';
 import { Bike } from 'lucide-react';
+import { useBikeStationPredictions } from '@/lib/hooks/bike-stations';
 
 
-const data: BikeStationPrediction[] = [
-  { available_bike_stands: 10, date: '7:00' },
-  { available_bike_stands: 9, date: '8:00' },
-  { available_bike_stands: 8, date: '9:00' },
-  { available_bike_stands: 7, date: '10:00' },
-  { available_bike_stands: 6, date: '11:00' },
-  { available_bike_stands: 5, date: '12:00' },
-  { available_bike_stands: 4, date: '13:00' },
-];
-
-export const columns: ColumnDef<BikeStationPrediction>[] = [
-
+export const columns: ColumnDef<Prediction>[] = [
   {
     accessorKey: 'date',
     header: 'Time',
@@ -28,25 +18,23 @@ export const columns: ColumnDef<BikeStationPrediction>[] = [
     ),
   },
   {
-    accessorKey: 'available_bike_stands',
-    header: () => {
-      return <div className={'flex flex-row items-center gap-2'}>
-        {/*<Bike size={16} />*/}
-        <div>Available bike stands</div>
-      </div>;
-    },
+    accessorKey: 'prediction',
+    header: 'Available stands',
     cell: ({ row }) => (
       <div className={'flex flex-row items-center gap-2'}>
         <Bike size={16} />
-        <div className={'font-semibold text-primary'}>{row.getValue('available_bike_stands')}</div>
+        <div className={'font-semibold text-primary'}>{row.getValue('prediction')}</div>
       </div>),
 
   },
 ];
 
 const PredictionsTable = () => {
+  //TODO: need to train model for each bike station
+  const { data } = useBikeStationPredictions(7);
+
   const table = useReactTable({
-    data,
+    data: data || [],
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
@@ -108,9 +96,7 @@ const PredictionsTable = () => {
             </TableBody>
           </Table>
         </div>
-
       </div>
-
     </div>
 
   )

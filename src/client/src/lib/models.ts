@@ -10,7 +10,8 @@ export interface BikeStation {
 }
 
 
-export interface BikeStationPrediction {
-  available_bike_stands: number;
+export interface Prediction {
+  // Predicting available bike stands
+  prediction: number;
   date: string;
 }

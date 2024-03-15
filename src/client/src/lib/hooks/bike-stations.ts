@@ -1,6 +1,6 @@
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
-import { getBikeStationByNumber, getBikeStations } from '@/lib/api';
-import { BikeStation } from '@/lib/models';
+import { getBikeStationByNumber, getBikeStations, getPredictions } from '@/lib/api';
+import { BikeStation, Prediction } from '@/lib/models';
 import { AxiosError } from 'axios';
 
 export const BIKE_STATIONS_KEY = 'bike-stations';
@@ -25,3 +25,12 @@ export const useBikeStationByNumber = (number: number, opts?: Omit<UseQueryOptio
   );
 };
 
+
+export const BIKE_STATION_PREDICTIONS_KEY = 'bike-station-predictions';
+export const useBikeStationPredictions = (number: number, opts?: UseQueryOptions<Prediction[], AxiosError, Prediction[], (typeof BIKE_STATION_PREDICTIONS_KEY | number)[]>) => {
+  return useQuery({
+      queryKey: [BIKE_STATION_PREDICTIONS_KEY, number],
+      queryFn: () => getPredictions(number),
+    },
+  );
+};
