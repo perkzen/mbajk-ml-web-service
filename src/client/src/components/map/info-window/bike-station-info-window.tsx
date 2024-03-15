@@ -25,7 +25,7 @@ const BikeStationInfoWindow = ({ handleClose }: BikeStationInfoWindowProps) => {
           <DrawerTitle className={'flex flex-row text-wrap'}>
             <div className={"leading-6"}>
               {data?.name}
-              <span className={'font-light text-gray-400'}> - n'{data?.number}</span>
+              <span className={'font-light text-gray-400'}> - n&apos;{data?.number}</span>
             </div>
           </DrawerTitle>
           <DrawerDescription className={"text-start"}>Last updated: {timeSince(Number(data?.last_updated))}</DrawerDescription>
