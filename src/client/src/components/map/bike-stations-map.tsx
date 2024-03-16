@@ -42,7 +42,7 @@ const BikeStationsMap = () => {
   }, [urlQuery.station]);
 
   return (
-    <Drawer open={isOpen} dismissible={true} direction={'left'} onOpenChange={handleOpenChange} modal={false}>
+    <Drawer open={isOpen} dismissible={true} direction={'left'} onOpenChange={handleOpenChange} modal={false} >
       <APIProvider apiKey={env.NEXT_PUBLIC_GOOGLE_MAPS_KEY}>
         <GoogleMap
           defaultCenter={center}

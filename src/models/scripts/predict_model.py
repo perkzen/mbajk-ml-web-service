@@ -1,7 +1,7 @@
 import os
 import joblib
 from keras.models import load_model
-from src.models.helpers import write_metrics_to_file, load_dataset, load_bike_station_dataset
+from src.models.helpers import write_metrics_to_file, load_bike_station_dataset
 from src.models.model import prepare_model_data, evaluate_model_performance
 from src.utils.decorators import execution_timer
 from multiprocessing import Pool
