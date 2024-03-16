@@ -20,3 +20,6 @@ dev-client:
 
 dev:
 	@$(MAKE) dev-server & $(MAKE) dev-client
+
+test:
+	@poetry run poe test

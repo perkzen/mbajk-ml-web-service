@@ -27,6 +27,16 @@ service is based on a recurrent neural network model (GRU). It's components are 
 
 ```
 
+## Env file example
+
+```env
+WINDOW_SIZE=48
+TOP_FEATURES=4
+LAT=46.5547
+LON=15.6466
+MBAJK_API_KEY=5e150537116dbc1786ce5bec6975a8603286526b
+```
+
 ## Scripts
 
 Python scripts that can be run are defined in the `pyproject.toml` file.
@@ -70,6 +80,7 @@ Make commands:
 - `dev-server` - Starts the development server for backend.
 - `dev-client` - Starts the development server for frontend.
 - `dev` - Starts the development server for backend and frontend.
+- `test` - Runs the tests for the project.
 
 ```bash
 make <command_name>
