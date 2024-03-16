@@ -11,7 +11,7 @@ class Settings(BaseSettings):
 
     __project_root = pathlib.Path(__file__).resolve().parent.parent
 
-    model_config = SettingsConfigDict(env_file=f"{__project_root}/.env", extra="allow")
+    model_config = SettingsConfigDict(env_file=f"{__project_root}/.env")
 
 
 settings = Settings()
