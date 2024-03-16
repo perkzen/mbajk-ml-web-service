@@ -1,7 +1,10 @@
 DOCKER_COMPOSE = docker-compose
 DOCKER_COMPOSE_FILE = docker-compose.yml
 
-.PHONY: up down
+.PHONY: up down down, dev-server dev-client dev
+
+build:
+	$(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE) build
 
 up:
 	$(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE) up -d
