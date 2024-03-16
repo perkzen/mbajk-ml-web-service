@@ -8,6 +8,13 @@ on:
     branches:
       - main
 
+env:
+  WINDOW_SIZE: 48
+  TOP_FEATURES: 4
+  LAT: 46.5547
+  LON: 15.6466
+  MBAJK_API_KEY: <mbajk_api_key>
+
 jobs:
   test:
     runs-on: ubuntu-latest
