@@ -1,5 +1,5 @@
 import concurrent.futures
-from src.config import MARIBOR_LAT, MARIBOR_LON
+from src.config import settings
 from src.utils.decorators import execution_timer
 from ..data_fetcher import DataFetcher
 from ..data_manager import DataManager
@@ -21,7 +21,7 @@ def get_bike_stations(fetcher, manager):
 
 @execution_timer(name="Fetch Data")
 def main() -> None:
-    fetcher = DataFetcher(lat=MARIBOR_LAT, lon=MARIBOR_LON)
+    fetcher = DataFetcher(lat=settings.lat, lon=settings.lon)
     manager = DataManager(data_path="data")
 
     with concurrent.futures.ThreadPoolExecutor() as executor:

@@ -8,7 +8,7 @@ from keras.layers import Dense, GRU, Dropout, Input
 from keras.optimizers import Adam
 from sklearn.metrics import mean_squared_error, mean_absolute_error, explained_variance_score
 from sklearn.preprocessing import MinMaxScaler
-from src.config import WINDOW_SIZE
+from src.config import settings
 from src.models import create_test_train_split, create_time_series
 
 
@@ -75,8 +75,8 @@ def prepare_model_data(dataset: pd.DataFrame, scaler: MinMaxScaler):
     target_col_idx = dataset.columns.get_loc(target_col)
     feature_cols_idx = [dataset.columns.get_loc(col) for col in features]
 
-    X_train, y_train = create_time_series(train_data, WINDOW_SIZE, target_col_idx, feature_cols_idx)
-    X_test, y_test = create_time_series(test_data, WINDOW_SIZE, target_col_idx, feature_cols_idx)
+    X_train, y_train = create_time_series(train_data, settings.window_size, target_col_idx, feature_cols_idx)
+    X_test, y_test = create_time_series(test_data, settings.window_size, target_col_idx, feature_cols_idx)
 
     return X_train, y_train, X_test, y_test
 

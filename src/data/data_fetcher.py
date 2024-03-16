@@ -1,14 +1,13 @@
 from typing import List
 from datetime import datetime
-
 import requests
-
 from .entities import BikeStation, Weather
+from ..config import settings
 
 
 class DataFetcher:
     stations_url = ("https://api.jcdecaux.com/vls/v1/stations?contract=maribor&"
-                    "apiKey=5e150537116dbc1786ce5bec6975a8603286526b")
+                    f"apiKey={settings.mbajk_api_key}")
 
     weather_base_url = "https://archive-api.open-meteo.com/v1/archive?"
 

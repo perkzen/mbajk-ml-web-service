@@ -6,7 +6,7 @@ from keras import Model
 from keras.models import load_model
 from sklearn.preprocessing import MinMaxScaler
 from ..dto import PredictBikesDTO, PredictionDTO
-from ...config import WINDOW_SIZE, MARIBOR_LAT, MARIBOR_LON
+from ...config import settings
 from ...data.data_fetcher import DataFetcher
 
 
@@ -27,7 +27,7 @@ class MLService:
         return predicted[0]
 
     def predict_multiple(self, data: List[PredictBikesDTO], n_future: int) -> List[PredictionDTO]:
-        data_fetcher = DataFetcher(lat=MARIBOR_LAT, lon=MARIBOR_LON)
+        data_fetcher = DataFetcher(lat=settings.lat, lon=settings.lon)
         res = data_fetcher.get_weather_forecast_for_next_n_hours(hours=n_future)
 
         predictions: List[PredictionDTO] = []
@@ -58,7 +58,7 @@ class MLService:
 
         scaled_data = self.scaler.transform(data)
 
-        return self.__create_time_series(scaled_data, WINDOW_SIZE, list(range(0, len(data_values[0]))))
+        return self.__create_time_series(scaled_data, settings.window_size, list(range(0, len(data_values[0]))))
 
     @staticmethod
     def __create_time_series(data, window_size, feature_cols) -> np.ndarray[Any, np.dtype]:

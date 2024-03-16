@@ -1,7 +1,7 @@
 import pandas as pd
 from typing import List
 from sklearn.feature_selection import mutual_info_regression
-from src.config import TOP_FEATURES_NUMBER
+from src.config import settings
 
 
 class DataProcessor:
@@ -16,7 +16,7 @@ class DataProcessor:
 
         target = "available_bike_stands"
 
-        top_features = self.__get_top_features(df, target, TOP_FEATURES_NUMBER)
+        top_features = self.__get_top_features(df, target, settings.top_features)
 
         return df[[target] + top_features]
 

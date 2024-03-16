@@ -1,5 +1,5 @@
 from fastapi.testclient import TestClient
-from src.config import WINDOW_SIZE
+from src.config import settings
 from src.serve.main import app
 
 client = TestClient(app)
@@ -28,7 +28,7 @@ def test_fail_predict():
     )
     assert response.status_code == 400
     assert "detail" in response.json()
-    assert response.json()["detail"] == f"Data must contain {WINDOW_SIZE} items"
+    assert response.json()["detail"] == f"Data must contain {settings.window_size} items"
 
 
 def test_success_prediction():
@@ -42,7 +42,7 @@ def test_success_prediction():
                 "apparent_temperature": 23.65,
                 "relative_humidity": 43.5
             }
-            for _ in range(WINDOW_SIZE)
+            for _ in range(settings.window_size)
         ],
     )
     assert response.status_code == 200

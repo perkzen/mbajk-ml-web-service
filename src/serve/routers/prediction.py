@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 from typing import List
 from fastapi import HTTPException, APIRouter
-from src.config import WINDOW_SIZE
+from src.config import settings
 from src.serve.dto import PredictBikesDTO, PredictionDTO
 from src.serve.services import MLService, DataService
 
@@ -16,8 +16,8 @@ data_service = DataService()
 
 @router.post("/predict")
 def predict(data: List[PredictBikesDTO]) -> PredictionDTO:
-    if len(data) != WINDOW_SIZE:
-        raise HTTPException(status_code=400, detail=f"Data must contain {WINDOW_SIZE} items")
+    if len(data) != settings.window_size:
+        raise HTTPException(status_code=400, detail=f"Data must contain {settings.window_size} items")
 
     prediction = int(ml_service.predict(data))
 
