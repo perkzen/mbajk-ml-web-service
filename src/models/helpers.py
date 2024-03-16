@@ -1,3 +1,5 @@
+import os
+
 import pandas as pd
 
 
@@ -13,6 +15,8 @@ def load_bike_station_dataset(file_name: str) -> pd.DataFrame:
 
 
 def write_metrics_to_file(file_path: str, model_name: str, mse: float, mae: float, evs: float) -> None:
+    os.makedirs(os.path.dirname(file_path), exist_ok=True)
+
     with open(file_path, "w") as file:
         file.write(f"Model: {model_name}\n")
         file.write(f"MSE: {mse}\n")
