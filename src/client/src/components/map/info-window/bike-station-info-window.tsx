@@ -1,5 +1,5 @@
 import { DrawerContent, DrawerDescription, DrawerHeader, DrawerTitle } from '@/components/ui/drawer';
-import { useBikeStationByNumber } from '@/lib/hooks/bike-stations';
+import { useBikeStationByNumber, useBikeStationPredictions } from '@/lib/hooks/bike-stations';
 import { useQueryParams } from '@/lib/hooks/use-querey-params';
 import { timeSince } from '@/lib/utils';
 import { Bike, ParkingSquare } from 'lucide-react';
@@ -11,6 +11,14 @@ const BikeStationInfoWindow = () => {
   const { urlQuery } = useQueryParams();
 
   const { data, isLoading, isFetching, isPending } = useBikeStationByNumber(Number(urlQuery.station), {
+    enabled: !!urlQuery.station,
+  });
+
+  //TODO: need to train model for each bike station
+  const {
+    data: predictions,
+    isLoading: isLoadingPredictions,
+  } = useBikeStationPredictions(Number(urlQuery.station), 7, {
     enabled: !!urlQuery.station,
   });
 
@@ -53,7 +61,7 @@ const BikeStationInfoWindow = () => {
             </div>
 
 
-            <PredictionsTable />
+            <PredictionsTable data={predictions || []} isLoading={isLoading} />
 
           </div>
         </div>

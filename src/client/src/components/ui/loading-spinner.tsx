@@ -7,7 +7,7 @@ interface LoadingSpinnerProps {
 const LoadingSpinner = ({ className }: LoadingSpinnerProps) => {
   return (
     <svg
-      className={cn('-ml-1 mr-3 h-5 w-5 animate-spin', className)}
+      className={cn('-ml-1 mr-3 h-5 w-5 animate-spin text-primary', className)}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"

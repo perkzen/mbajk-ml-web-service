@@ -13,7 +13,7 @@ export const getBikeStationByNumber = async (number: number) => {
 };
 
 
-export const getPredictions = async (numberOfPredictions: number) => {
-  const res = (await api.get(`/mbajk/predict/${numberOfPredictions}`)) as AxiosResponse<Prediction[]>;
+export const getPredictions = async (station: number, numberOfPredictions: number) => {
+  const res = (await api.get(`/mbajk/predict/${station}/${numberOfPredictions}`)) as AxiosResponse<Prediction[]>;
   return res.data;
 };

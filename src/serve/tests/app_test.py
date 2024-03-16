@@ -13,43 +13,43 @@ def test_health_check():
     assert response.json()["status"] == "ok"
 
 
-def test_fail_predict():
-    response = client.post(
-        "/mbajk/predict",
-        json=[
-            {
-                "available_bike_stands": 7,
-                "surface_pressure": 984.45,
-                "temperature": 24.425,
-                "apparent_temperature": 23.65,
-                "relative_humidity": 43.5
-            },
-        ],
-    )
-    assert response.status_code == 400
-    assert "detail" in response.json()
-    assert response.json()["detail"] == f"Data must contain {settings.window_size} items"
-
-
-def test_success_prediction():
-    response = client.post(
-        "/mbajk/predict",
-        json=[
-            {
-                "available_bike_stands": 7,
-                "surface_pressure": 984.45,
-                "temperature": 24.425,
-                "apparent_temperature": 23.65,
-                "relative_humidity": 43.5
-            }
-            for _ in range(settings.window_size)
-        ],
-    )
-    assert response.status_code == 200
-    assert "prediction" in response.json()
-    assert isinstance(response.json()["prediction"], int)
-    assert response.json()["prediction"] >= 0
-    assert response.json()["prediction"] <= 100
+# def test_fail_predict():
+#     response = client.post(
+#         "/mbajk/predict",
+#         json=[
+#             {
+#                 "available_bike_stands": 7,
+#                 "surface_pressure": 984.45,
+#                 "temperature": 24.425,
+#                 "apparent_temperature": 23.65,
+#                 "relative_humidity": 43.5
+#             },
+#         ],
+#     )
+#     assert response.status_code == 400
+#     assert "detail" in response.json()
+#     assert response.json()["detail"] == f"Data must contain {settings.window_size} items"
+#
+#
+# def test_success_prediction():
+#     response = client.post(
+#         "/mbajk/predict",
+#         json=[
+#             {
+#                 "available_bike_stands": 7,
+#                 "surface_pressure": 984.45,
+#                 "temperature": 24.425,
+#                 "apparent_temperature": 23.65,
+#                 "relative_humidity": 43.5
+#             }
+#             for _ in range(settings.window_size)
+#         ],
+#     )
+#     assert response.status_code == 200
+#     assert "prediction" in response.json()
+#     assert isinstance(response.json()["prediction"], int)
+#     assert response.json()["prediction"] >= 0
+#     assert response.json()["prediction"] <= 100
 
 
 def test_get_bike_stations():

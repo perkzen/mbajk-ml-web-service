@@ -27,10 +27,10 @@ export const useBikeStationByNumber = (number: number, opts?: Omit<UseQueryOptio
 
 
 export const BIKE_STATION_PREDICTIONS_KEY = 'bike-station-predictions';
-export const useBikeStationPredictions = (number: number, opts?: UseQueryOptions<Prediction[], AxiosError, Prediction[], (typeof BIKE_STATION_PREDICTIONS_KEY | number)[]>) => {
+export const useBikeStationPredictions = (station: number, number: number, opts?: Omit<UseQueryOptions<Prediction[], AxiosError, Prediction[], (typeof BIKE_STATION_PREDICTIONS_KEY | number)[]>, 'queryKey'>) => {
   return useQuery({
-      queryKey: [BIKE_STATION_PREDICTIONS_KEY, number],
-      queryFn: () => getPredictions(number),
+      queryKey: [BIKE_STATION_PREDICTIONS_KEY, station, number],
+      queryFn: () => getPredictions(station, number),
     },
   );
 };

@@ -2,15 +2,16 @@ from typing import List
 
 import pandas as pd
 
-from src.config import settings
-from src.serve.dto import PredictBikesDTO
-
 
 class DataService:
 
     def __init__(self):
-        self.dataset = pd.read_csv("data/processed/mbajk_processed.csv")
+        self.dataset_path = "data/processed/"
 
-    def get_latest_data(self) -> List[PredictBikesDTO]:
-        data = self.dataset.tail(settings.window_size).to_dict(orient="records")
-        return [PredictBikesDTO.from_dataset(item) for item in data]
+    def get_latest_data(self, station_number: int) -> List[dict]:
+        data = self.__get_bike_station_data(station_number)
+        return data
+
+    def __get_bike_station_data(self, station_number: int) -> List[dict]:
+        file_name = f"mbajk_station_{station_number}.csv"
+        return pd.read_csv(self.dataset_path + file_name).to_dict(orient="records")

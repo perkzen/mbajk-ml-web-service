@@ -6,7 +6,7 @@ import { flexRender, useReactTable } from '@tanstack/react-table';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Prediction } from '@/lib/models';
 import { Bike } from 'lucide-react';
-import { useBikeStationPredictions } from '@/lib/hooks/bike-stations';
+import LoadingSpinner from '@/components/ui/loading-spinner';
 
 
 export const columns: ColumnDef<Prediction>[] = [
@@ -29,12 +29,10 @@ export const columns: ColumnDef<Prediction>[] = [
   },
 ];
 
-const PredictionsTable = () => {
-  //TODO: need to train model for each bike station
-  const { data } = useBikeStationPredictions(7);
+const PredictionsTable = ({ data, isLoading }: { data: Prediction[], isLoading: boolean }) => {
 
   const table = useReactTable({
-    data: data || [],
+    data: data,
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
@@ -83,16 +81,25 @@ const PredictionsTable = () => {
                     ))}
                   </TableRow>
                 ))
-              ) : (
+              ) : !isLoading ? (
+                  <TableRow>
+                    <TableCell
+                      colSpan={columns.length}
+                      className="h-24 text-center"
+                    >
+                      No results.
+                    </TableCell>
+                  </TableRow>
+                ) :
                 <TableRow>
                   <TableCell
                     colSpan={columns.length}
-                    className="h-24 text-center"
+                    className="h-24"
                   >
-                    No results.
+                    <LoadingSpinner className={"mx-auto"} />
                   </TableCell>
                 </TableRow>
-              )}
+              }
             </TableBody>
           </Table>
         </div>

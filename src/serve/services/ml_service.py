@@ -5,9 +5,10 @@ import pandas as pd
 from keras import Model
 from keras.models import load_model
 from sklearn.preprocessing import MinMaxScaler
-from ..dto import PredictBikesDTO, PredictionDTO
+from ..dto import PredictionDTO
 from ...config import settings
 from ...data.data_fetcher import DataFetcher
+from ...utils.dict import add_keys_to_dict
 
 
 class MLService:
@@ -15,7 +16,7 @@ class MLService:
         self.model: Model = load_model(f"models/{model_name}.keras")
         self.scaler: MinMaxScaler = joblib.load(f"models/{scaler_name}_scaler.gz")
 
-    def predict(self, data: List[PredictBikesDTO]) -> int:
+    def predict(self, data: List[dict]) -> int:
         prepared_data = self.__prepare_data(data)
 
         predicted = self.model.predict(prepared_data)
@@ -26,9 +27,12 @@ class MLService:
 
         return predicted[0]
 
-    def predict_multiple(self, data: List[PredictBikesDTO], n_future: int) -> List[PredictionDTO]:
+    def predict_multiple(self, data: List[dict], n_future: int) -> List[PredictionDTO]:
         data_fetcher = DataFetcher(lat=settings.lat, lon=settings.lon)
         res = data_fetcher.get_weather_forecast_for_next_n_hours(hours=n_future)
+
+        required_keys = list(data[0].keys())
+        required_keys.remove("available_bike_stands")
 
         predictions: List[PredictionDTO] = []
 
@@ -36,18 +40,15 @@ class MLService:
             prediction = int(self.predict(data))
             predictions.append(PredictionDTO(prediction=prediction, date=res[n].date))
 
-            data.append(PredictBikesDTO(
-                available_bike_stands=prediction,
-                surface_pressure=res[n].surface_pressure,
-                temperature=res[n].temperature,
-                apparent_temperature=res[n].apparent_temperature,
-                relative_humidity=res[n].relative_humidity,
-            ))
+            new_data = add_keys_to_dict(res[n].model_dump(), required_keys)
+            new_data["available_bike_stands"] = prediction
+
+            data.append(new_data)
 
         return predictions
 
-    def __prepare_data(self, data: List[PredictBikesDTO]) -> np.ndarray[Any, np.dtype]:
-        data = [item.model_dump() for item in data]
+    def __prepare_data(self, data: List[dict]) -> np.ndarray[Any, np.dtype]:
+        data = [item for item in data]
         data_values = []
         for item in data:
             values = list(item.values())
