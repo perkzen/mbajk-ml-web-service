@@ -31,6 +31,7 @@ export const useBikeStationPredictions = (station: number, number: number, opts?
   return useQuery({
       queryKey: [BIKE_STATION_PREDICTIONS_KEY, station, number],
       queryFn: () => getPredictions(station, number),
+      ...opts,
     },
   );
 };

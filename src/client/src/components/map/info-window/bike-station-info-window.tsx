@@ -10,22 +10,21 @@ import LoadingProvider from '@/components/providers/loading-provider';
 const BikeStationInfoWindow = () => {
   const { urlQuery } = useQueryParams();
 
-  const { data, isLoading, isFetching, isPending } = useBikeStationByNumber(Number(urlQuery.station), {
-    enabled: !!urlQuery.station,
+  const { data, isLoading, isFetching } = useBikeStationByNumber(Number(urlQuery.station), {
+    enabled: Number(urlQuery.station) > 0,
   });
 
-  //TODO: need to train model for each bike station
   const {
     data: predictions,
     isLoading: isLoadingPredictions,
   } = useBikeStationPredictions(Number(urlQuery.station), 7, {
-    enabled: !!urlQuery.station,
+    enabled: Number(urlQuery.station) > 0,
   });
 
   return (
     <DrawerContent
-      className="flex flex-col rounded-t-[10px] h-full  w-full sm:w-[400px] fixed top-24 bottom-0 left-0">
-      <LoadingProvider isLoading={isLoading || isFetching || isPending}>
+      className="flex flex-col rounded-t-[10px] h-full  w-full sm:w-[400px] fixed top-20 sm:top-24 bottom-0 left-0">
+      <LoadingProvider isLoading={isLoading || isFetching}>
         <div className="mx-auto w-full max-w-sm">
           <DrawerHeader>
             <DrawerTitle className={'flex flex-row text-wrap'}>
@@ -61,7 +60,7 @@ const BikeStationInfoWindow = () => {
             </div>
 
 
-            <PredictionsTable data={predictions || []} isLoading={isLoading} />
+            <PredictionsTable data={predictions || []} isLoading={isLoadingPredictions} />
 
           </div>
         </div>

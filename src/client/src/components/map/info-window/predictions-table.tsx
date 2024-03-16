@@ -39,9 +39,9 @@ const PredictionsTable = ({ data, isLoading }: { data: Prediction[], isLoading: 
 
 
   return (
-    <div className={'flex flex-col gap-2'}>
-      <h1 className="text-xl font-semibold">
-        Predictions
+    <div className={'flex flex-col gap-2 mb-2'}>
+      <h1 className="text-lg font-semibold">
+        Available stands predictions
       </h1>
       <div className="w-full">
         <div className="rounded-md border">
@@ -106,8 +106,7 @@ const PredictionsTable = ({ data, isLoading }: { data: Prediction[], isLoading: 
       </div>
     </div>
 
-  )
-    ;
+  );
 };
 
 export default PredictionsTable;
