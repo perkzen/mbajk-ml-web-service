@@ -2,7 +2,7 @@ import os
 import joblib
 import numpy as np
 import pandas as pd
-from typing import Tuple
+from typing import Tuple, Callable
 from keras import Sequential
 from keras.layers import Dense, GRU, Dropout, Input
 from keras.optimizers import Adam
@@ -12,7 +12,7 @@ from src.config import settings
 from src.models import create_test_train_split, create_time_series
 
 
-def build_model(input_shape):
+def build_model(input_shape: tuple[int, int]) -> Sequential:
     model = Sequential(name="GRU")
 
     model.add(Input(shape=input_shape))
@@ -33,10 +33,12 @@ def build_model(input_shape):
     return model
 
 
-def train_model(dataset: pd.DataFrame, scaler: MinMaxScaler) -> Sequential:
+def train_model(dataset: pd.DataFrame, scaler: MinMaxScaler,
+                build_model_fn: Callable[[Tuple[int, int]], Sequential], epochs: int = 10, batch_size=64,
+                verbose: int = 1) -> Sequential:
     X_train, y_train, X_test, y_test = prepare_model_data(dataset=dataset, scaler=scaler)
-    model = build_model(input_shape=(X_train.shape[1], X_train.shape[2]))
-    model.fit(X_train, y_train, epochs=10, batch_size=64, validation_data=(X_test, y_test), verbose=1)
+    model = build_model_fn((X_train.shape[1], X_train.shape[2]))
+    model.fit(X_train, y_train, epochs=epochs, batch_size=batch_size, validation_data=(X_test, y_test), verbose=verbose)
 
     return model
 
