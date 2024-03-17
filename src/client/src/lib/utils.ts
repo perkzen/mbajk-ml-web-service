@@ -37,10 +37,10 @@ export const timeSince = (date: number): string => {
   } else if (intervals.day > 1) {
     return intervals.day + ' days';
   } else if (intervals.hour > 1) {
-    return intervals.hour + ' hours';
-  } else if (intervals.minute > 1) {
-    return intervals.minute + ' minutes';
+    return intervals.hour + ' h';
+  } else if (intervals.minute >= 1) {
+    return intervals.minute + ' min';
   } else {
-    return intervals.second + ' seconds';
+    return intervals.second + ' s';
   }
 };

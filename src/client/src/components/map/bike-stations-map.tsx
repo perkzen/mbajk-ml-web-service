@@ -42,7 +42,7 @@ const BikeStationsMap = () => {
   return (
     <Drawer
       open={isOpen}
-      dismissible={false}
+      dismissible={true}
       direction={'left'}
       modal={false}
     >

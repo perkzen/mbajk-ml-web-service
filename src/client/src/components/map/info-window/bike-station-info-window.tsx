@@ -41,7 +41,7 @@ const BikeStationInfoWindow = ({ onClose }: BikeStationInfoWindowProps) => {
                   </>}
               </div>
             </DrawerTitle>
-            <DrawerClose onClick={onClose} className={'ml-auto self-start'}>
+            <DrawerClose onClick={onClose} className={'ml-auto self-start pl-2'}>
               <X width={16} height={16} />
             </DrawerClose>
           </div>
