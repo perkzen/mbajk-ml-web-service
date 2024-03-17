@@ -1,4 +1,6 @@
 import pathlib
+from typing import ClassVar, List
+
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -8,6 +10,7 @@ class Settings(BaseSettings):
     lat: float = 46.5547
     lon: float = 15.6467
     mbajk_api_key: str
+    custom_dataset_columns: List[str] = ["hour", "is_day", "season", "weekend", "day_of_week"]
 
     __project_root = pathlib.Path(__file__).resolve().parent.parent
 

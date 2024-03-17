@@ -8,7 +8,8 @@ from sklearn.preprocessing import MinMaxScaler
 from ..dto import PredictionDTO
 from ...config import settings
 from ...data.data_fetcher import DataFetcher
-from ...utils.dict import add_keys_to_dict
+from ...utils.dict import add_keys_to_dict, add_custom_keys_to_dict
+from ...utils.list import intersecting_elements
 
 
 class MLService:
@@ -40,8 +41,11 @@ class MLService:
             prediction = max(0, int(self.predict(data)))
             predictions.append(PredictionDTO(prediction=prediction, date=res[n].date))
 
-            new_data = add_keys_to_dict(res[n].model_dump(), required_keys)
+            new_data = add_keys_to_dict(res[n].model_dump(), required_keys, skip_keys=settings.custom_dataset_columns)
             new_data["available_bike_stands"] = prediction
+
+            custom_cols = intersecting_elements(required_keys, settings.custom_dataset_columns)
+            new_data = add_custom_keys_to_dict(new_data, custom_cols, res[n].date)
 
             data.append(new_data)
             data.pop(0)
