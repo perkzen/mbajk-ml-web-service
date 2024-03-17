@@ -31,7 +31,7 @@ const BikeStationInfoWindow = ({ onClose }: BikeStationInfoWindowProps) => {
       <div className="mx-auto w-full max-w-sm">
         <DrawerHeader>
           <div className={'flex flex-row'}>
-            <DrawerTitle className={'flex flex-row text-wrap'}>
+            <DrawerTitle className={'flex flex-row text-wrap text-start'}>
               <div className={'leading-6'}>
                 {isLoading ? <Skeleton className="w-[300px] h-[20px] rounded-md" />
                   :
@@ -45,12 +45,10 @@ const BikeStationInfoWindow = ({ onClose }: BikeStationInfoWindowProps) => {
               <X width={16} height={16} />
             </DrawerClose>
           </div>
-          <DrawerDescription className={'text-start'}>
-            {isLoading ? <Skeleton className="w-[100px] h-[20px] rounded-md" /> :
-              <>
-                Last updated: {timeSince(Number(data?.last_updated))}
-              </>}
-          </DrawerDescription>
+          {isLoading ? <Skeleton className="w-[100px] h-[20px] rounded-md" /> :
+            <DrawerDescription className={'text-start'}>
+              Last updated: {timeSince(Number(data?.last_updated))}
+            </DrawerDescription>}
         </DrawerHeader>
         <div className="flex flex-col p-4 gap-8">
           <div className="flex flex-row gap-4">

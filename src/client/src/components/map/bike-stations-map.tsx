@@ -45,6 +45,9 @@ const BikeStationsMap = () => {
       dismissible={true}
       direction={'left'}
       modal={false}
+      onRelease={(_, open) => {
+        setIsOpen(open);
+      }}
     >
       <APIProvider apiKey={env.NEXT_PUBLIC_GOOGLE_MAPS_KEY}>
         <GoogleMap
