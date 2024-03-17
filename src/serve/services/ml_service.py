@@ -37,13 +37,14 @@ class MLService:
         predictions: List[PredictionDTO] = []
 
         for n in range(n_future):
-            prediction = int(self.predict(data))
+            prediction = max(0, int(self.predict(data)))
             predictions.append(PredictionDTO(prediction=prediction, date=res[n].date))
 
             new_data = add_keys_to_dict(res[n].model_dump(), required_keys)
             new_data["available_bike_stands"] = prediction
 
             data.append(new_data)
+            data.pop(0)
 
         return predictions
 

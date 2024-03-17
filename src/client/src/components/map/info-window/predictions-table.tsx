@@ -7,6 +7,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Prediction } from '@/lib/models';
 import { Bike } from 'lucide-react';
 import LoadingSpinner from '@/components/ui/loading-spinner';
+import { formatDate } from '@/lib/utils';
 
 
 export const columns: ColumnDef<Prediction>[] = [
@@ -14,7 +15,7 @@ export const columns: ColumnDef<Prediction>[] = [
     accessorKey: 'date',
     header: 'Time',
     cell: ({ row }) => (
-      <div>{row.getValue('date')}</div>
+      <div>{formatDate(row.getValue('date'))}</div>
     ),
   },
   {
@@ -96,7 +97,7 @@ const PredictionsTable = ({ data, isLoading }: { data: Prediction[], isLoading: 
                     colSpan={columns.length}
                     className="h-24"
                   >
-                    <LoadingSpinner className={"mx-auto"} />
+                    <LoadingSpinner className={'mx-auto'} />
                   </TableCell>
                 </TableRow>
               }
