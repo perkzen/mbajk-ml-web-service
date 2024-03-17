@@ -1,13 +1,17 @@
-import { DrawerContent, DrawerDescription, DrawerHeader, DrawerTitle } from '@/components/ui/drawer';
+import { DrawerClose, DrawerContent, DrawerDescription, DrawerHeader, DrawerTitle } from '@/components/ui/drawer';
 import { useBikeStationByNumber, useBikeStationPredictions } from '@/lib/hooks/bike-stations';
 import { useQueryParams } from '@/lib/hooks/use-querey-params';
 import { timeSince } from '@/lib/utils';
-import { Bike, ParkingSquare } from 'lucide-react';
+import { Bike, ParkingSquare, X } from 'lucide-react';
 import PredictionsTable from '@/components/map/info-window/predictions-table';
 import LoadingProvider from '@/components/providers/loading-provider';
 
 
-const BikeStationInfoWindow = () => {
+interface BikeStationInfoWindowProps {
+  onClose: () => void;
+}
+
+const BikeStationInfoWindow = ({ onClose }: BikeStationInfoWindowProps) => {
   const { urlQuery } = useQueryParams();
 
   const { data, isLoading, isFetching } = useBikeStationByNumber(Number(urlQuery.station), {
@@ -23,20 +27,25 @@ const BikeStationInfoWindow = () => {
 
   return (
     <DrawerContent
-      className="flex flex-col rounded-t-[10px] h-full  w-full sm:w-[400px] fixed top-20 sm:top-24 bottom-0 left-0">
+      className="flex flex-col rounded-t-[10px] h-full  w-full sm:w-[400px] fixed top-20  bottom-0 left-0">
       <LoadingProvider isLoading={isLoading || isFetching}>
         <div className="mx-auto w-full max-w-sm">
           <DrawerHeader>
-            <DrawerTitle className={'flex flex-row text-wrap'}>
-              <div className={'leading-6'}>
-                {data?.name}
-                <span className={'font-light text-gray-400'}> - n&apos;{data?.number}</span>
-              </div>
-            </DrawerTitle>
+            <div className={'flex flex-row'}>
+              <DrawerTitle className={'flex flex-row text-wrap'}>
+                <div className={'leading-6'}>
+                  {data?.name}
+                  <span className={'font-light text-gray-400'}> - n&apos;{data?.number}</span>
+                </div>
+              </DrawerTitle>
+              <DrawerClose onClick={onClose} className={'ml-auto self-start'}>
+                <X width={16} height={16} />
+              </DrawerClose>
+            </div>
             <DrawerDescription className={'text-start'}>Last
               updated: {timeSince(Number(data?.last_updated))}</DrawerDescription>
           </DrawerHeader>
-          <div className="flex flex-col p-4 pb-0 gap-8">
+          <div className="flex flex-col p-4 gap-8">
             <div className="flex flex-row gap-4">
 
 

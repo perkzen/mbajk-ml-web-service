@@ -6,8 +6,8 @@ import { flexRender, useReactTable } from '@tanstack/react-table';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Prediction } from '@/lib/models';
 import { Bike } from 'lucide-react';
-import LoadingSpinner from '@/components/ui/loading-spinner';
 import { formatDate } from '@/lib/utils';
+import { Skeleton } from '@/components/ui/skeleton';
 
 
 export const columns: ColumnDef<Prediction>[] = [
@@ -92,14 +92,17 @@ const PredictionsTable = ({ data, isLoading }: { data: Prediction[], isLoading: 
                     </TableCell>
                   </TableRow>
                 ) :
-                <TableRow>
-                  <TableCell
-                    colSpan={columns.length}
-                    className="h-24"
-                  >
-                    <LoadingSpinner className={'mx-auto'} />
-                  </TableCell>
-                </TableRow>
+                <>
+                  {Array.from({ length: 7 }, (_, index) => (
+                    <TableRow key={index}>
+                      <TableCell>
+                        <Skeleton className="w-full h-[20px] rounded-full" />
+                      </TableCell>
+                      <TableCell>
+                        <Skeleton className="w-full h-[20px] rounded-full" />
+                      </TableCell>
+                    </TableRow>))}
+                </>
               }
             </TableBody>
           </Table>

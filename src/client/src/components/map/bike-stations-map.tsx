@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { env } from '@/env.mjs';
-import { APIProvider, Map as GoogleMap, useMap } from '@vis.gl/react-google-maps';
+import { APIProvider, Map as GoogleMap } from '@vis.gl/react-google-maps';
 import StationMarker from '@/components/map/station-marker';
 import { Drawer } from '@/components/ui/drawer';
 import BikeStationInfoWindow from '@/components/map/info-window/bike-station-info-window';
@@ -28,11 +28,9 @@ const BikeStationsMap = () => {
     setIsOpen(true);
   };
 
-  const handleOpenChange = (open: boolean) => {
-    if (!open) {
-      deleteQueryParams('station');
-    }
-    setIsOpen(open);
+  const handleClose = () => {
+    deleteQueryParams('station');
+    setIsOpen(false);
   };
 
   useEffect(() => {
@@ -42,7 +40,12 @@ const BikeStationsMap = () => {
   }, [urlQuery.station]);
 
   return (
-    <Drawer open={isOpen} dismissible={true} direction={'left'} onOpenChange={handleOpenChange} modal={false} >
+    <Drawer
+      open={isOpen}
+      dismissible={false}
+      direction={'left'}
+      modal={false}
+    >
       <APIProvider apiKey={env.NEXT_PUBLIC_GOOGLE_MAPS_KEY}>
         <GoogleMap
           defaultCenter={center}
@@ -64,7 +67,7 @@ const BikeStationsMap = () => {
           ))}
         </GoogleMap>
       </APIProvider>
-      <BikeStationInfoWindow />
+      <BikeStationInfoWindow onClose={handleClose} />
     </Drawer>
 
   );
