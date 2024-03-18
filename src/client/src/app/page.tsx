@@ -1,6 +1,6 @@
 import BikeStationsMap from '@/components/map/bike-stations-map';
 import { getBikeStations } from '@/lib/api';
-import { QueryClient } from '@tanstack/react-query';
+import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import { BIKE_STATIONS_KEY } from '@/lib/hooks/bike-stations';
 
 export default async function Home() {
@@ -14,7 +14,9 @@ export default async function Home() {
 
   return (
     <div className={'flex flex-grow flex-col w-full'}>
-      <BikeStationsMap  />
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <BikeStationsMap />
+      </HydrationBoundary>
     </div>
   );
 }
