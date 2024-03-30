@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 from multiprocessing import Pool
 from src.data.data_manager import DataManager
@@ -31,7 +32,7 @@ def main() -> None:
         stations = df_stations.to_dict(orient="records")
         station_data = [(station["number"], df_weather, df_stations, processor, manager) for station in stations]
 
-        with Pool() as pool:
+        with Pool(processes=os.cpu_count()) as pool:
             pool.map(process_station, station_data)
 
     except FileNotFoundError:
