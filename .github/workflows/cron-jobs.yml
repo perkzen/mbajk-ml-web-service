@@ -39,7 +39,7 @@ jobs:
 
       - name: Run Tests
         run: |
-          pytest src/tests/api_test.py
+          poetry run poe test
 
       - name: Fetch weather data
         run: |
@@ -96,7 +96,7 @@ jobs:
 
       - name: Run Tests
         run: |
-          pytest src/tests/api_test.py
+          poetry run poe test
 
       - name: Fetch bike data
         run: |
