@@ -12,45 +12,6 @@ def test_health_check():
     assert response.json()["status"] == "ok"
 
 
-# def test_fail_predict():
-#     response = client.post(
-#         "/mbajk/predict",
-#         json=[
-#             {
-#                 "available_bike_stands": 7,
-#                 "surface_pressure": 984.45,
-#                 "temperature": 24.425,
-#                 "apparent_temperature": 23.65,
-#                 "relative_humidity": 43.5
-#             },
-#         ],
-#     )
-#     assert response.status_code == 400
-#     assert "detail" in response.json()
-#     assert response.json()["detail"] == f"Data must contain {settings.window_size} items"
-#
-#
-# def test_success_prediction():
-#     response = client.post(
-#         "/mbajk/predict",
-#         json=[
-#             {
-#                 "available_bike_stands": 7,
-#                 "surface_pressure": 984.45,
-#                 "temperature": 24.425,
-#                 "apparent_temperature": 23.65,
-#                 "relative_humidity": 43.5
-#             }
-#             for _ in range(settings.window_size)
-#         ],
-#     )
-#     assert response.status_code == 200
-#     assert "prediction" in response.json()
-#     assert isinstance(response.json()["prediction"], int)
-#     assert response.json()["prediction"] >= 0
-#     assert response.json()["prediction"] <= 100
-
-
 def test_get_bike_stations():
     response = client.get("/mbajk/stations")
     assert response.status_code == 200
@@ -73,6 +34,20 @@ def test_get_bike_station_by_number():
     assert "bike_stands" in response.json()
     assert "available_bike_stands" in response.json()
     assert "available_bikes" in response.json()
+
+
+def test_fail_predict_multiple():
+    response = client.get("/mbajk/predict/1/0")
+    assert response.status_code == 400
+    assert "detail" in response.json()
+    assert response.json()["detail"] == "n_future must be greater than 0"
+
+
+def test_fail_predict_multiple_2():
+    response = client.get("/mbajk/predict/30/1")
+    assert response.status_code == 400
+    assert "detail" in response.json()
+    assert response.json()["detail"] == "station_number must be between 0 and 28"
 
 
 def test_predict_multiple():

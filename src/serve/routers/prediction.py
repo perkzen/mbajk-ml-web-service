@@ -13,24 +13,6 @@ router = APIRouter(
 data_service = DataService()
 
 
-# @router.post("/predict")
-# def predict(data: List[PredictBikesDTO]) -> PredictionDTO:
-#     if len(data) != settings.window_size:
-#         raise HTTPException(status_code=400, detail=f"Data must contain {settings.window_size} items")
-#
-#     ml_service = MLService("mbajk_GRU_model", "minmax")
-#
-#     data = [item.dict() for item in data]
-#
-#     prediction = int(ml_service.predict(data))
-#
-#     current_datetime = datetime.now()
-#     one_hour_later = current_datetime + timedelta(hours=1)
-#     date_str = one_hour_later.strftime('%Y-%m-%dT%H:00')
-#
-#     return PredictionDTO(prediction=prediction, date=date_str)
-
-
 @router.get("/predict/{station_number}/{n_future}")
 def predict_multiple(station_number: int, n_future: int) -> List[PredictionDTO]:
     if n_future < 1:

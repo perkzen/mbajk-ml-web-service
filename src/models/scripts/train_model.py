@@ -9,7 +9,7 @@ from multiprocessing import Pool
 def train_model_in_parallel(station_number: int) -> None:
     dataset = load_bike_station_dataset(f"mbajk_station_{station_number}.csv")
     scaler = MinMaxScaler()
-    model = train_model(dataset=dataset, scaler=scaler, build_model_fn=build_model, epochs=100, batch_size=7, verbose=0)
+    model = train_model(dataset=dataset, scaler=scaler, build_model_fn=build_model, epochs=50, batch_size=32, verbose=0)
 
     save_model(model, scaler, station_number, "model", "minmax")
     print(f"[Train Model] - Model for station {station_number} has been trained and saved")
