@@ -43,6 +43,8 @@ jobs:
 
       - name: Commit changes
         run: |
+          git config --global user.email "perko.domen@gmail.com"
+          git config --global user.name "perkzen"
           git add .
           git commit -m "action: fetch data"
 
@@ -96,6 +98,8 @@ jobs:
 
       - name: Commit changes
         run: |
+          git config --global user.email "perko.domen@gmail.com"
+          git config --global user.name "perkzen"
           git add .
           git commit -m "action: process data"
 
