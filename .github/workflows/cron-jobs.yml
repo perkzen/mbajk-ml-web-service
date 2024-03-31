@@ -61,8 +61,8 @@ jobs:
 
       - name: Commit changes
         run: |
-          dvc add data/raw
-          dvc push -r origin data
+          dvc add data
+          dvc push -r origin
           git config --global user.email "perko.domen@gmail.com"
           git config --global user.name "perkzen"
           git add .
@@ -132,8 +132,8 @@ jobs:
 
       - name: Commit changes
         run: |
-          dvc add data/raw
-          dvc push -r origin data
+          dvc add data
+          dvc push -r origin
           git config --global user.email "perko.domen@gmail.com"
           git config --global user.name "perkzen"
           git add .
@@ -200,8 +200,8 @@ jobs:
 
       - name: Commit changes
         run: |
-          dvc add data/processed
-          dvc push -r origin data
+          dvc add data
+          dvc push -r origin
           git config --global user.email "perko.domen@gmail.com"
           git config --global user.name "perkzen"
           git add .
