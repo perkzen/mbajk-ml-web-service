@@ -18,13 +18,13 @@ class DataManager:
              override: bool = False) -> None:
         file_path = f"{self.data_path}/{folder}/{file_name}.csv"
 
-        s3 = get_repo_bucket_client(settings.repo_name)
-
-        s3.download_file(
-            Bucket=settings.bucket_name,
-            Key=file_path,
-            Filename=file_path,
-        )
+        # s3 = get_repo_bucket_client(settings.repo_name)
+        #
+        # s3.download_file(
+        #     Bucket=settings.bucket_name,
+        #     Key=file_path,
+        #     Filename=file_path,
+        # )
 
         if os.path.exists(file_path) and not override:
             existing_df = pd.read_csv(file_path)
@@ -32,11 +32,11 @@ class DataManager:
 
         df.to_csv(file_path, index=False)
 
-        s3.upload_file(
-            Bucket=settings.bucket_name,
-            Filename=file_path,
-            Key=file_path,
-        )
+        # s3.upload_file(
+        #     Bucket=settings.bucket_name,
+        #     Filename=file_path,
+        #     Key=file_path,
+        # )
 
     def get_dataframe(self, folder: str, file_name: str) -> pd.DataFrame:
         file_path = f"{self.data_path}/{folder}/{file_name}.csv"
