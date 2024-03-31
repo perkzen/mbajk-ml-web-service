@@ -13,10 +13,12 @@ def get_station_data(df: pd.DataFrame, station_number: int) -> pd.DataFrame:
 def process_station(station_data):
     station_number, df_weather, df_stations, processor, manager = station_data
     df = pd.merge(df_weather, get_station_data(df_stations, station_number), on='date', how='inner')
+
     try:
         df = processor.clean(df)
         manager.save("processed", f"mbajk_station_{station_number}", df, override=True)
-    except ValueError:
+    except ValueError as e:
+        print(e)
         print(f"[Process Data] - Not enough data to process for station {station_number}")
 
 
