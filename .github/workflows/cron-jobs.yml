@@ -49,6 +49,7 @@ jobs:
 
       - name: DVC pull
         run: |
+          dvc push
           dvc pull data
 
       - name: Run Tests
