@@ -45,8 +45,6 @@ jobs:
 
       - name: Configure DVC
         run: |
-          dvc remote add origin s3://dvc
-          dvc remote modify origin endpointurl https://dagshub.com/perkzen/mbajk-ml-web-service.s3
           dvc remote modify origin --local access_key_id $DVC_ACCESS_KEY_ID
           dvc remote modify origin --local secret_access_key $DVC_SECRET_ACCESS_KEY
 
