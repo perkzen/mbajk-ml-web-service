@@ -49,8 +49,7 @@ jobs:
 
       - name: DVC pull
         run: |
-          dvc pull -r origin data
-
+          dvc pull -r origin
       - name: Run Tests
         run: |
           poetry run poe test_job
@@ -61,7 +60,7 @@ jobs:
 
       - name: Commit changes
         run: |
-          dvc add data
+          dvc add data/raw
           dvc push -r origin data
           git config --global user.email "perko.domen@gmail.com"
           git config --global user.name "perkzen"
@@ -104,12 +103,10 @@ jobs:
       - name: Install Poetry
         run: |
           python -m pip install --upgrade pip
-          pip install  poetry 
-
+          pip install  poetry
       - name: Install dependencies
         run: |
           poetry install --with dev
-
       - name: Install DVC
         uses: iterative/setup-dvc@v1
 
@@ -120,8 +117,7 @@ jobs:
 
       - name: DVC pull
         run: |
-          dvc pull -r origin data
-
+          dvc pull -r origin
       - name: Run Tests
         run: |
           poetry run poe test_job
@@ -132,7 +128,7 @@ jobs:
 
       - name: Commit changes
         run: |
-          dvc add data
+          dvc add data/raw
           dvc push -r origin data
           git config --global user.email "perko.domen@gmail.com"
           git config --global user.name "perkzen"
@@ -176,12 +172,10 @@ jobs:
       - name: Install Poetry
         run: |
           python -m pip install --upgrade pip
-          pip install  poetry 
-
+          pip install  poetry
       - name: Install dependencies
         run: |
           poetry install --with dev
-
       - name: Install DVC
         uses: iterative/setup-dvc@v1
 
@@ -192,15 +186,14 @@ jobs:
 
       - name: DVC pull
         run: |
-          dvc pull -r origin data
-
+          dvc pull -r origin
       - name: Process data
         run: |
           poetry run poe process
 
       - name: Commit changes
         run: |
-          dvc add data
+          dvc add data/processed
           dvc push -r origin data
           git config --global user.email "perko.domen@gmail.com"
           git config --global user.name "perkzen"
