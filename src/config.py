@@ -13,6 +13,7 @@ class Settings(BaseSettings):
     custom_dataset_columns: List[str] = ["hour", "is_day", "season", "weekend", "day_of_week"]
     repo_name: str = "perkzen/mbajk-ml-web-service"
     bucket_name: str = "mbajk-ml-web-service"
+    dagshub_user_token: str
 
     __project_root = pathlib.Path(__file__).resolve().parent.parent
 

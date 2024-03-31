@@ -1,4 +1,6 @@
 import os
+
+import dagshub.auth
 import pandas as pd
 from typing import List, Union
 from pydantic import BaseModel
@@ -10,6 +12,7 @@ class DataManager:
 
     def __init__(self, data_path: str):
         self.data_path = data_path
+        dagshub.auth.add_app_token(settings.dagshub_user_token)
 
     def save(self, folder: str, file_name: str, df: pd.DataFrame,
              override: bool = False) -> None:
