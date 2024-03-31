@@ -39,7 +39,7 @@ jobs:
 
       - name: Run Tests
         run: |
-          poetry run poe test
+          poetry run poe test_job
 
       - name: Fetch weather data
         run: |
@@ -96,7 +96,7 @@ jobs:
 
       - name: Run Tests
         run: |
-          poetry run poe test
+          poetry run poe test_job
 
       - name: Fetch bike data
         run: |

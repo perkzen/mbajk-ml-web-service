@@ -14,6 +14,7 @@ process = "python3 -m src.data.scripts.process_data"
 train = "python3 -m src.models.scripts.train_model"
 predict = "python3 -m src.models.scripts.predict_model"
 test = "pytest"
+test_job= "pytest src/tests/api_test.py"
 lint = "ruff check ."
 
 [tool.poetry.dependencies]
