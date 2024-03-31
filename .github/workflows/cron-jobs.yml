@@ -11,7 +11,6 @@ env:
   LAT: 46.5547
   LON: 15.6466
   MBAJK_API_KEY: ${{ secrets.MBAJK_API_KEY }}
-  DAGSHUB_USER_TOKEN: ${{ secrets.DAGSHUB_USER_TOKEN }}
 
 jobs:
   fetch_weather_data:
