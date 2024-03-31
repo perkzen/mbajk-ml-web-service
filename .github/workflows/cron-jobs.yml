@@ -204,7 +204,7 @@ jobs:
           dvc push -r origin data
           git config --global user.email "perko.domen@gmail.com"
           git config --global user.name "perkzen"
-          git add .
+          git add data.dvc
           git commit -m "action: process data"
 
       - name: Push changes
