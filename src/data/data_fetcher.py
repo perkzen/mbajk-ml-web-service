@@ -21,7 +21,7 @@ class DataFetcher:
 
         stations = stations_response.json()
 
-        now = datetime.now().strftime('%Y-%m-%dT%H:%M:%S')
+        now = datetime.now().strftime('%Y-%m-%dT%H:00')
 
         return [
             BikeStation(
@@ -67,8 +67,6 @@ class DataFetcher:
 
         for w in weather:
             if w.date == date_hour:
-                now = datetime.now().strftime('%Y-%m-%dT%H:%M:%S')
-                w.date = now
                 return w
 
     def get_bike_station(self, number: int) -> BikeStation:
