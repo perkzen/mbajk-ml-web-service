@@ -40,8 +40,7 @@ jobs:
           poetry install --with dev
 
       - name: Install DVC
-        run: |
-          pip install dvc
+        uses: iterative/setup-dvc@v1
 
       - name: Configure DVC
         run: |
