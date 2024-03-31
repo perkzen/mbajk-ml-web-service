@@ -49,7 +49,7 @@ jobs:
 
       - name: DVC pull
         run: |
-          dvc pull data
+          dvc pull -r origin
 
       - name: Run Tests
         run: |
