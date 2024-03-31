@@ -12,9 +12,9 @@ const BikeStationTabs = () => {
 
 
   return (
-    <Tabs defaultValue={urlQuery.show} className="absolute top-6 left-1/2 transform -translate-x-1/2">
+    <Tabs value={urlQuery.show} className="absolute top-6 left-1/2 transform -translate-x-1/2" onValueChange={v => handleClick(v as DisplayProperty)}>
       <TabsList className="grid w-full grid-cols-2">
-        <TabsTrigger value={'available_bikes'} onClick={() => handleClick('available_bike_stands')}>
+        <TabsTrigger value={'available_bikes'}>
           <div className={'flex flex-row items-center gap-2'}>
             <Bike size={16} />
             <div className={'hidden sm:block'}>
@@ -22,7 +22,7 @@ const BikeStationTabs = () => {
             </div>
           </div>
         </TabsTrigger>
-        <TabsTrigger value={'available_bike_stands'} onClick={() => handleClick('available_bikes')}>
+        <TabsTrigger value={'available_bike_stands'}>
           <div className={'flex flex-row items-center gap-2'}>
             <ParkingSquare size={16} />
             <div className={"hidden sm:block"}>
