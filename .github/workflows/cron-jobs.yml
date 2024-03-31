@@ -49,7 +49,6 @@ jobs:
 
       - name: DVC pull
         run: |
-          dvc push
           dvc pull data
 
       - name: Run Tests
@@ -63,7 +62,7 @@ jobs:
       - name: Commit changes
         run: |
           dvc add data/raw
-          dvc push
+          dvc push -r origin data
           git config --global user.email "perko.domen@gmail.com"
           git config --global user.name "perkzen"
           git add .
