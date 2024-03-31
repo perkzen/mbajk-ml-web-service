@@ -7,7 +7,6 @@ readme = "README.md"
 
 [tool.poe.tasks]
 serve = "uvicorn src.serve.main:app --reload"
-fetch_data = "python3 -m src.data.scripts.fetch_bike_stations && python3 -m src.data.scripts.fetch_weather"
 fetch_bike_data = "python3 -m src.data.scripts.fetch_bike_stations"
 fetch_weather_data = "python3 -m src.data.scripts.fetch_weather"
 process = "python3 -m src.data.scripts.process_data"
