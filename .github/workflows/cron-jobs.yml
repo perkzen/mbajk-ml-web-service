@@ -191,10 +191,13 @@ jobs:
         run: |
           poetry run poe process
 
-      - name: Commit changes
+      - name: Commit changes to DVC
         run: |
           dvc add data/processed
           dvc push -r origin data
+
+      - name: Commit changes to GIT
+        run: |
           git config --global user.email "perko.domen@gmail.com"
           git config --global user.name "perkzen"
           git add .
