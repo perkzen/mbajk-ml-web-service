@@ -11,8 +11,6 @@ class Settings(BaseSettings):
     lon: float = 15.6467
     mbajk_api_key: str
     custom_dataset_columns: List[str] = ["hour", "is_day", "season", "weekend", "day_of_week"]
-    repo_name: str = "perkzen/mbajk-ml-web-service"
-    bucket_name: str = "mbajk-ml-web-service"
 
     __project_root = pathlib.Path(__file__).resolve().parent.parent
 

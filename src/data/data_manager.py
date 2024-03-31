@@ -1,11 +1,7 @@
 import os
-
-import dagshub.auth
 import pandas as pd
 from typing import List, Union
 from pydantic import BaseModel
-from dagshub import get_repo_bucket_client
-from src.config import settings
 
 
 class DataManager:
@@ -34,7 +30,3 @@ class DataManager:
 
         new_rows = [row.dict() for row in data]
         return pd.DataFrame(new_rows)
-
-    @staticmethod
-    def get_s3_client():
-        return get_repo_bucket_client(settings.repo_name)
