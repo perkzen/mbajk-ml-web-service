@@ -200,7 +200,6 @@ jobs:
 
       - name: Commit changes
         run: |
-          dvc config core.autostage true
           dvc add data
           dvc push -r origin data
           git config --global user.email "perko.domen@gmail.com"
