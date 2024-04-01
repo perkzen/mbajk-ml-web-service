@@ -1,8 +1,5 @@
 [core]
-    remote = myremote
-    autostage = true
+    remote = origin
 ['remote "origin"']
     url = s3://dvc
     endpointurl = https://dagshub.com/perkzen/mbajk-ml-web-service.s3
-['remote "myremote"']
-    url = /tmp/dvcstore

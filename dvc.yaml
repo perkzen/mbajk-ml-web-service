@@ -5,7 +5,7 @@
 #      - src/data/scripts/fetch_weather.py
 #      - data/raw/weather.csv
 #    outs:
-#      - data/out/weather.csv
+#      - data/raw/weather.csv
 #  fetch_bike_data:
 #    cmd: poetry run poe fetch_bike_data
 #    deps:
