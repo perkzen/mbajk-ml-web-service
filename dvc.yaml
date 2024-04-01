@@ -1,0 +1,27 @@
+#stages:
+#  fetch_weather_data:
+#    cmd: poetry run poe fetch_weather_data
+#    deps:
+#      - src/data/scripts/fetch_weather.py
+#      - data/raw/weather.csv
+#    outs:
+#      - data/out/weather.csv
+#  fetch_bike_data:
+#    cmd: poetry run poe fetch_bike_data
+#    deps:
+#      - src/data/scripts/fetch_bike_stations.py
+#      - data/raw/bike.csv
+#    outs:
+#      - data/raw/mbajk_stations.csv
+#  process:
+#    cmd: poetry run poe process
+#    deps:
+#      - src/data/scripts/process_data.py
+#      - data/raw/mbajk_stations.csv
+#      - data/raw/weather.csv
+#    outs:
+#      # outputs a file for each station
+#
+#
+#
+#
