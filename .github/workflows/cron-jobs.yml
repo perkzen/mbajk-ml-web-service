@@ -64,7 +64,7 @@ jobs:
       - name: Commit changes to DVC
         run: |
           dvc add data/raw
-          dvc push -r origin data
+          dvc push -r origin
 
       - name: Commit changes to GIT
         run: |
@@ -139,7 +139,7 @@ jobs:
       - name: Commit changes to DVC
         run: |
           dvc add data/raw
-          dvc push -r origin data
+          dvc push -r origin
 
       - name: Commit changes to GIT
         run: |
@@ -207,7 +207,7 @@ jobs:
       - name: Commit changes to DVC
         run: |
           dvc add data/processed
-          dvc push -r origin data
+          dvc push -r origin
 
       - name: Commit changes to GIT
         run: |
