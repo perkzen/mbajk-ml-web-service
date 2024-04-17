@@ -231,11 +231,10 @@ jobs:
     needs:
       - process
 
-    env:
-      SHA_PROCESS: ${{ needs.process.outputs.sha_process }}
-      run: echo "$SHA_PROCESS"
-
     steps:
+      - env:
+          SHA_PROCESS: ${{ needs.process.outputs.sha_process }}
+        run: echo "$SHA_PROCESS"
       - name: Checkout code
         uses: actions/checkout@v2
         with:
@@ -263,10 +262,14 @@ jobs:
           dvc remote modify origin --local access_key_id $DVC_ACCESS_KEY_ID
           dvc remote modify origin --local secret_access_key $DVC_SECRET_ACCESS_KEY
 
-      - name: Download files
+      - name: Download reference files
         env:
           SHA_NEW: ${{ needs.fetch_bike_data.outputs.sha_new }}
         run: |
           chmod +x ./download_datasets.sh
           /bin/bash ./download_datasets.sh -r $SHA_NEW -p reference_
+
+      - name: Download current files
+        run: |
+          chmod +x ./download_datasets.sh
           /bin/bash ./download_datasets.sh
