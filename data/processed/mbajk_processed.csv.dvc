@@ -1,0 +1,5 @@
+outs:
+- md5: 0f5052a95d8a37887a72ded543aafa44
+  size: 139781
+  hash: md5
+  path: mbajk_processed.csv
