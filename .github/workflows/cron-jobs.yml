@@ -63,7 +63,7 @@ jobs:
 
       - name: Commit changes to DVC
         run: |
-          dvc add data/raw
+          dvc add data/raw/weather.csv
           dvc push -r origin
 
       - name: Commit changes to GIT
@@ -138,7 +138,7 @@ jobs:
 
       - name: Commit changes to DVC
         run: |
-          dvc add data/raw
+          dvc add data/raw/mbajk_stations.csv
           dvc push -r origin
 
       - name: Commit changes to GIT
@@ -206,7 +206,7 @@ jobs:
 
       - name: Commit changes to DVC
         run: |
-          dvc add data/processed
+          dvc add data/processed/mbajk_*.csv
           dvc push -r origin
 
       - name: Commit changes to GIT
