@@ -266,7 +266,7 @@ jobs:
       - name: Download files
         env:
           SHA_NEW: ${{ needs.fetch_bike_data.outputs.sha_new }}
-          run: echo "$SHA_NEW"
         run: |
+          chmod +x ./download_datasets.sh
           ./download_datasets.sh -r $SHA_NEW -p reference_
           ./download_datasets.sh
