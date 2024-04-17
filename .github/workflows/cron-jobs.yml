@@ -268,5 +268,5 @@ jobs:
           SHA_NEW: ${{ needs.fetch_bike_data.outputs.sha_new }}
         run: |
           chmod +x ./download_datasets.sh
-          ./download_datasets.sh -r $SHA_NEW -p reference_
-          ./download_datasets.sh
+          /bin/bash ./download_datasets.sh -r $SHA_NEW -p reference_
+          /bin/bash ./download_datasets.sh
