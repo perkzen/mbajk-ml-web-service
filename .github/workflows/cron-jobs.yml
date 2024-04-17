@@ -221,3 +221,47 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.ref }}
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ needs.fetch_bike_data.outputs.sha_new }}^ # Checkout the commit before process was pushed
+          fetch-depth: 0
+
+      - name: Install Poetry
+        run: pipx install poetry
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+          cache: poetry
+
+      - name: Install dependencies
+        run: |
+          poetry install --with dev --no-interaction --no-root
+
+      - name: Install DVC
+        uses: iterative/setup-dvc@v1
+
+      - name: Configure DVC
+        run: |
+          dvc remote modify origin --local access_key_id $DVC_ACCESS_KEY_ID
+          dvc remote modify origin --local secret_access_key $DVC_SECRET_ACCESS_KEY
+
+      - name: Download files
+        env:
+          SHA_NEW: ${{ needs.fetch_bike_data.outputs.sha_new }}
+          run: echo "$SHA_NEW"
+        run: |
+          ./download_datasets.sh -r $SHA_NEW -p reference_
+          ./download_datasets.sh
+
+          
+        
+          
+      
+
