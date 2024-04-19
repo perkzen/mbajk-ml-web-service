@@ -217,7 +217,7 @@ jobs:
           git config --global user.email "perko.domen@gmail.com"
           git config --global user.name "perkzen"
           git add .
-          git commit -m "action: process data"
+          git commit --allow-empty -m "action: process data"
 
       - name: Push changes
         uses: ad-m/github-push-action@master
@@ -292,7 +292,7 @@ jobs:
           git config --global user.email "perko.domen@gmail.com"
           git config --global user.name "perkzen"
           git add .
-          git commit -m "action: process data"
+          git commit -m "action: validate data"
 
       - name: Push changes
         uses: ad-m/github-push-action@master
