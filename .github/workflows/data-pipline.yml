@@ -235,6 +235,9 @@ jobs:
     needs:
       - process
 
+    outputs:
+      sha_process: ${{ steps.sha_new.outputs.SHA_NEW }}
+
     steps:
       - env:
           SHA_PROCESS: ${{ needs.process.outputs.sha_process }}
