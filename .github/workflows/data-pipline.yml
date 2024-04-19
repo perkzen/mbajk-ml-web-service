@@ -236,7 +236,7 @@ jobs:
       - process
 
     outputs:
-      sha_process: ${{ steps.sha_new.outputs.SHA_NEW }}
+      sha_new: ${{ steps.sha_new.outputs.SHA_NEW }}
 
     steps:
       - env:
@@ -365,7 +365,6 @@ jobs:
       - name: DVC pull
         run: |
           dvc pull -r origin
-
 
       - name: Run split data
         run: |
