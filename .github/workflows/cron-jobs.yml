@@ -240,7 +240,7 @@ jobs:
           SHA_PROCESS: ${{ needs.process.outputs.sha_process }}
           SHA_NEW: ${{ needs.fetch_bike_data.outputs.sha_new }}
         run: |
-          echo "$SHA_PROCESS" "$SHA_NEW"
+          echo "$SHA_PROCESS" 
 
       - name: Checkout code
         uses: actions/checkout@v4
