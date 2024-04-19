@@ -22,23 +22,6 @@ def process_station(station_data):
         print(f"[Process Data] - Not enough data to process for station {station_number}")
 
 
-def concat_all_stations_data():
-    concatenated_df = pd.DataFrame()
-    directory = "data/processed"
-    for filename in os.listdir(directory):
-        # Check if the file is a CSV file
-        if filename.endswith(".csv") and filename.startswith("mbajk_station_"):
-            # Read the CSV file
-            df = pd.read_csv(os.path.join(directory, filename))
-            # Add a new column for the file name
-            df['station_number'] = filename.split('_')[2].split('.')[0]
-            # Concatenate the DataFrame to the main DataFrame
-            concatenated_df = pd.concat([concatenated_df, df], ignore_index=True)
-
-    concatenated_df.sort_values(by="station_number", inplace=True)
-    concatenated_df.to_csv("data/processed/current_data.csv", index=False)
-
-
 @execution_timer("Process Data")
 def main() -> None:
     manager = DataManager(data_path="data")
@@ -58,7 +41,23 @@ def main() -> None:
         print("[Process Data] - No data to process")
 
     finally:
-        concat_all_stations_data()
+        df_weather = manager.get_dataframe("raw", "weather")
+        df_stations = manager.get_dataframe("raw", "mbajk_stations")
+
+        current_data = pd.merge(df_weather, df_stations, on='date', how='inner')
+        current_data["date"] = pd.to_datetime(current_data["date"])
+        current_data.sort_values(by="date", inplace=True)
+
+        features = ["available_bike_stands",
+                    "temperature",
+                    "surface_pressure",
+                    "apparent_temperature",
+                    "dew_point",
+                    "number"
+                    ]
+
+        current_data = current_data[features]
+        manager.save("processed", "current_data", current_data, override=True)
 
 
 if __name__ == '__main__':
