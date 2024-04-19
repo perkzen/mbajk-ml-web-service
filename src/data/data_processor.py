@@ -1,7 +1,6 @@
 import pandas as pd
 from typing import List
 from sklearn.feature_selection import mutual_info_regression
-from src.config import settings
 
 
 class DataProcessor:
