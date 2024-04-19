@@ -15,6 +15,7 @@ predict = "python3 -m src.models.scripts.predict_model"
 test = "pytest"
 test_job= "pytest src/tests/api_test.py"
 lint = "ruff check ."
+validate = "python3 -m src.data.scripts.run_checkpoint"
 
 [tool.poetry.dependencies]
 python = "^3.12"

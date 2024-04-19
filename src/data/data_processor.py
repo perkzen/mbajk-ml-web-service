@@ -5,11 +5,12 @@ from sklearn.feature_selection import mutual_info_regression
 
 class DataProcessor:
 
-    def clean(self, df: pd.DataFrame) -> pd.DataFrame:
+    @staticmethod
+    def clean(df: pd.DataFrame) -> pd.DataFrame:
         df["date"] = pd.to_datetime(df["date"])
         df.sort_values(by="date", inplace=True)
 
-        df = self.add_new_features(df=df)
+        # df = self.add_new_features(df=df)
 
         df.drop(columns=["name", "address", "date", "number", "bike_stands", "available_bikes", "lat", "lon",
                          "last_updated"],
