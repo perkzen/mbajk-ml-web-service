@@ -10,4 +10,4 @@ if __name__ == "__main__":
 
     report.run(reference_data=reference, current_data=current)
 
-    report.save_html("reports/data_drift.html")
+    report.save_html("reports/sites/data_drift.html")
