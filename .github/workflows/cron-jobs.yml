@@ -209,7 +209,7 @@ jobs:
 
       - name: Commit changes to DVC
         run: |
-          dvc add data/processed/mbajk_*.csv
+          dvc add data/processed/*.csv
           dvc push -r origin
 
       - name: Commit changes to GIT
@@ -240,8 +240,7 @@ jobs:
           SHA_PROCESS: ${{ needs.process.outputs.sha_process }}
           SHA_NEW: ${{ needs.fetch_bike_data.outputs.sha_new }}
         run: |
-          echo "$SHA_PROCESS"
-          echo "$SHA_NEW"
+          echo "$SHA_PROCESS" "$SHA_NEW"
 
       - name: Checkout code
         uses: actions/checkout@v4
@@ -276,7 +275,7 @@ jobs:
 
       - name: Get reference data
         run: |
-          dvc get data/processed/reference_data.csv --rev $SHA_NEW --out data/processed/reference_data.csv
+          dvc get . data/processed/reference_data.csv --rev $SHA_NEW --out data/processed/reference_data.csv --force
 
       - name: Run validation
         run: |
