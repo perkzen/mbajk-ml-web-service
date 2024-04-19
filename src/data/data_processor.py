@@ -18,7 +18,9 @@ class DataProcessor:
 
         target = "available_bike_stands"
 
-        top_features = self.__get_top_features(df=df, target_feature=target, num_of_features=settings.top_features)
+        # top_features = self.__get_top_features(df=df, target_feature=target, num_of_features=settings.top_features)
+
+        top_features = ["temperature", "surface_pressure", "apparent_temperature", "dew_point"]
 
         return df[[target] + top_features]
 
