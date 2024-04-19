@@ -23,12 +23,12 @@
       "expectation_type": "expect_table_columns_to_match_set",
       "kwargs": {
         "column_set": [
-          "surface_pressure",
           "dew_point",
-          "station_number",
           "apparent_temperature",
+          "available_bike_stands",
           "temperature",
-          "available_bike_stands"
+          "number",
+          "surface_pressure"
         ],
         "exact_match": null
       },
@@ -59,13 +59,13 @@
     {
       "expectation_type": "expect_column_values_to_not_be_null",
       "kwargs": {
-        "column": "station_number"
+        "column": "number"
       },
       "meta": {
         "profiler_details": {
           "metric_configuration": {
             "domain_kwargs": {
-              "column": "station_number"
+              "column": "number"
             },
             "metric_name": "column_values.nonnull.unexpected_count",
             "metric_value_kwargs": null
@@ -248,8 +248,8 @@
       "expectation_type": "expect_column_stdev_to_be_between",
       "kwargs": {
         "column": "available_bike_stands",
-        "max_value": 5.725987934520991,
-        "min_value": 5.725987934520991,
+        "max_value": 5.725987934520992,
+        "min_value": 5.725987934520992,
         "strict_max": false,
         "strict_min": false
       },
@@ -269,7 +269,7 @@
     {
       "expectation_type": "expect_column_min_to_be_between",
       "kwargs": {
-        "column": "station_number",
+        "column": "number",
         "max_value": 1,
         "min_value": 1,
         "strict_max": false,
@@ -279,7 +279,7 @@
         "profiler_details": {
           "metric_configuration": {
             "domain_kwargs": {
-              "column": "station_number"
+              "column": "number"
             },
             "metric_name": "column.min",
             "metric_value_kwargs": null
@@ -291,7 +291,7 @@
     {
       "expectation_type": "expect_column_max_to_be_between",
       "kwargs": {
-        "column": "station_number",
+        "column": "number",
         "max_value": 29,
         "min_value": 29,
         "strict_max": false,
@@ -301,7 +301,7 @@
         "profiler_details": {
           "metric_configuration": {
             "domain_kwargs": {
-              "column": "station_number"
+              "column": "number"
             },
             "metric_name": "column.max",
             "metric_value_kwargs": null
@@ -313,7 +313,7 @@
     {
       "expectation_type": "expect_column_values_to_be_between",
       "kwargs": {
-        "column": "station_number",
+        "column": "number",
         "max_value": 29,
         "min_value": 1,
         "mostly": 1.0,
@@ -325,7 +325,7 @@
           "column_max_values_range_estimator": {
             "metric_configuration": {
               "domain_kwargs": {
-                "column": "station_number"
+                "column": "number"
               },
               "metric_name": "column.max",
               "metric_value_kwargs": null
@@ -335,7 +335,7 @@
           "column_min_values_range_estimator": {
             "metric_configuration": {
               "domain_kwargs": {
-                "column": "station_number"
+                "column": "number"
               },
               "metric_name": "column.min",
               "metric_value_kwargs": null
@@ -349,7 +349,7 @@
       "expectation_type": "expect_column_quantile_values_to_be_between",
       "kwargs": {
         "allow_relative_error": false,
-        "column": "station_number",
+        "column": "number",
         "quantile_ranges": {
           "quantiles": [
             0.25,
@@ -376,7 +376,7 @@
         "profiler_details": {
           "metric_configuration": {
             "domain_kwargs": {
-              "column": "station_number"
+              "column": "number"
             },
             "metric_name": "column.quantile_values",
             "metric_value_kwargs": {
@@ -395,7 +395,7 @@
     {
       "expectation_type": "expect_column_median_to_be_between",
       "kwargs": {
-        "column": "station_number",
+        "column": "number",
         "max_value": 15.0,
         "min_value": 15.0,
         "strict_max": false,
@@ -405,7 +405,7 @@
         "profiler_details": {
           "metric_configuration": {
             "domain_kwargs": {
-              "column": "station_number"
+              "column": "number"
             },
             "metric_name": "column.median",
             "metric_value_kwargs": null
@@ -417,7 +417,7 @@
     {
       "expectation_type": "expect_column_mean_to_be_between",
       "kwargs": {
-        "column": "station_number",
+        "column": "number",
         "max_value": 14.741350762527233,
         "min_value": 14.741350762527233,
         "strict_max": false,
@@ -427,7 +427,7 @@
         "profiler_details": {
           "metric_configuration": {
             "domain_kwargs": {
-              "column": "station_number"
+              "column": "number"
             },
             "metric_name": "column.mean",
             "metric_value_kwargs": null
@@ -439,7 +439,7 @@
     {
       "expectation_type": "expect_column_stdev_to_be_between",
       "kwargs": {
-        "column": "station_number",
+        "column": "number",
         "max_value": 8.222599921792966,
         "min_value": 8.222599921792966,
         "strict_max": false,
@@ -449,7 +449,7 @@
         "profiler_details": {
           "metric_configuration": {
             "domain_kwargs": {
-              "column": "station_number"
+              "column": "number"
             },
             "metric_name": "column.standard_deviation",
             "metric_value_kwargs": null
@@ -550,7 +550,7 @@
     {
       "expectation_type": "expect_column_values_to_be_in_set",
       "kwargs": {
-        "column": "station_number",
+        "column": "number",
         "mostly": 1.0,
         "value_set": [
           1,
@@ -588,7 +588,7 @@
         "profiler_details": {
           "metric_configuration": {
             "domain_kwargs": {
-              "column": "station_number"
+              "column": "number"
             },
             "metric_name": "column.distinct_values",
             "metric_value_kwargs": null
@@ -601,7 +601,7 @@
     {
       "expectation_type": "expect_column_unique_value_count_to_be_between",
       "kwargs": {
-        "column": "station_number",
+        "column": "number",
         "max_value": 29,
         "min_value": 29,
         "strict_max": false,
@@ -611,7 +611,7 @@
         "profiler_details": {
           "metric_configuration": {
             "domain_kwargs": {
-              "column": "station_number"
+              "column": "number"
             },
             "metric_name": "column.distinct_values.count",
             "metric_value_kwargs": null
@@ -623,7 +623,7 @@
     {
       "expectation_type": "expect_column_proportion_of_unique_values_to_be_between",
       "kwargs": {
-        "column": "station_number",
+        "column": "number",
         "max_value": 0.0025272331154684094,
         "min_value": 0.0025272331154684094,
         "strict_max": false,
@@ -633,7 +633,7 @@
         "profiler_details": {
           "metric_configuration": {
             "domain_kwargs": {
-              "column": "station_number"
+              "column": "number"
             },
             "metric_name": "column.unique_proportion",
             "metric_value_kwargs": null
@@ -647,7 +647,7 @@
   "meta": {
     "citations": [
       {
-        "citation_date": "2024-04-19T15:00:00.656637Z",
+        "citation_date": "2024-04-19T17:03:50.378722Z",
         "comment": "Created by effective Rule-Based Profiler of OnboardingDataAssistant with the configuration included.\n"
       }
     ],
