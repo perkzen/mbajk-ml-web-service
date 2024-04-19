@@ -1,7 +1,9 @@
 import pandas as pd
 from evidently.test_suite import TestSuite
 from evidently.test_preset import DataStabilityTestPreset, NoTargetPerformanceTestPreset
-from evidently.tests import *
+from evidently.tests import TestNumberOfColumnsWithMissingValues, TestNumberOfRowsWithMissingValues, \
+    TestNumberOfConstantColumns, TestNumberOfDuplicatedRows, TestNumberOfDuplicatedColumns, TestColumnsType, \
+    TestNumberOfDriftedColumns
 
 if __name__ == "__main__":
     tests = TestSuite(tests=[
