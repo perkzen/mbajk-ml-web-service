@@ -9,7 +9,7 @@ from keras.optimizers import Adam
 from sklearn.metrics import mean_squared_error, mean_absolute_error, explained_variance_score
 from sklearn.preprocessing import MinMaxScaler
 from src.config import settings
-from src.models import create_test_train_split, create_time_series
+from src.models import create_time_series
 
 
 def build_model(input_shape: tuple[int, int]) -> Sequential:
