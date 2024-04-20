@@ -33,10 +33,12 @@ def build_model(input_shape: tuple[int, int]) -> Sequential:
     return model
 
 
-def train_model(dataset: pd.DataFrame, scaler: MinMaxScaler,
+def train_model(dataset: pd.DataFrame, scaler: MinMaxScaler, test_dataset: pd.DataFrame, train_dataset: pd.DataFrame,
                 build_model_fn: Callable[[Tuple[int, int]], Sequential], epochs: int = 10, batch_size=64,
                 verbose: int = 1) -> Sequential:
-    X_train, y_train, X_test, y_test = prepare_model_data(dataset=dataset, scaler=scaler)
+    X_train, y_train, X_test, y_test = prepare_model_data(dataset=dataset, scaler=scaler, train_data=train_dataset,
+                                                          test_data=test_dataset)
+
     model = build_model_fn((X_train.shape[1], X_train.shape[2]))
     model.fit(X_train, y_train, epochs=epochs, batch_size=batch_size, validation_data=(X_test, y_test), verbose=verbose)
 
@@ -67,11 +69,11 @@ def save_model(model: Sequential, scaler: MinMaxScaler, station_number: int, mod
     model.save(f"{folder_name}/{model_name}.keras")
 
 
-def prepare_model_data(dataset: pd.DataFrame, scaler: MinMaxScaler):
+def prepare_model_data(dataset: pd.DataFrame, scaler: MinMaxScaler, train_data: pd.DataFrame,
+                       test_data: pd.DataFrame) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
     target_col = "available_bike_stands"
     features = list(dataset.columns)
 
-    train_data, test_data = create_test_train_split(dataset)
     train_data, test_data = scale_data(scaler, train_data, test_data)
 
     target_col_idx = dataset.columns.get_loc(target_col)

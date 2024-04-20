@@ -5,7 +5,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    window_size: int = 48
+    window_size: int = 24
     top_features: int = 4
     lat: float = 46.5547
     lon: float = 15.6467

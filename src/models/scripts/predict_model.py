@@ -49,8 +49,7 @@ def predict_model_in_parallel(station_number: int) -> None:
 @execution_timer("Predict Model")
 def main() -> None:
     dir_path = "data/processed"
-    station_numbers = [int((file.split('_')[2]).split('.')[0]) for file in os.listdir(dir_path) if
-                       file.startswith('mbajk_station')]
+    station_numbers = [int(folder) for folder in os.listdir(dir_path) if os.path.isdir(os.path.join(dir_path, folder))]
 
     dh_auth.add_app_token(token=settings.dagshub_user_token)
     dagshub.init("mbajk-ml-web-service", "perkzen", mlflow=True)
