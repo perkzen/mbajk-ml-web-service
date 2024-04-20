@@ -13,6 +13,9 @@ env:
   MBAJK_API_KEY: ${{ secrets.MBAJK_API_KEY }}
   DVC_ACCESS_KEY_ID: ${{ secrets.DVC_ACCESS_KEY_ID }}
   DVC_SECRET_ACCESS_KEY: ${{ secrets.DVC_SECRET_ACCESS_KEY }}
+  MLFLOW_TRACKING_URI: ${{ secrets.MLFLOW_TRACKING_URI }}
+  MLFLOW_TRACKING_USERNAME: ${{ secrets.MLFLOW_TRACKING_USERNAME }}
+  MLFLOW_TRACKING_PASSWORD: ${{ secrets.MLFLOW_TRACKING_PASSWORD }}
 
 jobs:
   fetch_weather_data:
@@ -324,7 +327,7 @@ jobs:
         run: echo "SHA_NEW=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 
 
-  split_data:
+  train:
     runs-on: ubuntu-latest
 
     needs:
@@ -332,7 +335,7 @@ jobs:
 
     steps:
       - env:
-         SHA_NEW: ${{ needs.validation.outputs.sha_new }}
+          SHA_NEW: ${{ needs.validation.outputs.sha_new }}
         run: echo "$SHA_NEW"
 
       - name: Checkout code
@@ -375,12 +378,20 @@ jobs:
           dvc add data/processed/*.csv
           dvc push -r origin
 
+      - name: Train model
+        run: |
+          poetry run poe train
+
+      - name: Predict
+        run: |
+          poetry run poe predict
+
       - name: Commit changes to GIT
         run: |
           git config --global user.email "perko.domen@gmail.com"
           git config --global user.name "perkzen"
           git add .
-          git commit --allow-empty -m "action: split data"
+          git commit --allow-empty -m "action: train model"
 
       - name: Push changes
         uses: ad-m/github-push-action@master

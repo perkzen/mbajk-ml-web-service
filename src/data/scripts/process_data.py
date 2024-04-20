@@ -44,7 +44,8 @@ def main() -> None:
         df_weather = manager.get_dataframe("raw", "weather")
         df_stations = manager.get_dataframe("raw", "mbajk_stations")
 
-        current_data = pd.merge(df_weather, df_stations, on='date', how='inner')
+        current_data = pd.merge(df_stations, df_weather, on='date')
+
         current_data["date"] = pd.to_datetime(current_data["date"])
         current_data.sort_values(by="date", inplace=True)
 
