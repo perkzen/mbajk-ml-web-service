@@ -369,6 +369,10 @@ jobs:
           dvc remote modify origin --local access_key_id $DVC_ACCESS_KEY_ID
           dvc remote modify origin --local secret_access_key $DVC_SECRET_ACCESS_KEY
 
+      - name: Configure Dagshub
+        run: |
+          dagshub login --token ${{ secrets.DAGSHUB_TOKEN }}
+
       - name: DVC pull
         run: |
           dvc pull -r origin
