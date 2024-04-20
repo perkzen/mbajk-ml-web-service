@@ -14,9 +14,6 @@ def main():
         return
 
     print("[Validate]: Checkpoint validation passed!")
-    dm = DataManager(data_path="data")
-    current_data = dm.get_dataframe(folder="processed", file_name="current_data")
-    dm.save(folder="processed", file_name="reference_data", df=current_data, override=True)
 
 
 if __name__ == "__main__":
