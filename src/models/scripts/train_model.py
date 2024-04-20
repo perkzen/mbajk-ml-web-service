@@ -20,10 +20,10 @@ def train_model_in_parallel(station_number: int) -> None:
     dagshub.init("mbajk-ml-web-service", "perkzen", mlflow=True)
     mlflow.start_run(run_name="mbajk_station_" + str(station_number))
 
-    model = train_model(dataset=dataset, scaler=scaler, build_model_fn=build_model, epochs=50, batch_size=32,
+    model = train_model(dataset=dataset, scaler=scaler, build_model_fn=build_model, epochs=10, batch_size=32,
                         verbose=0)
 
-    mlflow.log_param("epochs", 50)
+    mlflow.log_param("epochs", 10)
     mlflow.log_param("batch_size", 32)
     mlflow.log_param("dataset_size", len(dataset))
 

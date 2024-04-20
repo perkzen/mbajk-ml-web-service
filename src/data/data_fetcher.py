@@ -21,7 +21,7 @@ class DataFetcher:
 
         stations = stations_response.json()
 
-        now = datetime.now().strftime('%Y-%m-%dT%H:00')
+        now = datetime.now().strftime('%Y-%m-%dT%H:00:00')
 
         return [
             BikeStation(
