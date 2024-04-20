@@ -13,6 +13,7 @@ class Settings(BaseSettings):
     mlflow_tracking_username: str
     mlflow_tracking_uri: str
     mlflow_tracking_password: str
+    dagshub_user_token: str
     custom_dataset_columns: List[str] = ["hour", "is_day", "season", "weekend", "day_of_week"]
 
     __project_root = pathlib.Path(__file__).resolve().parent.parent

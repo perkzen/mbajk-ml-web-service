@@ -4,10 +4,13 @@ import dagshub
 import joblib
 from dagshub.data_engine.datasources import mlflow
 from keras.models import load_model
+
+from src.config import settings
 from src.models.helpers import write_metrics_to_file, load_bike_station_dataset
 from src.models.model import prepare_model_data, evaluate_model_performance
 from src.utils.decorators import execution_timer
 from multiprocessing import Pool
+import dagshub.auth as dh_auth
 
 
 def predict_model_in_parallel(station_number: int) -> None:
@@ -20,6 +23,7 @@ def predict_model_in_parallel(station_number: int) -> None:
     mse_train, mae_train, evs_train = evaluate_model_performance(y_train, model.predict(X_train), dataset, scaler)
     mse_test, mae_test, evs_test = evaluate_model_performance(y_test, model.predict(X_test), dataset, scaler)
 
+    dh_auth.add_app_token(token=settings.dagshub_token)
     dagshub.init("mbajk-ml-web-service", "perkzen", mlflow=True)
     mlflow.start_run(run_name=f"mbajk_station_{station_number}")
 
