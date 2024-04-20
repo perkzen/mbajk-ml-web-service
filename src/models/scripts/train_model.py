@@ -16,8 +16,6 @@ def train_model_in_parallel(station_number: int) -> None:
     dataset = load_bike_station_dataset(f"mbajk_station_{station_number}.csv")
     scaler = MinMaxScaler()
 
-    dh_auth.add_app_token(token=settings.dagshub_user_token)
-    dagshub.init("mbajk-ml-web-service", "perkzen", mlflow=True)
     mlflow.start_run(run_name="mbajk_station_" + str(station_number))
 
     model = train_model(dataset=dataset, scaler=scaler, build_model_fn=build_model, epochs=10, batch_size=32,
@@ -39,6 +37,8 @@ def main() -> None:
     station_numbers = [int((file.split('_')[2]).split('.')[0]) for file in os.listdir(dir_path) if
                        file.startswith('mbajk_station')]
 
+    dh_auth.add_app_token(token=settings.dagshub_user_token)
+    dagshub.init("mbajk-ml-web-service", "perkzen", mlflow=True)
     mlflow.set_tracking_uri(settings.mlflow_tracking_uri)
 
     with Pool(processes=os.cpu_count()) as pool:

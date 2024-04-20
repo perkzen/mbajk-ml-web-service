@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 env:
-  WINDOW_SIZE: 48
+  WINDOW_SIZE: 24
   TOP_FEATURES: 4
   LAT: 46.5547
   LON: 15.6466

@@ -23,8 +23,6 @@ def predict_model_in_parallel(station_number: int) -> None:
     mse_train, mae_train, evs_train = evaluate_model_performance(y_train, model.predict(X_train), dataset, scaler)
     mse_test, mae_test, evs_test = evaluate_model_performance(y_test, model.predict(X_test), dataset, scaler)
 
-    dh_auth.add_app_token(token=settings.dagshub_user_token)
-    dagshub.init("mbajk-ml-web-service", "perkzen", mlflow=True)
     mlflow.start_run(run_name=f"mbajk_station_{station_number}")
 
     mlflow.log_metric("MSE_train", mse_train)
@@ -49,6 +47,10 @@ def main() -> None:
     dir_path = "data/processed"
     station_numbers = [int((file.split('_')[2]).split('.')[0]) for file in os.listdir(dir_path) if
                        file.startswith('mbajk_station')]
+
+    dh_auth.add_app_token(token=settings.dagshub_user_token)
+    dagshub.init("mbajk-ml-web-service", "perkzen", mlflow=True)
+    mlflow.set_tracking_uri(settings.mlflow_tracking_uri)
 
     with Pool(processes=os.cpu_count()) as pool:
         pool.map(predict_model_in_parallel, station_numbers)
