@@ -282,7 +282,7 @@ jobs:
 
       - name: Get reference data
         run: |
-          dvc get . data/processed/reference_data.csv --rev $SHA_NEW --out data/processed/reference_data.csv --force
+          dvc get . data/processed/current_data.csv --rev $SHA_NEW --out data/processed/reference_data.csv --force
 
       - name: Run validation
         run: |
@@ -308,11 +308,6 @@ jobs:
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-
-      - name: Commit changes to DVC
-        run: |
-          dvc add data/processed/reference_data.csv
-          dvc push -r origin
 
       - name: Commit changes to GIT
         run: |
