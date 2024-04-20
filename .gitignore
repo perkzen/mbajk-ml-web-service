@@ -156,3 +156,5 @@ cython_debug/
 .idea/
 
 mlruns/
+
+data/processed/*/*.csv

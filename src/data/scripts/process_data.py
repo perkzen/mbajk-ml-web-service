@@ -16,7 +16,7 @@ def process_station(station_data):
 
     try:
         df = processor.clean(df)
-        manager.save("processed", f"mbajk_station_{station_number}", df, override=True)
+        manager.save(f"processed/{station_number}", f"mbajk_station_{station_number}", df, override=True)
     except ValueError as e:
         print(e)
         print(f"[Process Data] - Not enough data to process for station {station_number}")

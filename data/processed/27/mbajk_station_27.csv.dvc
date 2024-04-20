@@ -1,0 +1,5 @@
+outs:
+- md5: 7f01a5ae6df5c219296189db21ef0aa3
+  size: 10128
+  hash: md5
+  path: mbajk_station_27.csv

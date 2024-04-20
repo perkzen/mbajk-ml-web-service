@@ -378,13 +378,13 @@ jobs:
           dvc add data/processed/*.csv
           dvc push -r origin
 
-      - name: Train model
-        run: |
-          poetry run poe train
-
-      - name: Predict
-        run: |
-          poetry run poe predict
+#      - name: Train model
+#        run: |
+#          poetry run poe train
+#
+#      - name: Predict
+#        run: |
+#          poetry run poe predict
 
       - name: Commit changes to GIT
         run: |
