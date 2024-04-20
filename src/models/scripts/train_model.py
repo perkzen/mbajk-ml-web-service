@@ -16,7 +16,7 @@ def train_model_in_parallel(station_number: int) -> None:
     dataset = load_bike_station_dataset(f"mbajk_station_{station_number}.csv")
     scaler = MinMaxScaler()
 
-    dh_auth.add_app_token(token=settings.dagshub_token)
+    dh_auth.add_app_token(token=settings.dagshub_user_token)
     dagshub.init("mbajk-ml-web-service", "perkzen", mlflow=True)
     mlflow.start_run(run_name="mbajk_station_" + str(station_number))
 

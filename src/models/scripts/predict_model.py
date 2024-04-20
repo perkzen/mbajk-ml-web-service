@@ -23,7 +23,7 @@ def predict_model_in_parallel(station_number: int) -> None:
     mse_train, mae_train, evs_train = evaluate_model_performance(y_train, model.predict(X_train), dataset, scaler)
     mse_test, mae_test, evs_test = evaluate_model_performance(y_test, model.predict(X_test), dataset, scaler)
 
-    dh_auth.add_app_token(token=settings.dagshub_token)
+    dh_auth.add_app_token(token=settings.dagshub_user_token)
     dagshub.init("mbajk-ml-web-service", "perkzen", mlflow=True)
     mlflow.start_run(run_name=f"mbajk_station_{station_number}")
 
