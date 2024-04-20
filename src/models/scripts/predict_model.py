@@ -6,6 +6,7 @@ from dagshub.data_engine.datasources import mlflow
 from keras.models import load_model
 
 from src.config import settings
+from src.models import create_test_train_split
 from src.models.helpers import write_metrics_to_file, load_bike_station_dataset
 from src.models.model import prepare_model_data, evaluate_model_performance
 from src.utils.decorators import execution_timer
@@ -14,11 +15,14 @@ import dagshub.auth as dh_auth
 
 
 def predict_model_in_parallel(station_number: int) -> None:
-    dataset = load_bike_station_dataset(f"mbajk_station_{station_number}.csv")
+    dataset = load_bike_station_dataset(station_number)
     model = load_model(f"models/station_{station_number}/model.keras")
     scaler = joblib.load(f"models/station_{station_number}/minmax_scaler.gz")
 
-    X_train, y_train, X_test, y_test = prepare_model_data(dataset=dataset, scaler=scaler)
+    train_data, test_data = create_test_train_split(str(station_number))
+
+    X_train, y_train, X_test, y_test = prepare_model_data(dataset=dataset, scaler=scaler, train_data=train_data,
+                                                          test_data=test_data)
 
     mse_train, mae_train, evs_train = evaluate_model_performance(y_train, model.predict(X_train), dataset, scaler)
     mse_test, mae_test, evs_test = evaluate_model_performance(y_test, model.predict(X_test), dataset, scaler)

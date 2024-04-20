@@ -9,8 +9,8 @@ def load_dataset() -> pd.DataFrame:
     return dataset
 
 
-def load_bike_station_dataset(file_name: str) -> pd.DataFrame:
-    dataset = pd.read_csv(f"data/processed/{file_name}")
+def load_bike_station_dataset(station_number) -> pd.DataFrame:
+    dataset = pd.read_csv(f"data/processed/{station_number}/mbajk_station_{station_number}.csv")
     return dataset
 
 
