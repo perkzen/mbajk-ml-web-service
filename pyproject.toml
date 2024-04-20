@@ -19,7 +19,7 @@ validate = "python3 -m src.data.scripts.run_checkpoint"
 data_drift = "python3 -m src.data.scripts.data_drift"
 stability_tests = "python3 -m src.data.scripts.stability_tests"
 split_data = "python3 -m src.data.scripts.split_data"
-ks_test = "python3 -m src.data.scripts.ks_test"
+ks_test = "python3 -m src.data.scripts.ks"
 
 [tool.poetry.dependencies]
 python = "^3.12"
