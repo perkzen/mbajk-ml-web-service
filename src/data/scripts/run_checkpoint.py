@@ -15,6 +15,10 @@ def main():
 
     print("[Validate]: Checkpoint validation passed!")
 
+    dm = DataManager(data_path="data")
+    current = dm.get_dataframe("processed", "current_data")
+    dm.save("processed", "reference_data", current, override=True)
+
 
 if __name__ == "__main__":
     main()
