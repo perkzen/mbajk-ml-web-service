@@ -5,8 +5,8 @@
     {
       "expectation_type": "expect_table_row_count_to_be_between",
       "kwargs": {
-        "max_value": 25917,
-        "min_value": 25917
+        "max_value": 11562,
+        "min_value": 11562
       },
       "meta": {
         "profiler_details": {
@@ -25,10 +25,10 @@
         "column_set": [
           "apparent_temperature",
           "dew_point",
+          "temperature",
           "surface_pressure",
           "number",
-          "available_bike_stands",
-          "temperature"
+          "available_bike_stands"
         ],
         "exact_match": null
       },
@@ -170,8 +170,8 @@
               7
             ],
             [
-              12,
-              12
+              11,
+              11
             ],
             [
               16,
@@ -204,8 +204,8 @@
       "expectation_type": "expect_column_median_to_be_between",
       "kwargs": {
         "column": "available_bike_stands",
-        "max_value": 12.0,
-        "min_value": 12.0,
+        "max_value": 11.0,
+        "min_value": 11.0,
         "strict_max": false,
         "strict_min": false
       },
@@ -226,8 +226,8 @@
       "expectation_type": "expect_column_mean_to_be_between",
       "kwargs": {
         "column": "available_bike_stands",
-        "max_value": 11.210633946830265,
-        "min_value": 11.210633946830265,
+        "max_value": 11.032606815429856,
+        "min_value": 11.032606815429856,
         "strict_max": false,
         "strict_min": false
       },
@@ -248,8 +248,8 @@
       "expectation_type": "expect_column_stdev_to_be_between",
       "kwargs": {
         "column": "available_bike_stands",
-        "max_value": 5.769365843675007,
-        "min_value": 5.769365843675007,
+        "max_value": 5.729196483591587,
+        "min_value": 5.729196483591587,
         "strict_max": false,
         "strict_min": false
       },
@@ -418,8 +418,8 @@
       "expectation_type": "expect_column_mean_to_be_between",
       "kwargs": {
         "column": "number",
-        "max_value": 14.885480572597137,
-        "min_value": 14.885480572597137,
+        "max_value": 14.743297007438159,
+        "min_value": 14.743297007438159,
         "strict_max": false,
         "strict_min": false
       },
@@ -440,8 +440,8 @@
       "expectation_type": "expect_column_stdev_to_be_between",
       "kwargs": {
         "column": "number",
-        "max_value": 8.30414783179815,
-        "min_value": 8.30414783179815,
+        "max_value": 8.22372336245731,
+        "min_value": 8.22372336245731,
         "strict_max": false,
         "strict_min": false
       },
@@ -529,8 +529,8 @@
       "expectation_type": "expect_column_proportion_of_unique_values_to_be_between",
       "kwargs": {
         "column": "available_bike_stands",
-        "max_value": 0.0008874483929467145,
-        "min_value": 0.0008874483929467145,
+        "max_value": 0.0019892752119010553,
+        "min_value": 0.0019892752119010553,
         "strict_max": false,
         "strict_min": false
       },
@@ -624,8 +624,8 @@
       "expectation_type": "expect_column_proportion_of_unique_values_to_be_between",
       "kwargs": {
         "column": "number",
-        "max_value": 0.0011189566693675965,
-        "min_value": 0.0011189566693675965,
+        "max_value": 0.0025082165715274176,
+        "min_value": 0.0025082165715274176,
         "strict_max": false,
         "strict_min": false
       },
@@ -647,7 +647,7 @@
   "meta": {
     "citations": [
       {
-        "citation_date": "2024-04-20T11:52:38.255712Z",
+        "citation_date": "2024-04-20T12:08:29.915605Z",
         "comment": "Created by effective Rule-Based Profiler of OnboardingDataAssistant with the configuration included.\n"
       }
     ],
