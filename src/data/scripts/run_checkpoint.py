@@ -11,6 +11,7 @@ def main():
     if not result["success"]:
         # raise ValueError("[Validate]: Checkpoint validation failed!")
         print("[Validate]: Checkpoint validation failed!")
+        return
 
     print("[Validate]: Checkpoint validation passed!")
     dm = DataManager(data_path="data")
