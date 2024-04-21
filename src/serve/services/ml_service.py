@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import joblib
 from typing import Any, List
 import numpy as np
@@ -39,7 +41,8 @@ class MLService:
 
         for n in range(n_future):
             prediction = max(0, int(self.predict(data)))
-            predictions.append(PredictionDTO(prediction=prediction, date=res[n].date))
+
+            predictions.append(PredictionDTO(prediction=prediction, date=f"{res[n].date}:00"))
 
             new_data = add_keys_to_dict(res[n].model_dump(), required_keys, skip_keys=settings.custom_dataset_columns)
             new_data["available_bike_stands"] = prediction
