@@ -12,7 +12,7 @@ class DataProcessor:
 
         # df = self.add_new_features(df=df)
 
-        df.drop(columns=["name", "address", "date", "number", "bike_stands", "available_bikes", "lat", "lon",
+        df.drop(columns=["name", "address", "number", "bike_stands", "available_bikes", "lat", "lon",
                          "last_updated"],
                 inplace=True)
 
@@ -20,7 +20,7 @@ class DataProcessor:
 
         # top_features = self.__get_top_features(df=df, target_feature=target, num_of_features=settings.top_features)
 
-        top_features = ["temperature", "surface_pressure", "apparent_temperature", "dew_point"]
+        top_features = ["temperature", "surface_pressure", "apparent_temperature", "dew_point", "date"]
 
         return df[[target] + top_features]
 

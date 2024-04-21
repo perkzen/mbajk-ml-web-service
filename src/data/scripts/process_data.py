@@ -12,7 +12,11 @@ def get_station_data(df: pd.DataFrame, station_number: int) -> pd.DataFrame:
 
 def process_station(station_data):
     station_number, df_weather, df_stations, processor, manager = station_data
-    df = pd.merge(df_weather, get_station_data(df_stations, station_number), on='date', how='inner')
+
+    station = get_station_data(df_stations, station_number)
+    df = station.merge(df_weather, on="date", how="left")
+    df = df.dropna()
+    df = df.drop_duplicates(subset=["date"])
 
     try:
         df = processor.clean(df)
@@ -30,6 +34,7 @@ def main() -> None:
     try:
         df_weather = manager.get_dataframe("raw", "weather")
         df_stations = manager.get_dataframe("raw", "mbajk_stations")
+        df_weather = df_weather.drop_duplicates(subset=["date"])
 
         stations = df_stations.to_dict(orient="records")
         station_data = [(station["number"], df_weather, df_stations, processor, manager) for station in stations]
@@ -44,7 +49,12 @@ def main() -> None:
         df_weather = manager.get_dataframe("raw", "weather")
         df_stations = manager.get_dataframe("raw", "mbajk_stations")
 
-        current_data = pd.merge(df_stations, df_weather, on='date')
+        df_weather = df_weather.drop_duplicates(subset=["date"])
+
+        current_data = df_stations.merge(df_weather, on="date", how="left")
+        current_data = current_data.dropna()
+
+        current_data = current_data.drop_duplicates(subset=["date", "number"])
 
         current_data["date"] = pd.to_datetime(current_data["date"])
         current_data.sort_values(by="date", inplace=True)

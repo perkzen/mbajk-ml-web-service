@@ -13,6 +13,8 @@ def main():
     for folder in folders:
         station = dm.get_dataframe(f"processed/{folder}", f"mbajk_station_{folder}")
 
+        station.drop("date", axis=1, inplace=True)
+
         test_size = int(0.1 * len(station))
         test_data = station.head(test_size)
         train_data = station.iloc[test_size:]
