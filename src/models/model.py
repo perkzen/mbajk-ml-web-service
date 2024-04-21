@@ -6,7 +6,6 @@ from typing import Tuple, Callable
 from keras import Sequential
 from keras.layers import Dense, GRU, Dropout, Input
 from keras.optimizers import Adam
-from mlflow import MlflowClient
 from sklearn.metrics import mean_squared_error, mean_absolute_error, explained_variance_score
 from sklearn.preprocessing import MinMaxScaler
 from src.config import settings
