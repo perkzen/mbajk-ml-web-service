@@ -28,7 +28,6 @@ COPY . .
 # Uncomment the following line in case you want to disable telemetry during the build.
 # ENV NEXT_TELEMETRY_DISABLED 1
 
-ENV NEXT_PUBLIC_BACKEND_URL "http://studentdocker.informatika.uni-mb.si:11088"
 
 RUN yarn build
 
