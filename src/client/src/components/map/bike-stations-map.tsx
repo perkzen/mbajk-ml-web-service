@@ -39,6 +39,10 @@ const BikeStationsMap = () => {
     }
   }, [urlQuery.station]);
 
+  useEffect(() => {
+    console.log(env.NEXT_PUBLIC_GOOGLE_MAPS_KEY);
+  }, []);
+
   return (
     <Drawer
       open={isOpen}
