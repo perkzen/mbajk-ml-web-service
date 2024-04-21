@@ -4,6 +4,7 @@ from fastapi import APIRouter, HTTPException
 
 from src.serve.dto import PredictionDTO
 from src.serve.services import MLService, DataService
+from src.serve.services.prediction_service import PredictionService
 
 router = APIRouter(
     prefix="/mbajk",
@@ -24,4 +25,7 @@ def predict_multiple(station_number: int, n_future: int) -> List[PredictionDTO]:
     data = data_service.get_latest_data(station_number)
     ml_service = MLService(f"{station_number}/model", f"{station_number}/minmax")
     predictions = ml_service.predict_multiple(data, n_future)
+
+    PredictionService.save(station_number, n_future, predictions)
+
     return predictions
