@@ -57,7 +57,7 @@ def evaluate_model_performance(y_true, y_pred, dataset, scaler):
 
 
 def save_model(model: Sequential, scaler: MinMaxScaler, station_number: int, model_name: str, scaler_name: str) -> None:
-    folder_name = f"models/station_{station_number}"
+    folder_name = f"models/{station_number}"
 
     if not os.path.exists(folder_name):
         os.makedirs(folder_name)

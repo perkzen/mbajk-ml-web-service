@@ -22,6 +22,6 @@ def predict_multiple(station_number: int, n_future: int) -> List[PredictionDTO]:
         raise HTTPException(status_code=400, detail="station_number must be between 0 and 28")
 
     data = data_service.get_latest_data(station_number)
-    ml_service = MLService(f"station_{station_number}/model", f"station_{station_number}/minmax")
+    ml_service = MLService(f"{station_number}/model", f"{station_number}/minmax")
     predictions = ml_service.predict_multiple(data, n_future)
     return predictions

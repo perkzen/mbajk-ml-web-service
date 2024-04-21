@@ -3,57 +3,15 @@ import os
 import dagshub
 from dagshub.data_engine.datasources import mlflow
 from mlflow import MlflowClient
-from mlflow.keras import load_model as mflow_load_model
-from mlflow.sklearn import load_model as load_scaler
+
 from src.config import settings
 from src.models import create_test_train_split
 from src.models.helpers import write_metrics_to_file, load_bike_station_dataset
 from src.models.model import prepare_model_data, evaluate_model_performance
+from src.models.model_registry import get_production_model, get_production_scaler, get_latest_model_version, \
+    get_latest_scaler_version
 from src.utils.decorators import execution_timer
 import dagshub.auth as dh_auth
-
-
-def get_production_model(station_number: int):
-    try:
-        client = MlflowClient()
-        model_version = client.get_latest_versions("mbajk_station_" + str(station_number), stages=["production"])[0]
-        model_url = model_version.source
-        production_model = mflow_load_model(model_url)
-        return production_model
-    except IndexError:
-        print(f"Production model for station {station_number} not found.")
-        return None
-
-
-def get_production_scaler(station_number: int):
-    try:
-        client = MlflowClient()
-        model_version = \
-            client.get_latest_versions("mbajk_station_" + str(station_number) + "_scaler", stages=["production"])[0]
-        model_url = model_version.source
-        production_scaler = load_scaler(model_url)
-        return production_scaler
-    except IndexError:
-        print(f"Production scaler for station {station_number} not found.")
-        return None
-
-
-def get_latest_model_version(station_number: int):
-    client = MlflowClient()
-    model_version = client.get_latest_versions("mbajk_station_" + str(station_number), stages=["staging"])[0]
-    model_url = model_version.source
-    model = mflow_load_model(model_url)
-    return model
-
-
-def get_latest_scaler_version(station_number: int):
-    client = MlflowClient()
-    model_version = \
-        client.get_latest_versions("mbajk_station_" + str(station_number) + "_scaler", stages=["staging"])[0]
-    model_url = model_version.source
-    scaler = load_scaler(model_url)
-
-    return scaler
 
 
 def update_production_model(station_number: int) -> None:
