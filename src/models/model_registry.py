@@ -59,10 +59,7 @@ def download_model_registry():
     dagshub.init("mbajk-ml-web-service", "perkzen", mlflow=True)
     mlflow.set_tracking_uri(settings.mlflow_tracking_uri)
 
-    dir_path = "models"
-    station_numbers = [int(folder) for folder in os.listdir(dir_path) if os.path.isdir(os.path.join(dir_path, folder))]
-
-    for i in station_numbers:
+    for i in range(1,30):
         # # skip if model already exists
         if os.path.exists(f"models/{i}"):
             print(f"Model for station {i} already exists.")
