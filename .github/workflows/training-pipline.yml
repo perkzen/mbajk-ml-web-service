@@ -7,6 +7,19 @@ on:
       - completed
   workflow_dispatch:
 
+env:
+  WINDOW_SIZE: 24
+  TOP_FEATURES: 4
+  LAT: 46.5547
+  LON: 15.6466
+  MBAJK_API_KEY: ${{ secrets.MBAJK_API_KEY }}
+  DVC_ACCESS_KEY_ID: ${{ secrets.DVC_ACCESS_KEY_ID }}
+  DVC_SECRET_ACCESS_KEY: ${{ secrets.DVC_SECRET_ACCESS_KEY }}
+  MLFLOW_TRACKING_URI: ${{ secrets.MLFLOW_TRACKING_URI }}
+  MLFLOW_TRACKING_USERNAME: ${{ secrets.MLFLOW_TRACKING_USERNAME }}
+  MLFLOW_TRACKING_PASSWORD: ${{ secrets.MLFLOW_TRACKING_PASSWORD }}
+  DAGSHUB_USER_TOKEN: ${{ secrets.DAGSHUB_USER_TOKEN }}
+
 
 jobs:
   train:
