@@ -1,26 +1,53 @@
-import numpy as np
+import math
 
 from src.data.data_manager import DataManager
 
 
-def ks_test(data1, data2):
-    """
-    Performs the Kolmogorov-Smirnov test between two samples.
-    Returns the test statistic value and the p-value.
-    """
-    if np.array_equal(data1, data2):
-        # If the samples are equal, return trivial values
-        return 0.0, 1.0
-    else:
-        # Calculate the cumulative distribution functions
-        hist1, bin_edges1 = np.histogram(data1, bins=100, density=True)
-        hist2, bin_edges2 = np.histogram(data2, bins=100, density=True)
-        cdf1 = np.cumsum(hist1 * np.diff(bin_edges1))
-        cdf2 = np.cumsum(hist2 * np.diff(bin_edges2))
-        d = np.max(np.abs(cdf1 - cdf2))
-        # Calculate the p-value using an approximation
-        p_value = 1.0 - np.exp(-2 * (d ** 2))
-        return d, p_value
+def ks_test(datalist1, datalist2):
+    n1 = len(datalist1)
+    n2 = len(datalist2)
+    datalist1.sort()
+    datalist2.sort()
+
+    j1 = 0
+    j2 = 0
+    d = 0.0
+    fn1 = 0.0
+    fn2 = 0.0
+    while j1 < n1 and j2 < n2:
+        d1 = datalist1[j1]
+        d2 = datalist2[j2]
+        if d1 <= d2:
+            fn1 = (float(j1) + 1.0) / float(n1)
+            j1 += 1
+        if d2 <= d1:
+            fn2 = (float(j2) + 1.0) / float(n2)
+            j2 += 1
+        dtemp = math.fabs(fn2 - fn1)
+        if dtemp > d:
+            d = dtemp
+
+    ne = float(n1 * n2) / float(n1 + n2)
+    nesq = math.sqrt(ne)
+    prob = ks_prob((nesq + 0.12 + 0.11 / nesq) * d)
+    return d, prob, ne
+
+
+def ks_prob(alam):
+    fac = 2.0
+    sum = 0.0
+    termbf = 0.0
+
+    a2 = -2.0 * alam * alam
+    for j in range(1, 101):
+        term = fac * math.exp(a2 * j * j)
+        sum += term
+        if math.fabs(term) <= 0.001 * termbf or math.fabs(term) <= 1.0e-8 * sum:
+            return sum
+        fac = -fac
+        termbf = math.fabs(term)
+
+    return 1.0
 
 
 # Example usage
@@ -34,8 +61,14 @@ if __name__ == "__main__":
     alpha = 0.1
 
     for column in current.columns:
-        d, p_value = ks_test(current[column], reference[column])
-        if p_value < alpha:
-            print(
-                f"Change in the distribution of column {column} is detected (p-value: {p_value}). Stopping the pipeline."
-            )
+        current_data = current[column].tolist()
+        reference_data = reference[column].tolist()
+
+        # Perform the Kolmogorov-Smirnov test
+        d, prob, ne = ks_test(current_data, reference_data)
+
+        # Decide based on the significance level
+        if prob < alpha:
+            print(f"Column '{column}': D = {d}, Prob = {prob}. Distribution significantly different.")
+        else:
+            print(f"Column '{column}': D = {d}, Prob = {prob}. Distribution not significantly different.")
