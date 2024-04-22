@@ -328,7 +328,7 @@ jobs:
         run: echo "SHA_NEW=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 
 
-  train:
+  split_data:
     runs-on: ubuntu-latest
 
     needs:
