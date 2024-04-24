@@ -33,6 +33,11 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Temporary workaround for GitVersion
+        shell: bash
+        run: |
+            git config --unset-all extensions.worktreeconfig
+
       - name: Install Poetry
         run: pipx install poetry
 
@@ -107,6 +112,12 @@ jobs:
         with:
           ref: ${{ needs.fetch_weather_data.outputs.sha_new }}
           fetch-depth: 0
+
+
+      - name: Temporary workaround for GitVersion
+        shell: bash
+        run: |
+            git config --unset-all extensions.worktreeconfig
 
       - name: Install Poetry
         run: pipx install poetry
@@ -183,6 +194,12 @@ jobs:
           ref: ${{ needs.fetch_bike_data.outputs.sha_new }}
           fetch-depth: 0
 
+
+      - name: Temporary workaround for GitVersion
+        shell: bash
+        run: |
+            git config --unset-all extensions.worktreeconfig
+
       - name: Install Poetry
         run: pipx install poetry
 
@@ -255,6 +272,12 @@ jobs:
         with:
           ref: ${{ needs.process.outputs.sha_process }}
           fetch-depth: 0
+
+
+      - name: Temporary workaround for GitVersion
+        shell: bash
+        run: |
+            git config --unset-all extensions.worktreeconfig
 
       - name: Install Poetry
         run: pipx install poetry
@@ -344,6 +367,12 @@ jobs:
         with:
           ref: ${{ needs.validation.outputs.sha_new }}
           fetch-depth: 0
+
+
+      - name: Temporary workaround for GitVersion
+        shell: bash
+        run: |
+            git config --unset-all extensions.worktreeconfig
 
       - name: Install Poetry
         run: pipx install poetry

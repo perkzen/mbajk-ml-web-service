@@ -26,12 +26,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
-
       - name: Checkout code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      - name: Temporary workaround for GitVersion
+        shell: bash
+        run: |
+            git config --unset-all extensions.worktreeconfig
 
       - name: Install Poetry
         run: pipx install poetry
