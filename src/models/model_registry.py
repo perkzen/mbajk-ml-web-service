@@ -1,13 +1,10 @@
 import os
-
-import dagshub
-import dagshub.auth as dh_auth
+import dagshub.auth
 from mlflow.keras import load_model as mlflow_load_model
 from mlflow.sklearn import load_model as load_scaler
 from dagshub.data_engine.datasources import mlflow
 from mlflow import MlflowClient
 from src.config import settings
-
 from src.models.model import save_model
 
 
@@ -55,11 +52,11 @@ def get_production_scaler(station_number: int):
 
 
 def download_model_registry():
-    dh_auth.add_app_token(token=settings.dagshub_user_token)
+    dagshub.auth.add_app_token(token=settings.dagshub_user_token)
     dagshub.init("mbajk-ml-web-service", "perkzen", mlflow=True)
     mlflow.set_tracking_uri(settings.mlflow_tracking_uri)
 
-    for i in range(1,30):
+    for i in range(1, 30):
         # # skip if model already exists
         if os.path.exists(f"models/{i}"):
             print(f"Model for station {i} already exists.")

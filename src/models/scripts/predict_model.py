@@ -1,17 +1,14 @@
 import os
-
-import dagshub
+import dagshub.auth
 from dagshub.data_engine.datasources import mlflow
 from mlflow import MlflowClient
-
 from src.config import settings
-from src.models import create_test_train_split
+from src.models import get_test_train_data
 from src.models.helpers import write_metrics_to_file, load_bike_station_dataset
 from src.models.model import prepare_model_data, evaluate_model_performance
 from src.models.model_registry import get_production_model, get_production_scaler, get_latest_model_version, \
     get_latest_scaler_version
 from src.utils.decorators import execution_timer
-import dagshub.auth as dh_auth
 
 
 def update_production_model(station_number: int) -> None:
@@ -39,7 +36,7 @@ def predict_model_pipeline(station_number: int) -> None:
     model = get_latest_model_version(station_number)
     scaler = get_latest_scaler_version(station_number)
 
-    train_data, test_data = create_test_train_split(str(station_number))
+    train_data, test_data = get_test_train_data(str(station_number))
 
     _, _, X_test, y_test = prepare_model_data(dataset=dataset, scaler=scaler, train_data=train_data,
                                               test_data=test_data)
@@ -76,7 +73,7 @@ def main() -> None:
     dir_path = "data/processed"
     station_numbers = [int(folder) for folder in os.listdir(dir_path) if os.path.isdir(os.path.join(dir_path, folder))]
 
-    dh_auth.add_app_token(token=settings.dagshub_user_token)
+    dagshub.auth.add_app_token(token=settings.dagshub_user_token)
     dagshub.init("mbajk-ml-web-service", "perkzen", mlflow=True)
     mlflow.set_tracking_uri(settings.mlflow_tracking_uri)
 
