@@ -1,6 +1,6 @@
 import os
 import dagshub.auth
-from mlflow.keras import load_model as mlflow_load_model
+from mlflow.onnx import load_model as load_onnx
 from mlflow.sklearn import load_model as load_scaler
 from dagshub.data_engine.datasources import mlflow
 from mlflow import MlflowClient
@@ -12,7 +12,7 @@ def get_latest_model_version(station_number: int):
     client = MlflowClient()
     model_version = client.get_latest_versions("mbajk_station_" + str(station_number), stages=["staging"])[0]
     model_url = model_version.source
-    model = mlflow_load_model(model_url)
+    model = load_onnx(model_url)
     return model
 
 
@@ -31,7 +31,7 @@ def get_production_model(station_number: int):
         client = MlflowClient()
         model_version = client.get_latest_versions("mbajk_station_" + str(station_number), stages=["production"])[0]
         model_url = model_version.source
-        production_model = mlflow_load_model(model_url)
+        production_model = load_onnx(model_url)
         return production_model
     except IndexError:
         print(f"Production model for station {station_number} not found.")
@@ -56,7 +56,7 @@ def download_model_registry():
     dagshub.init("mbajk-ml-web-service", "perkzen", mlflow=True)
     mlflow.set_tracking_uri(settings.mlflow_tracking_uri)
 
-    for i in range(1, 30):
+    for i in range(1, 2):
         # # skip if model already exists
         if os.path.exists(f"models/{i}"):
             print(f"Model for station {i} already exists.")

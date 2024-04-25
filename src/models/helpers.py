@@ -3,12 +3,6 @@ import os
 import pandas as pd
 
 
-def load_dataset() -> pd.DataFrame:
-    dataset = pd.read_csv("data/processed/mbajk_processed.csv")
-    dataset.drop(columns=["date"], inplace=True)
-    return dataset
-
-
 def load_bike_station_dataset(station_number: str, file: str) -> pd.DataFrame:
     dataset = pd.read_csv(f"data/processed/{station_number}/{file}.csv")
     return dataset

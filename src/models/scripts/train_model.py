@@ -1,6 +1,7 @@
 import os
 import dagshub.auth
 import mlflow
+import tf2onnx
 from mlflow import MlflowClient
 from sklearn.preprocessing import MinMaxScaler
 from src.config import settings
@@ -8,9 +9,10 @@ from src.utils.decorators import execution_timer
 from src.models import get_test_train_data
 from src.models.helpers import load_bike_station_dataset
 from src.models.model import train_model, build_model, prepare_model_data
-from mlflow.keras import log_model as log_keras_model
 from mlflow.sklearn import log_model as log_sklearn_model
+from mlflow.onnx import log_model as log_onnx_model
 from mlflow.models import infer_signature
+import tensorflow as tf
 
 
 def train_model_pipeline(station_number: int) -> None:
@@ -24,21 +26,32 @@ def train_model_pipeline(station_number: int) -> None:
     X_train, y_train, X_test, y_test = prepare_model_data(dataset=dataset, scaler=scaler, train_data=train_data,
                                                           test_data=test_data)
 
+    epochs = 10
+    batch_size = 32
+
     model = train_model(x_train=X_train, y_train=y_train, x_test=X_test, y_test=y_test, build_model_fn=build_model,
-                        epochs=10, batch_size=32,
+                        epochs=epochs, batch_size=batch_size,
                         verbose=0)
 
-    mlflow.log_param("epochs", 10)
-    mlflow.log_param("batch_size", 32)
+    mlflow.log_param("epochs", epochs)
+    mlflow.log_param("batch_size", batch_size)
     mlflow.log_param("dataset_size", len(dataset))
 
     client = MlflowClient()
 
-    # save model
-    model_ = log_keras_model(model=model,
-                             artifact_path=f"models/station_{station_number}",
-                             signature=infer_signature(X_test, model.predict(X_test)),
-                             registered_model_name="mbajk_station_" + str(station_number))
+    # 24 = window size, 5 features
+    input_signature = [
+        tf.TensorSpec(shape=(None, settings.window_size, settings.top_features + 1), dtype=tf.float32, name="input")
+    ]
+
+    model.output_names = ["output"]
+    onnx_model, _ = tf2onnx.convert.from_keras(model=model, input_signature=input_signature, opset=13)
+
+    model_ = log_onnx_model(onnx_model=onnx_model,
+                            artifact_path=f"models/station_{station_number}",
+                            signature=infer_signature(X_test, model.predict(X_test)),
+                            registered_model_name="mbajk_station_" + str(station_number))
+
 
     mv = client.create_model_version(name="mbajk_station_" + str(station_number), source=model_.model_uri,
                                      run_id=model_.run_id)
