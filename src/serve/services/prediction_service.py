@@ -1,8 +1,6 @@
 import json
-
 from sqlalchemy.orm import sessionmaker
 from datetime import datetime, timezone
-
 from src.serve.database import create_database_engine
 from src.serve.dto import PredictionDTO
 from src.serve.models.prediction import Prediction

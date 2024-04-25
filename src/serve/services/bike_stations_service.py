@@ -1,3 +1,4 @@
+import pandas as pd
 from typing import List
 from src.config import settings
 from src.data.data_fetcher import DataFetcher
@@ -17,3 +18,10 @@ class BikeStationsService:
     def get_bike_station_by_number(self, number: int):
         station: BikeStation = self.fetcher.get_bike_station(number)
         return BikeStationDTO.from_entity(station)
+
+    @staticmethod
+    def get_bike_station_history_data(number: int):
+        url = f"https://dagshub.com/perkzen/mbajk-ml-web-service/raw/main/data/processed/{number}/mbajk_station_{number}.csv"
+        df = pd.read_csv(url)
+        df = df.drop(columns=["date"])
+        return df.to_dict(orient="records")

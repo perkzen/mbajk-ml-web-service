@@ -3,7 +3,7 @@ from typing import Any, List
 import numpy as np
 import pandas as pd
 from keras import Model
-from keras.models import load_model
+from keras.src.saving import load_model
 from sklearn.preprocessing import MinMaxScaler
 from ..dto import PredictionDTO
 from ...config import settings
