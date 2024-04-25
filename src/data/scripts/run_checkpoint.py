@@ -1,8 +1,6 @@
 import great_expectations as ge
 from great_expectations.checkpoint.types.checkpoint_result import CheckpointResult
 
-from src.data.data_manager import DataManager
-
 
 def main():
     context = ge.get_context()
