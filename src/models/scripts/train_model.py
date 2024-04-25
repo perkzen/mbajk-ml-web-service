@@ -1,5 +1,6 @@
 import os
 import dagshub.auth
+import dagshub
 import mlflow
 import tf2onnx
 from mlflow import MlflowClient
@@ -16,7 +17,7 @@ import tensorflow as tf
 
 
 def train_model_pipeline(station_number: int) -> None:
-    mlflow.start_run(run_name="mbajk_station_" + str(station_number))
+    mlflow.start_run(run_name="mbajk_station_" + str(station_number), experiment_id="mbajk")
 
     dataset = load_bike_station_dataset(str(station_number), "train")
     scaler = MinMaxScaler()
@@ -31,7 +32,7 @@ def train_model_pipeline(station_number: int) -> None:
 
     model = train_model(x_train=X_train, y_train=y_train, x_test=X_test, y_test=y_test, build_model_fn=build_model,
                         epochs=epochs, batch_size=batch_size,
-                        verbose=0)
+                        verbose=2)
 
     mlflow.log_param("epochs", epochs)
     mlflow.log_param("batch_size", batch_size)
@@ -39,7 +40,6 @@ def train_model_pipeline(station_number: int) -> None:
 
     client = MlflowClient()
 
-    # 24 = window size, 5 features
     input_signature = [
         tf.TensorSpec(shape=(None, settings.window_size, settings.top_features + 1), dtype=tf.float32, name="input")
     ]
@@ -51,7 +51,6 @@ def train_model_pipeline(station_number: int) -> None:
                             artifact_path=f"models/station_{station_number}",
                             signature=infer_signature(X_test, model.predict(X_test)),
                             registered_model_name="mbajk_station_" + str(station_number))
-
 
     mv = client.create_model_version(name="mbajk_station_" + str(station_number), source=model_.model_uri,
                                      run_id=model_.run_id)
