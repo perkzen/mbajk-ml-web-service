@@ -39,7 +39,7 @@ class DataFetcher:
             for station in stations
         ]
 
-    def get_weather_forecast(self, days: int = 1) -> List[Weather]:
+    def get_weather_forecast(self, days: int = 2) -> List[Weather]:
         weather_url = self.__create_forecast_url(forecast_days=days)
         weather_response = requests.get(weather_url)
         weather_response.raise_for_status()
