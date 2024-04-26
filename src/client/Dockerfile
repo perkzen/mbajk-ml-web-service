@@ -30,6 +30,18 @@ COPY . .
 
 ENV SKIP_ENV_VALIDATION true
 
+# If you need to use the environment variables that
+# Railway injects at build time, which include variables
+# that you define and Railway-provided variables,
+# you must specify them in the Dockerfile using the ARG command.
+# https://docs.railway.app/guides/dockerfiles
+
+ARG NEXT_PUBLIC_API_URL
+ARG NEXT_PUBLIC_GOOGLE_MAPS_KEY
+
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+ENV NEXT_PUBLIC_GOOGLE_MAPS_KEY=$NEXT_PUBLIC_GOOGLE_MAPS_KEY
+
 RUN yarn build
 
 # If using npm comment out above and use below instead
