@@ -65,3 +65,12 @@ jobs:
       - name: Push Docker image
         run: |
           docker push ${{ secrets.DOCKER_USERNAME }}/mbajk-ml-service:latest
+
+      - name: Install Railway CLI
+        run: |
+          curl -sSL https://cli.railway.app | bash
+
+      - name: Deploy to Railway
+        run: railway up
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
