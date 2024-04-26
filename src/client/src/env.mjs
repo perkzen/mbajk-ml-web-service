@@ -17,4 +17,5 @@ export const env = createEnv({
     NEXT_PUBLIC_GOOGLE_MAPS_KEY: process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY,
     NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
   },
+  skipValidation: process.env.SKIP_ENV_VALIDATION === 'true',
 });
