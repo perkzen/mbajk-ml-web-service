@@ -55,8 +55,7 @@ jobs:
           docker push ${{ secrets.DOCKER_USERNAME }}/mbajk-web-client:latest
 
       - name: Install Railway CLI
-        run: |
-          curl -sSL https://cli.railway.app | bash
+        run: bash <(curl -fsSL cli.new)
 
       - name: Deploy to Railway
         run: railway up
