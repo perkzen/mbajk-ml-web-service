@@ -1,6 +1,5 @@
 import os
 import dagshub.auth
-import numpy as np
 import onnxruntime as ort
 from dagshub.data_engine.datasources import mlflow
 from mlflow import MlflowClient

@@ -1,7 +1,5 @@
 from typing import List
 
-import pandas as pd
-
 
 def add_keys_to_dict(data: dict, keys: List[str], skip_keys: List[str] = None) -> dict:
     if skip_keys is None:
