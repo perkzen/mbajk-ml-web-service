@@ -29,7 +29,7 @@ def main():
     numbers = [f for f in os.listdir("data/processed") if os.path.isdir(f"data/processed/{f}")]
 
     for n in numbers:
-        mlflow.start_run(run_name=f"validate_production_mbajk_station_{n}")
+        mlflow.start_run(run_name=f"validate_productions_mbajk_station_{n}", experiment_id="1")
 
         print(f"Station: {n}")
         station = dm.get_dataframe(folder=n, file_name=f"mbajk_station_{n}")
