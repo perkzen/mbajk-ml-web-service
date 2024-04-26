@@ -3,6 +3,7 @@ from datetime import datetime
 import requests
 from .entities import BikeStation, Weather
 from ..config import settings
+import pytz
 
 
 class DataFetcher:
@@ -10,6 +11,8 @@ class DataFetcher:
                     f"apiKey={settings.mbajk_api_key}")
 
     weather_base_url = "https://archive-api.open-meteo.com/v1/archive?"
+
+    timezone = pytz.timezone('Europe/Berlin')
 
     def __init__(self, lat: float, lon: float):
         self.lat = lat
@@ -21,7 +24,7 @@ class DataFetcher:
 
         stations = stations_response.json()
 
-        now = datetime.now().strftime('%Y-%m-%dT%H:00:00')
+        now = datetime.now(self.timezone).strftime('%Y-%m-%dT%H:00:00')
 
         return [
             BikeStation(
@@ -56,18 +59,18 @@ class DataFetcher:
         n_future_days = max(1, (current_hour + hours) // measurements_in_one_day) + 1  # +1 for the current day
         weather = self.get_weather_forecast(days=n_future_days)
 
-        now = datetime.now().strftime('%Y-%m-%dT%H:00')
+        now = datetime.now(self.timezone).strftime('%Y-%m-%dT%H:00')
 
         return [w for w in weather if w.date > now][:hours]
 
     def get_current_weather(self) -> Weather:
-        date_hour = datetime.now().strftime('%Y-%m-%dT%H:00')
+        date_hour = datetime.now(self.timezone).strftime('%Y-%m-%dT%H:00')
 
         weather = self.get_weather_forecast()
 
         for w in weather:
             if w.date == date_hour:
-                now = datetime.now().strftime('%Y-%m-%dT%H:00:00')
+                now = datetime.now(self.timezone).strftime('%Y-%m-%dT%H:00:00')
                 w.date = now
                 return w
 
