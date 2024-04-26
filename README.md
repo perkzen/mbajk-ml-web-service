@@ -2,8 +2,12 @@
 
 ## Description
 
-Web application for predicting the number of available bike stands at one of the MBajk bike stations. The prediction
-service is based on a recurrent neural network model (GRU). It's components are a FastAPI REST API and Next.js frontend.
+Web application for predicting the number of available bike stands at one of the MBajk bike stations. The prediction service is based on a recurrent neural network model (GRU). Its components are a FastAPI REST API and Next.js frontend.
+
+This project implements machine learning pipelines for continuous data fetching and model training to ensure that the prediction models are constantly improving over time. 
+It utilizes ONNX (Open Neural Network Exchange) Runtime for fast prediction performance and model quantization techniques to reduce model size without significantly impacting accuracy.
+
+
 
 ## Project structure
 
@@ -23,6 +27,9 @@ service is based on a recurrent neural network model (GRU). It's components are 
   ├── models <- Scripts for training predictive models and using models for prediction
   ├── serve <- Scripts for serving models as web services
   ├── client <- Source code for the user interface
+  ├── validation <- Scripts for data validation
+  |── tests <- Tests for the project
+  |── utils <- Utility functions
   └── visualization <- Scripts for visualization
 
 ```
@@ -35,6 +42,11 @@ TOP_FEATURES=4
 LAT=46.5547
 LON=15.6466
 MBAJK_API_KEY=<mbajk_api_key>
+MLFLOW_TRACKING_URI=<mlflow_tracking_uri>
+MLFLOW_TRACKING_USERNAME=<mlflow_tracking_username>
+MLFLOW_TRACKING_PASSWORD=<mlflow_tracking_password>
+DAGSHUB_USER_TOKEN=<dagshub_user_token>
+TF_USE_LEGACY_KERAS=1
 ```
 
 ## Scripts
@@ -49,24 +61,6 @@ To run a script, use the following command:
 poetry run poe <script_name>
 ```
 
-### Data scripts
-
-- `fetch` - Downloads the data from the MBajk API and OpenMeteo API and saves it to the `data/raw` directory.
-- `process` - Processes the raw data and saves it to the `data/processed` directory.
-
-### Model scripts
-
-- `train` - Trains the predictive model and saves it to the `models` directory.
-- `predict` - Uses the trained model to make predictions and saves them to the `models` directory.
-
-### Serve scripts
-
-- `serve` - Starts the web service for making predictions using the trained model. The service is available
-  at `http://localhost:8000`.
-
-### Test scripts
-
-- `test` - Runs the tests for the project.
 
 ## Makefile
 
