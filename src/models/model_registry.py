@@ -67,6 +67,10 @@ class ModelType(Enum):
 
 
 def download_model(number: int, model_type: ModelType) -> tuple[str | None, MinMaxScaler | None]:
+    dagshub.auth.add_app_token(token=settings.dagshub_user_token)
+    dagshub.init("mbajk-ml-web-service", "perkzen", mlflow=True)
+    mlflow.set_tracking_uri(settings.mlflow_tracking_uri)
+
     folder_name = f"models/{number}"
     model_type_str = model_type.name.lower()
 
@@ -106,6 +110,9 @@ def download_model_registry():
 
         model = get_production_model(i)
         scaler = get_production_scaler(i)
+
+        if not os.path.exists(f"models/{i}"):
+            os.makedirs(f"models/{i}")
 
         joblib.dump(scaler, f"models/{i}/minmax_scaler_production.gz")
         onnx.save_model(model, f"models/{i}/model_production.onnx")

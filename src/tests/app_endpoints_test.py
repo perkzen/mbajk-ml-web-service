@@ -1,4 +1,5 @@
 from fastapi.testclient import TestClient
+from src.models.model_registry import ModelType, download_model
 from src.serve.main import app
 
 client = TestClient(app)
@@ -50,11 +51,11 @@ def test_fail_predict_multiple_2():
     assert response.json()["detail"] == "station_number must be between 0 and 28"
 
 
-# cant test because dvc
-# def test_predict_multiple():
-#     response = client.get("/mbajk/predict/1/3")
-#     assert response.status_code == 200
-#     assert isinstance(response.json(), list)
-#     assert len(response.json()) == 3
-#     assert "prediction" in response.json()[0]
-#     assert "date" in response.json()[0]
+def test_predict_multiple():
+    download_model(1, ModelType.PRODUCTION)
+    response = client.get("/mbajk/predict/1/3")
+    assert response.status_code == 200
+    assert isinstance(response.json(), list)
+    assert len(response.json()) == 3
+    assert "prediction" in response.json()[0]
+    assert "date" in response.json()[0]
