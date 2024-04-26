@@ -8,7 +8,6 @@ from sklearn.preprocessing import MinMaxScaler
 from src.config import settings
 from src.utils.decorators import execution_timer
 from src.models import get_test_train_data
-from src.models.helpers import load_bike_station_dataset
 from src.models.model import train_model, build_model, prepare_model_data
 from mlflow.sklearn import log_model as log_sklearn_model
 from mlflow.onnx import log_model as log_onnx_model
@@ -21,12 +20,11 @@ def train_model_pipeline(station_number: int) -> None:
 
     mlflow.start_run(run_name=f"mbajk_station_{station_number}", experiment_id="1")
 
-    dataset = load_bike_station_dataset(str(station_number), "train")
     scaler = MinMaxScaler()
 
     train_data, test_data = get_test_train_data(str(station_number))
 
-    X_train, y_train, X_test, y_test = prepare_model_data(dataset=dataset, scaler=scaler, train_data=train_data,
+    X_train, y_train, X_test, y_test = prepare_model_data(scaler=scaler, train_data=train_data,
                                                           test_data=test_data)
 
     epochs = 10
@@ -38,7 +36,7 @@ def train_model_pipeline(station_number: int) -> None:
 
     mlflow.log_param("epochs", epochs)
     mlflow.log_param("batch_size", batch_size)
-    mlflow.log_param("dataset_size", len(dataset))
+    mlflow.log_param("train_dataset_size", len(train_data))
 
     model.output_names = ["output"]
 

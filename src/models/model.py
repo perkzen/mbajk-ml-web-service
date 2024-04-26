@@ -63,18 +63,18 @@ def evaluate_model_performance(y_true, y_pred, dataset, scaler):
     return mse, mae, evs
 
 
-def prepare_model_data(dataset: pd.DataFrame, scaler: MinMaxScaler, train_data: pd.DataFrame,
+def prepare_model_data(scaler: MinMaxScaler, train_data: pd.DataFrame,
                        test_data: pd.DataFrame) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
     target_col = "available_bike_stands"
-    features = list(dataset.columns)
+    features = list(train_data.columns)
 
-    train_data, test_data = scale_data(scaler, train_data, test_data)
+    train_data_scaled, test_data_scaled = scale_data(scaler, train_data, test_data)
 
-    target_col_idx = dataset.columns.get_loc(target_col)
-    feature_cols_idx = [dataset.columns.get_loc(col) for col in features]
+    target_col_idx = train_data.columns.get_loc(target_col)
+    feature_cols_idx = [train_data.columns.get_loc(col) for col in features]
 
-    X_train, y_train = create_time_series(train_data, settings.window_size, target_col_idx, feature_cols_idx)
-    X_test, y_test = create_time_series(test_data, settings.window_size, target_col_idx, feature_cols_idx)
+    X_train, y_train = create_time_series(train_data_scaled, settings.window_size, target_col_idx, feature_cols_idx)
+    X_test, y_test = create_time_series(test_data_scaled, settings.window_size, target_col_idx, feature_cols_idx)
 
     return X_train, y_train, X_test, y_test
 
