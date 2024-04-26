@@ -1,26 +1,24 @@
 import joblib
-from typing import Any, List
 import numpy as np
 import pandas as pd
-from keras import Model
-from keras.src.saving import load_model
+import onnxruntime as ort
+from typing import Any, List
 from sklearn.preprocessing import MinMaxScaler
 from ..dto import PredictionDTO
 from ...config import settings
 from ...data.data_fetcher import DataFetcher
-from ...utils.dict import add_keys_to_dict, add_custom_keys_to_dict
-from ...utils.list import intersecting_elements
+from ...utils.dict import add_keys_to_dict
 
 
 class MLService:
     def __init__(self, model_name: str, scaler_name: str):
-        self.model: Model = load_model(f"models/{model_name}.keras")
-        self.scaler: MinMaxScaler = joblib.load(f"models/{scaler_name}_scaler.gz")
+        self.model = ort.InferenceSession(f"models/{model_name}_production.onnx")
+        self.scaler: MinMaxScaler = joblib.load(f"models/{scaler_name}_scaler_production.gz")
 
     def predict(self, data: List[dict]) -> int:
         prepared_data = self.__prepare_data(data)
 
-        predicted = self.model.predict(prepared_data)
+        predicted = self.model.run(["output"], {"input": prepared_data})[0]
 
         prediction_copies = np.repeat(predicted, prepared_data.shape[2], axis=-1)
         predicted = self.scaler.inverse_transform(
@@ -42,11 +40,8 @@ class MLService:
 
             predictions.append(PredictionDTO(prediction=prediction, date=f"{res[n].date}:00"))
 
-            new_data = add_keys_to_dict(res[n].model_dump(), required_keys, skip_keys=settings.custom_dataset_columns)
+            new_data = add_keys_to_dict(res[n].model_dump(), required_keys)
             new_data["available_bike_stands"] = prediction
-
-            custom_cols = intersecting_elements(required_keys, settings.custom_dataset_columns)
-            new_data = add_custom_keys_to_dict(new_data, custom_cols, res[n].date)
 
             data.append(new_data)
             data.pop(0)

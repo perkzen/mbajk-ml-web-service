@@ -30,7 +30,7 @@ def train_model_pipeline(station_number: int) -> None:
                                                           test_data=test_data)
 
     epochs = 10
-    batch_size = 32
+    batch_size = 64
 
     model = train_model(x_train=X_train, y_train=y_train, x_test=X_test, y_test=y_test, build_model_fn=build_model,
                         epochs=epochs, batch_size=batch_size,
@@ -41,7 +41,7 @@ def train_model_pipeline(station_number: int) -> None:
     mlflow.log_param("dataset_size", len(dataset))
 
     input_signature = [
-        tf.TensorSpec(shape=(None, settings.window_size, settings.top_features + 1), dtype=tf.float32, name="input")
+        tf.TensorSpec(shape=(None, settings.window_size, settings.top_features + 1), dtype=tf.double, name="input")
     ]
 
     model.output_names = ["output"]

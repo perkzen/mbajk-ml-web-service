@@ -56,16 +56,6 @@ def evaluate_model_performance(y_true, y_pred, dataset, scaler):
     return mse, mae, evs
 
 
-def save_model(model: Sequential, scaler: MinMaxScaler, station_number: int, model_name: str, scaler_name: str) -> None:
-    folder_name = f"models/{station_number}"
-
-    if not os.path.exists(folder_name):
-        os.makedirs(folder_name)
-
-    joblib.dump(scaler, f"{folder_name}/{scaler_name}_scaler.gz")
-    model.save(f"{folder_name}/{model_name}.keras")
-
-
 def prepare_model_data(dataset: pd.DataFrame, scaler: MinMaxScaler, train_data: pd.DataFrame,
                        test_data: pd.DataFrame) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
     target_col = "available_bike_stands"

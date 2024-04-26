@@ -1,29 +1,39 @@
 import os
 import dagshub.auth
+import joblib
+import onnx
+from enum import Enum, auto
 from mlflow.onnx import load_model as load_onnx
 from mlflow.sklearn import load_model as load_scaler
 from dagshub.data_engine.datasources import mlflow
 from mlflow import MlflowClient
+from sklearn.preprocessing import MinMaxScaler
 from src.config import settings
-from src.models.model import save_model
 
 
 def get_latest_model_version(station_number: int):
-    client = MlflowClient()
-    model_version = client.get_latest_versions("mbajk_station_" + str(station_number), stages=["staging"])[0]
-    model_url = model_version.source
-    model = load_onnx(model_url)
-    return model
+    try:
+        client = MlflowClient()
+        model_version = client.get_latest_versions("mbajk_station_" + str(station_number), stages=["staging"])[0]
+        model_url = model_version.source
+        model = load_onnx(model_url)
+        return model
+    except IndexError:
+        print(f"Model for station {station_number} not found.")
+        return None
 
 
 def get_latest_scaler_version(station_number: int):
-    client = MlflowClient()
-    model_version = \
-        client.get_latest_versions("mbajk_station_" + str(station_number) + "_scaler", stages=["staging"])[0]
-    model_url = model_version.source
-    scaler = load_scaler(model_url)
-
-    return scaler
+    try:
+        client = MlflowClient()
+        model_version = \
+            client.get_latest_versions("mbajk_station_" + str(station_number) + "_scaler", stages=["staging"])[0]
+        model_url = model_version.source
+        scaler = load_scaler(model_url)
+        return scaler
+    except IndexError:
+        print(f"Scaler for station {station_number} not found.")
+        return None
 
 
 def get_production_model(station_number: int):
@@ -51,19 +61,63 @@ def get_production_scaler(station_number: int):
         return None
 
 
+class ModelType(Enum):
+    LATEST = auto()
+    PRODUCTION = auto()
+
+
+def download_model(number: int, model_type: ModelType) -> tuple[str | None, MinMaxScaler | None]:
+    folder_name = f"models/{number}"
+    model_type_str = model_type.name.lower()
+
+    model_func = get_latest_model_version if model_type == ModelType.LATEST else get_production_model
+    scaler_func = get_latest_scaler_version if model_type == ModelType.LATEST else get_production_scaler
+
+    model = model_func(number)
+    scaler = scaler_func(number)
+
+    if not os.path.exists(folder_name):
+        os.makedirs(folder_name)
+
+    if model is None or scaler is None:
+        return None, None
+
+    joblib.dump(scaler, f"{folder_name}/minmax_scaler_{model_type_str}.gz")
+    onnx.save_model(model, f"{folder_name}/model_{model_type_str}.onnx")
+    print(f"{model_type_str.capitalize()} model for station {number} has been downloaded.")
+
+    # Return model path and scaler
+    model_path = f"models/{number}/model_{model_type_str}.onnx"
+    return model_path, scaler
+
+
 def download_model_registry():
     dagshub.auth.add_app_token(token=settings.dagshub_user_token)
     dagshub.init("mbajk-ml-web-service", "perkzen", mlflow=True)
     mlflow.set_tracking_uri(settings.mlflow_tracking_uri)
 
-    for i in range(1, 2):
-        # # skip if model already exists
-        if os.path.exists(f"models/{i}"):
+    for i in range(1, 30):
+        model_path = f"models/{i}/model_production.onnx"
+        scaler_path = f"models/{i}/minmax_scaler_production.gz"
+
+        if os.path.exists(model_path) and os.path.exists(scaler_path):
             print(f"Model for station {i} already exists.")
             continue
 
         model = get_production_model(i)
         scaler = get_production_scaler(i)
 
-        save_model(model, scaler, i, "model", "minmax")
+        joblib.dump(scaler, f"models/{i}/minmax_scaler_production.gz")
+        onnx.save_model(model, f"models/{i}/model_production.onnx")
         print(f"Model for station {i} has been downloaded.")
+
+
+def empty_model_registry():
+    dagshub.auth.add_app_token(token=settings.dagshub_user_token)
+    dagshub.init("mbajk-ml-web-service", "perkzen", mlflow=True)
+    mlflow.set_tracking_uri(settings.mlflow_tracking_uri)
+
+    client = MlflowClient()
+    for i in range(1, 30):
+        client.delete_registered_model(f"mbajk_station_{i}")
+        client.delete_registered_model(f"mbajk_station_{i}_scaler")
