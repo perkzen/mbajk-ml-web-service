@@ -28,7 +28,6 @@ COPY . .
 # Uncomment the following line in case you want to disable telemetry during the build.
 # ENV NEXT_TELEMETRY_DISABLED 1
 
-ENV SKIP_ENV_VALIDATION true
 
 # If you need to use the environment variables that
 # Railway injects at build time, which include variables
