@@ -34,7 +34,7 @@ It utilizes ONNX (Open Neural Network Exchange) Runtime for fast prediction perf
 
 ```
 
-## Env file example
+## ML Service  environment variables example
 
 ```env
 WINDOW_SIZE=48
@@ -47,6 +47,12 @@ MLFLOW_TRACKING_USERNAME=<mlflow_tracking_username>
 MLFLOW_TRACKING_PASSWORD=<mlflow_tracking_password>
 DAGSHUB_USER_TOKEN=<dagshub_user_token>
 TF_USE_LEGACY_KERAS=1
+```
+## ML Client environment variables example
+
+```env
+NEXT_PUBLIC_API_URL=<mbajk_api_key>
+NEXT_PUBLIC_GOOGLE_MAPS_KEY=<google_maps_api_key>
 ```
 
 ## Scripts
