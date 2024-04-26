@@ -1,5 +1,5 @@
 outs:
-- md5: 2fcfe3fbe95aef207149591ecbf5fede
-  size: 680343
+- md5: 5ec0734b415626325a097d122736a203
+  size: 681019
   hash: md5
   path: current_data.csv
