@@ -85,7 +85,7 @@ def main() -> None:
     dagshub.init("mbajk-ml-web-service", "perkzen", mlflow=True)
     mlflow.set_tracking_uri(settings.mlflow_tracking_uri)
 
-    for station_number in [1]:
+    for station_number in station_numbers:
         train_model_pipeline(station_number)
 
 
