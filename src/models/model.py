@@ -29,13 +29,13 @@ def build_model(input_shape: tuple[int, int]) -> tf_keras.Sequential:
 
     optimizer = tf_keras.optimizers.legacy.Adam(learning_rate=0.01)
 
-    model.compile(optimizer=optimizer, loss="mean_squared_logarithmic_error")
-
-    tfmot.quantization.keras.quantize_apply(
+    model = tfmot.quantization.keras.quantize_apply(
         model,
         scheme=default_8bit_quantize_scheme.Default8BitQuantizeScheme(),
         quantized_layer_name_prefix='quant_'
     )
+
+    model.compile(optimizer=optimizer, loss="mean_squared_logarithmic_error")
 
     return model
 
