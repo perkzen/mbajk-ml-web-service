@@ -6,11 +6,13 @@ on:
       - main
     paths:
       - 'src/serve/**'
+      - '.github/workflows/service-ci.yml'
   pull_request:
     branches:
       - main
     paths:
       - 'src/serve/**'
+      - '.github/workflows/service-ci.yml'
 
 env:
   WINDOW_SIZE: 24

@@ -6,11 +6,13 @@ on:
       - main
     paths:
       - 'src/client/**'
+      - '.github/workflows/service-ci.yml'
   pull_request:
     branches:
       - main
     paths:
       - 'src/client/**'
+      - '.github/workflows/client-ci.yml'
 
 env:
   NEXT_PUBLIC_GOOGLE_MAPS_KEY: test
