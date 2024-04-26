@@ -5,7 +5,7 @@ import {
 import { flexRender, useReactTable } from '@tanstack/react-table';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Prediction } from '@/lib/models';
-import { Bike } from 'lucide-react';
+import { ParkingSquare } from 'lucide-react';
 import { formatDate } from '@/lib/utils';
 import { Skeleton } from '@/components/ui/skeleton';
 
@@ -23,7 +23,7 @@ export const columns: ColumnDef<Prediction>[] = [
     header: 'Available stands',
     cell: ({ row }) => (
       <div className={'flex flex-row items-center gap-2'}>
-        <Bike size={16} />
+        <ParkingSquare size={16} />
         <div className={'font-semibold text-primary'}>{row.getValue('prediction')}</div>
       </div>),
 

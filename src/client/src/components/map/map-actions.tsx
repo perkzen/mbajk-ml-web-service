@@ -11,7 +11,7 @@ const MapActions = () => {
   const map = useMap();
 
   const centerCamera = () => {
-    map?.setCenter({ lat: 46.5590, lng: 15.6381 });
+    map?.panTo({ lat: 46.5590, lng: 15.6381 });
   };
 
   return (
