@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - 'src/client/**'
-      - '.github/workflows/service-ci.yml'
+      - '.github/workflows/client-ci.yml'
   pull_request:
     branches:
       - main
