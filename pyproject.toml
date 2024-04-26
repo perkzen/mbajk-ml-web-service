@@ -20,7 +20,7 @@ data_drift = "python3 -m src.validation.data_drift"
 stability_tests = "python3 -m src.validation.stability_tests"
 validate_predictions = "python3 -m src.validation.validate_predictions"
 test = "pytest"
-test_job = "pytest src/tests/api_test.py"
+test_job = "pytest src/tests/api_availability_test.py"
 lint = "ruff check ."
 
 [tool.poetry.dependencies]
