@@ -15,7 +15,6 @@ const MapActions = () => {
   };
 
   return (
-
     <div className={'flex flex-col gap-4 absolute bottom-8 right-4'}>
       <Button variant={'secondary'} size={'icon'} className={'rounded-full'} onClick={centerCamera}>
         <LocateIcon size={24} />
