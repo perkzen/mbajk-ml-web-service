@@ -17,7 +17,9 @@ import tensorflow as tf
 
 
 def train_model_pipeline(station_number: int) -> None:
-    mlflow.start_run(run_name="mbajk_station_" + str(station_number), experiment_id="mbajk")
+    client = MlflowClient()
+
+    mlflow.start_run(run_name=f"Train Model Station {station_number}", experiment_id="1")
 
     dataset = load_bike_station_dataset(str(station_number), "train")
     scaler = MinMaxScaler()
@@ -32,13 +34,11 @@ def train_model_pipeline(station_number: int) -> None:
 
     model = train_model(x_train=X_train, y_train=y_train, x_test=X_test, y_test=y_test, build_model_fn=build_model,
                         epochs=epochs, batch_size=batch_size,
-                        verbose=2)
+                        verbose=1)
 
     mlflow.log_param("epochs", epochs)
     mlflow.log_param("batch_size", batch_size)
     mlflow.log_param("dataset_size", len(dataset))
-
-    client = MlflowClient()
 
     input_signature = [
         tf.TensorSpec(shape=(None, settings.window_size, settings.top_features + 1), dtype=tf.float32, name="input")
