@@ -12,8 +12,8 @@ router = APIRouter(
 
 bike_service = BikeStationsService()
 
-# Create a cache with a TTL (time-to-live) of 1 hour (3600 seconds)
-cache = TTLCache(maxsize=1000, ttl=3600)
+# Create a cache with a TTL (time-to-live) of 30 minutes (1800 seconds)
+cache = TTLCache(maxsize=1000, ttl=1800)
 
 
 @router.get("/predict/{station_number}/{n_future}")
