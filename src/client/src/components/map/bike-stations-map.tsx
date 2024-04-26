@@ -1,6 +1,5 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { env } from '@/env.mjs';
 import { APIProvider, Map as GoogleMap } from '@vis.gl/react-google-maps';
 import StationMarker from '@/components/map/station-marker';
 import { Drawer } from '@/components/ui/drawer';
@@ -49,7 +48,7 @@ const BikeStationsMap = () => {
         setIsOpen(open);
       }}
     >
-      <APIProvider apiKey={env.NEXT_PUBLIC_GOOGLE_MAPS_KEY}>
+      <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY as string}>
         <GoogleMap
           defaultCenter={center}
           defaultZoom={14}
