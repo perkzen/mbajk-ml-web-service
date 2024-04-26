@@ -82,6 +82,7 @@ jobs:
           git config --global user.name "perkzen"
           git add .
           git commit -m "action: fetch weather data"
+          git pull
 
       - name: Push changes
         uses: ad-m/github-push-action@master
@@ -163,6 +164,7 @@ jobs:
           git config --global user.name "perkzen"
           git add .
           git commit -m "action: fetch bike data"
+          git pull
 
       - name: Push changes
         uses: ad-m/github-push-action@master
@@ -240,6 +242,7 @@ jobs:
           git config --global user.name "perkzen"
           git add .
           git commit --allow-empty -m "action: process data"
+          git pull
 
       - name: Push changes
         uses: ad-m/github-push-action@master
@@ -343,6 +346,7 @@ jobs:
           git config --global user.name "perkzen"
           git add .
           git commit -m "action: validate data"
+          git pull
 
       - name: Push changes
         uses: ad-m/github-push-action@master
@@ -418,6 +422,7 @@ jobs:
           git config --global user.name "perkzen"
           git add .
           git commit --allow-empty -m "action: train model"
+          git pull
 
       - name: Push changes
         uses: ad-m/github-push-action@master
