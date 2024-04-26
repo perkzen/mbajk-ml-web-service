@@ -26,7 +26,7 @@ def update_production_model(station_number: int) -> None:
 
 
 def predict_model_pipeline(station_number: int) -> None:
-    mlflow.start_run(run_name=f"mbajk_station_{station_number}")
+    mlflow.start_run(run_name=f"mbajk_station_{station_number}", experiment_id="1")
 
     dataset = load_bike_station_dataset(str(station_number), "test")
 

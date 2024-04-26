@@ -19,7 +19,7 @@ import tensorflow as tf
 def train_model_pipeline(station_number: int) -> None:
     client = MlflowClient()
 
-    mlflow.start_run(run_name=f"Train Model Station {station_number}", experiment_id="1")
+    mlflow.start_run(run_name=f"mbajk_station_{station_number}", experiment_id="1")
 
     dataset = load_bike_station_dataset(str(station_number), "train")
     scaler = MinMaxScaler()
