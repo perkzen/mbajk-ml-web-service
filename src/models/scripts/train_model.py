@@ -40,11 +40,12 @@ def train_model_pipeline(station_number: int) -> None:
     mlflow.log_param("batch_size", batch_size)
     mlflow.log_param("dataset_size", len(dataset))
 
+    model.output_names = ["output"]
+
     input_signature = [
         tf.TensorSpec(shape=(None, settings.window_size, settings.top_features + 1), dtype=tf.double, name="input")
     ]
 
-    model.output_names = ["output"]
     onnx_model, _ = tf2onnx.convert.from_keras(model=model, input_signature=input_signature, opset=13)
 
     model_ = log_onnx_model(onnx_model=onnx_model,
@@ -84,7 +85,7 @@ def main() -> None:
     dagshub.init("mbajk-ml-web-service", "perkzen", mlflow=True)
     mlflow.set_tracking_uri(settings.mlflow_tracking_uri)
 
-    for station_number in station_numbers:
+    for station_number in [1]:
         train_model_pipeline(station_number)
 
 

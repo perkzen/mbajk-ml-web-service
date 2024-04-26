@@ -1,39 +1,48 @@
 import numpy as np
 import pandas as pd
+import tf_keras
+import tensorflow_model_optimization as tfmot
 from typing import Tuple, Callable
-from keras import Sequential, Input
-from keras.src.layers import GRU, Dropout, Dense
-from keras.src.optimizers import Adam
 from sklearn.metrics import mean_squared_error, mean_absolute_error, explained_variance_score
 from sklearn.preprocessing import MinMaxScaler
+from tensorflow_model_optimization.python.core.quantization.keras.default_8bit import default_8bit_quantize_scheme
 from src.config import settings
 from src.models import create_time_series
 
 
-def build_model(input_shape: tuple[int, int]) -> Sequential:
-    model = Sequential(name="GRU")
+def build_model(input_shape: tuple[int, int]) -> tf_keras.Sequential:
+    quantize_annotate_layer = tfmot.quantization.keras.quantize_annotate_layer
 
-    model.add(Input(shape=input_shape))
-    model.add(GRU(units=128, return_sequences=True))
-    model.add(Dropout(0.2))
+    model = tf_keras.Sequential(name="GRU")
 
-    model.add(GRU(units=64, return_sequences=True))
-    model.add(Dropout(0.2))
+    model.add(tf_keras.Input(shape=input_shape))
+    model.add(tf_keras.layers.GRU(units=128, return_sequences=True))
+    model.add(tf_keras.layers.Dropout(0.2))
 
-    model.add(GRU(units=32))
+    model.add(tf_keras.layers.GRU(units=64, return_sequences=True))
+    model.add(tf_keras.layers.Dropout(0.2))
 
-    model.add(Dense(units=32, activation="relu"))
-    model.add(Dense(units=1))
+    model.add(tf_keras.layers.GRU(units=32))
 
-    optimizer = Adam(learning_rate=0.01)
+    model.add(quantize_annotate_layer(tf_keras.layers.Dense(units=32, activation="relu")))
+    model.add(quantize_annotate_layer(tf_keras.layers.Dense(units=1)))
+
+    optimizer = tf_keras.optimizers.legacy.Adam(learning_rate=0.01)
+
     model.compile(optimizer=optimizer, loss="mean_squared_logarithmic_error")
+
+    tfmot.quantization.keras.quantize_apply(
+        model,
+        scheme=default_8bit_quantize_scheme.Default8BitQuantizeScheme(),
+        quantized_layer_name_prefix='quant_'
+    )
 
     return model
 
 
 def train_model(x_train: np.ndarray, y_train: np.ndarray, x_test: np.ndarray, y_test: np.ndarray,
-                build_model_fn: Callable[[Tuple[int, int]], Sequential], epochs: int = 10, batch_size=64,
-                verbose: int = 1) -> Sequential:
+                build_model_fn: Callable[[Tuple[int, int]], tf_keras.Sequential], epochs: int = 10, batch_size=64,
+                verbose: int = 1) -> tf_keras.Sequential:
     model = build_model_fn((x_train.shape[1], x_train.shape[2]))
     model.fit(x_train, y_train, epochs=epochs, batch_size=batch_size, validation_data=(x_test, y_test), verbose=verbose)
 
