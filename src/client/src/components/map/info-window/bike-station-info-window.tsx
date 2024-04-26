@@ -72,9 +72,7 @@ const BikeStationInfoWindow = ({ onClose }: BikeStationInfoWindowProps) => {
               </div>
               <div className="text-gray-400">Available stands</div>
             </div>
-
           </div>
-
 
           <PredictionsTable data={predictions || []} isLoading={isLoadingPredictions} />
 
