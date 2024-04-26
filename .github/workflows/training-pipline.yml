@@ -1,10 +1,10 @@
 name: Model Training Pipeline
 
 on:
-  workflow_run:
-    workflows: [ "Data Pipeline" ]
-    types:
-      - completed
+#  workflow_run:
+#    workflows: [ "Data Pipeline" ]
+#    types:
+#      - completed
   workflow_dispatch:
 
 env:
