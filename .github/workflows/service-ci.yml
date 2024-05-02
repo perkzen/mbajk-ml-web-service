@@ -24,6 +24,7 @@ env:
   MLFLOW_TRACKING_USERNAME: ${{ secrets.MLFLOW_TRACKING_USERNAME }}
   MLFLOW_TRACKING_PASSWORD: ${{ secrets.MLFLOW_TRACKING_PASSWORD }}
   DAGSHUB_USER_TOKEN: ${{ secrets.DAGSHUB_USER_TOKEN }}
+  DATABASE_URL: sqlite:///predictions.sqlite
 
 
 jobs:
@@ -49,6 +50,11 @@ jobs:
         run: |
           poetry run poe lint
         continue-on-error: false
+
+      - name: Create SQLite Database
+        run: |
+          touch predictions.sqlite
+        working-directory: ${{ github.workspace }}
 
       - name: Run tests
         run: |
