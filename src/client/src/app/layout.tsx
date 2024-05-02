@@ -12,8 +12,10 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = {
   title: 'MBajk AI',
   description: 'MBajk AI is a smarter way to use Mbjak',
-  authors: { url: 'https://www.domenperko.com/', name: 'Domen Perko' },
-  keywords: ['MBajk', 'AI'],
+  keywords: ['MBajk', 'AI', "domen perko", "perkzen", "mbajk ai"],
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL as string),
+  applicationName: 'MBajk AI'
+
   // openGraph: {
   //   type: 'website',
   //   locale: 'en_US',
