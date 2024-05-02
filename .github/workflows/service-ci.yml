@@ -7,12 +7,14 @@ on:
     paths:
       - 'src/serve/**'
       - '.github/workflows/service-ci.yml'
+      - 'Dockerfile'
   pull_request:
     branches:
       - main
     paths:
       - 'src/serve/**'
       - '.github/workflows/service-ci.yml'
+      - 'Dockerfile'
 
 env:
   WINDOW_SIZE: 24
