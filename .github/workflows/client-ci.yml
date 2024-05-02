@@ -17,6 +17,7 @@ on:
 env:
   NEXT_PUBLIC_GOOGLE_MAPS_KEY: test
   NEXT_PUBLIC_API_URL: http://localhost:8000
+  NEXT_PUBLIC_SITE_URL: http://localhost:3000
 
 jobs:
   build:
