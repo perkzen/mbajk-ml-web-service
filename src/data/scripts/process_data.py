@@ -8,7 +8,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import MinMaxScaler
 from src.data.data_manager import DataManager
 from src.utils.decorators import execution_timer
-from mlflow.sklearn import log_model as log_sklearn_model
+# from mlflow.sklearn import log_model as log_sklearn_model
 
 
 def get_station_data(df: pd.DataFrame, station_number: int) -> pd.DataFrame:
@@ -50,7 +50,7 @@ def fill_missing_values_with_predictions(df: pd.DataFrame, cols_to_fill: list[st
         filled_df.loc[filled_df[col].isna(), col] = predictions_rounded
 
     # save pipeline
-    # pipeline_ = log_sklearn_model(pipeline, artifact_path="models", registered_model_name="mbajk_station_pipeline")
+    #pipeline_ = log_sklearn_model(pipeline, artifact_path="models", registered_model_name="mbajk_station_pipeline")
 
     return filled_df
 
