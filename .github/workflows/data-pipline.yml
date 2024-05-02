@@ -83,7 +83,9 @@ jobs:
           git config --global user.name "perkzen"
           git add .
           git commit -m "action: fetch weather data"
-          
+
+      - name: Pull changes
+        run: git pull origin main
 
       - name: Push changes
         uses: ad-m/github-push-action@master
@@ -114,7 +116,6 @@ jobs:
         with:
           ref: ${{ needs.fetch_weather_data.outputs.sha_new }}
           fetch-depth: 0
-
 
       - name: Temporary workaround for GitVersion
         shell: bash
@@ -165,7 +166,9 @@ jobs:
           git config --global user.name "perkzen"
           git add .
           git commit -m "action: fetch bike data"
-          
+
+      - name: Pull changes
+        run: git pull origin main
 
       - name: Push changes
         uses: ad-m/github-push-action@master
@@ -243,7 +246,9 @@ jobs:
           git config --global user.name "perkzen"
           git add .
           git commit --allow-empty -m "action: process data"
-          
+
+      - name: Pull changes
+        run: git pull origin main
 
       - name: Push changes
         uses: ad-m/github-push-action@master
@@ -347,7 +352,9 @@ jobs:
           git config --global user.name "perkzen"
           git add .
           git commit -m "action: validate data"
-          
+
+      - name: Pull changes
+        run: git pull origin main
 
       - name: Push changes
         uses: ad-m/github-push-action@master
@@ -423,7 +430,9 @@ jobs:
           git config --global user.name "perkzen"
           git add .
           git commit --allow-empty -m "action: train model"
-         
+
+      - name: Pull changes
+        run: git pull origin main
 
       - name: Push changes
         uses: ad-m/github-push-action@master
