@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     url: process.env.NEXT_PUBLIC_SITE_URL,
     images: [
       {
-        url: `${process.env.NEXT_PUBLIC_SITE_URL}/og-image.png`,
+        url: `${process.env.NEXT_PUBLIC_SITE_URL}/opengraph-image.png`,
         width: 1200,
         height: 630,
         alt: 'MBajk AI',
@@ -36,6 +36,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+    <head>
+      <meta property="og:image" content="<generated>" />
+      <meta property="og:image:type" content="<generated>" />
+      <meta property="og:image:width" content="<generated>" />
+      <meta property="og:image:height" content="<generated>" />
+    </head>
     <body className={cn(inter.className, 'flex flex-col w-full min-h-screen')}>
     <Providers>
       <Navbar />
