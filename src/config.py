@@ -13,6 +13,7 @@ class Settings(BaseSettings):
     mlflow_tracking_password: str
     dagshub_user_token: str
     tf_use_legacy_keras: int = 1
+    database_url: str
 
     __project_root = pathlib.Path(__file__).resolve().parent.parent
 

@@ -1,5 +1,5 @@
 from typing import List
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, BackgroundTasks
 from src.serve.dto import PredictionDTO
 from src.serve.services import MLService, BikeStationsService
 from src.serve.services.prediction_service import PredictionService
@@ -17,7 +17,7 @@ cache = TTLCache(maxsize=1000, ttl=1800)
 
 
 @router.get("/predict/{station_number}/{n_future}")
-def predict_multiple(station_number: int, n_future: int) -> List[PredictionDTO]:
+def predict_multiple(station_number: int, n_future: int, background_tasks: BackgroundTasks) -> List[PredictionDTO]:
     if n_future < 1:
         raise HTTPException(status_code=400, detail="n_future must be greater than 0")
 
@@ -37,7 +37,8 @@ def predict_multiple(station_number: int, n_future: int) -> List[PredictionDTO]:
 
     predictions = ml_service.predict_multiple(data, n_future)
 
-    PredictionService.save(station_number, n_future, predictions)
+    # Queue saving predictions in the background
+    background_tasks.add_task(lambda: PredictionService.save(station_number, n_future, predictions))
 
     cache[cache_key] = predictions
 
