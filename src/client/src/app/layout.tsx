@@ -15,20 +15,6 @@ export const metadata: Metadata = {
   keywords: ['MBajk', 'AI', "domen perko", "perkzen", "mbajk ai"],
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL as string),
   applicationName: 'MBajk AI'
-
-  // openGraph: {
-  //   type: 'website',
-  //   locale: 'en_US',
-  //   url: process.env.NEXT_PUBLIC_SITE_URL,
-  //   images: [
-  //     {
-  //       url: `${process.env.NEXT_PUBLIC_SITE_URL}/opengraph-image.png`,
-  //       width: 1200,
-  //       height: 630,
-  //       alt: 'MBajk AI',
-  //     },
-  //   ],
-  // },
 };
 
 export default function RootLayout({
