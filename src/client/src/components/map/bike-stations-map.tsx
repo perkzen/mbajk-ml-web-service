@@ -10,7 +10,7 @@ import BikeStationTabs from '@/components/map/bike-station-tabs';
 import MapActions from '@/components/map/map-actions';
 
 
-const center = {
+export const center = {
   lat: 46.5590,
   lng: 15.6381,
 };
