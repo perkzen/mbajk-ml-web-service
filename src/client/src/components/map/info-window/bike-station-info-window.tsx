@@ -47,7 +47,7 @@ const BikeStationInfoWindow = ({ onClose }: BikeStationInfoWindowProps) => {
           </div>
           {isLoading ? <Skeleton className="w-[100px] h-[20px] rounded-md" /> :
             <DrawerDescription className={'text-start'}>
-              Last updated: {timeSince(Number(data?.last_updated))}
+              Last updated: {timeSince(data?.last_updated || 0)}
             </DrawerDescription>}
         </DrawerHeader>
         <div className="flex flex-col p-4 gap-8">
