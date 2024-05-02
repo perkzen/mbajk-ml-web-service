@@ -15,12 +15,14 @@ export const center = {
   lng: 15.6381,
 };
 
+export const DEFAULT_ZOOM = 14;
+
 
 const BikeStationsMap = () => {
   const { data: stations = [] } = useBikeStations();
 
-  const [isOpen, setIsOpen] = useState(false);
   const { urlQuery, updateQueryParams, deleteQueryParams } = useQueryParams();
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleOpen = (stationNumber: number) => {
     updateQueryParams({ ...urlQuery, station: stationNumber });
@@ -51,7 +53,7 @@ const BikeStationsMap = () => {
       <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY as string}>
         <GoogleMap
           defaultCenter={center}
-          defaultZoom={14}
+          defaultZoom={DEFAULT_ZOOM}
           gestureHandling={'greedy'}
           disableDefaultUI={true}
           className={'w-full h-full flex-grow relative'}
