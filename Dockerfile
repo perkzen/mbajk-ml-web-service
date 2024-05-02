@@ -1,4 +1,12 @@
 ARG PYTHON_VERSION=3.12.2
+ARG PORT=8000
+ARG MBAJK_API_KEY
+ARG MLFLOW_TRACKING_URI
+ARG MLFLOW_TRACKING_USERNAME
+ARG MLFLOW_TRACKING_PASSWORD
+ARG DAGSHUB_USER_TOKEN
+ARG TF_USE_LEGACY_KERAS
+ARG DATABASE_URL
 
 FROM python:${PYTHON_VERSION}  as requirements-stage
 
@@ -20,6 +28,15 @@ ENV PYTHONDONTWRITEBYTECODE=1
 # Prevents Python from buffering stdout and stderr
 ENV PYTHONUNBUFFERED=1
 
+# Set environment variables from arguments
+ENV MBAJK_API_KEY=$MBAJK_API_KEY
+ENV MLFLOW_TRACKING_URI=$MLFLOW_TRACKING_URI
+ENV MLFLOW_TRACKING_USERNAME=$MLFLOW_TRACKING_USERNAME
+ENV MLFLOW_TRACKING_PASSWORD=$MLFLOW_TRACKING_PASSWORD
+ENV DAGSHUB_USER_TOKEN=$DAGSHUB_USER_TOKEN
+ENV TF_USE_LEGACY_KERAS=$TF_USE_LEGACY_KERAS
+ENV DATABASE_URL=$DATABASE_URL
+
 WORKDIR /code
 
 COPY --from=requirements-stage /tmp/requirements.txt /code/requirements.txt
@@ -32,4 +49,4 @@ COPY . /code
 
 RUN python -m src.models.scripts.download_models
 
-CMD ["uvicorn", "src.serve.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "src.serve.main:app", "--host", "0.0.0.0", "--port", "$PORT"]
