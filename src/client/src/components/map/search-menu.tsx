@@ -11,6 +11,7 @@ import { useBikeStations } from '@/lib/hooks/bike-stations';
 import { useQueryParams } from '@/lib/hooks/use-querey-params';
 import { useMap } from '@vis.gl/react-google-maps';
 import { BikeStation } from '@/lib/models';
+import { center } from '@/components/map/bike-stations-map';
 
 
 interface SearchMenuProps {
@@ -38,8 +39,18 @@ export function SearchMenu({ open, setOpen }: SearchMenuProps) {
   const handleSelect = (station: BikeStation) => {
     updateQueryParams({ ...urlQuery, station: station.number });
     setOpen(false);
-    map?.panTo({ lat: station.lat, lng: station.lon });
-    map?.setZoom(18);
+
+    // 16 is the most optimal zoom level for the map to smoothly transition
+    // into the new location
+    map?.panTo({ lat: center.lat, lng: center.lng });
+    map?.setZoom(16);
+
+    setTimeout(() => {
+      map?.panTo({ lat: station.lat, lng: station.lon });
+      map?.setZoom(18);
+    }, 1000);
+
+
   };
 
   return (
