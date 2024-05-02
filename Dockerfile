@@ -10,7 +10,6 @@ COPY ./pyproject.toml ./poetry.lock* /tmp/
 
 RUN pip install --upgrade pip setuptools wheel
 
-
 RUN poetry export -f requirements.txt --output requirements.txt --without-hashes
 
 FROM python:${PYTHON_VERSION} as runner
@@ -29,8 +28,8 @@ RUN apt-get update && apt-get install -y libhdf5-dev
 
 RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 
-RUN python3 -m src.models.scripts.download_models
-
 COPY . /code
+
+RUN python -m src.models.scripts.download_models
 
 CMD ["uvicorn", "src.serve.main:app", "--host", "0.0.0.0", "--port", "8000"]
