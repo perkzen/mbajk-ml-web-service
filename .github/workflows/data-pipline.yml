@@ -86,6 +86,7 @@ jobs:
 
       - name: Pull changes
         run: |
+          git config --global pull.rebase false
           git pull --strategy=recursive -Xtheirs origin ${{ github.ref }}
 
       - name: Push changes
@@ -170,6 +171,7 @@ jobs:
 
       - name: Pull changes
         run: |
+          git config --global pull.rebase false
           git pull --strategy=recursive -Xtheirs origin ${{ github.ref }}
 
       - name: Push changes
@@ -250,6 +252,7 @@ jobs:
 
       - name: Pull changes
         run: |
+          git config --global pull.rebase false
           git pull --strategy=recursive -Xtheirs origin ${{ github.ref }}
 
       - name: Push changes
@@ -355,6 +358,7 @@ jobs:
 
       - name: Pull changes
         run: |
+          git config --global pull.rebase false
           git pull --strategy=recursive -Xtheirs origin ${{ github.ref }}
 
       - name: Push changes
@@ -433,6 +437,7 @@ jobs:
 
       - name: Pull changes
         run: |
+          git config --global pull.rebase false
           git pull --strategy=recursive -Xtheirs origin ${{ github.ref }}
 
       - name: Push changes
