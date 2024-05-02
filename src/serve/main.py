@@ -21,6 +21,8 @@ app.include_router(bike_stations_router)
 app.include_router(prediction_router)
 
 
+# check if model registry is downloaded on startup (models should be already downloaded in docker image)
+# if model is already downloaded, this function will do nothing
 @app.on_event("startup")
 async def startup_event():
     download_model_registry()

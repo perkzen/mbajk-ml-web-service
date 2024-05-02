@@ -31,4 +31,7 @@ RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 
 COPY . /code
 
+# Run script to download models before serving
+RUN poetry run poe download_models
+
 CMD ["uvicorn", "src.serve.main:app", "--host", "0.0.0.0", "--port", "8000"]
