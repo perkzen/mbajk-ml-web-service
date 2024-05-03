@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { APIProvider, Map as GoogleMap } from '@vis.gl/react-google-maps';
 import StationMarker from '@/components/map/station-marker';
 import { Drawer } from '@/components/ui/drawer';
@@ -22,7 +22,7 @@ const BikeStationsMap = () => {
   const { data: stations = [] } = useBikeStations();
 
   const { urlQuery, updateQueryParams, deleteQueryParams } = useQueryParams();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(!!urlQuery.station);
 
   const handleOpen = (stationNumber: number) => {
     updateQueryParams({ ...urlQuery, station: stationNumber });
@@ -34,18 +34,13 @@ const BikeStationsMap = () => {
     setIsOpen(false);
   };
 
-  useEffect(() => {
-    if (urlQuery.station) {
-      setIsOpen(true);
-    }
-  }, [urlQuery.station]);
-
   return (
     <Drawer
       open={isOpen}
       dismissible={true}
       direction={'left'}
       modal={false}
+      nested={true}
       onRelease={(_, open) => {
         setIsOpen(open);
       }}
@@ -73,7 +68,6 @@ const BikeStationsMap = () => {
       </APIProvider>
       <BikeStationInfoWindow onClose={handleClose} />
     </Drawer>
-
   );
 };
 
