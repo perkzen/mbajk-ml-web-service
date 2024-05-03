@@ -24,7 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-    <body className={cn(inter.className, 'flex flex-col w-full min-h-screen')}>
+    <body className={cn(inter.className, 'flex flex-col w-full h-svh')}>
     <Providers>
       <Navbar />
       <main className={'flex-1 flex flex-col w-full bg-slate-200'}>

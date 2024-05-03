@@ -27,7 +27,7 @@ const BikeStationInfoWindow = ({ onClose }: BikeStationInfoWindowProps) => {
 
   return (
     <DrawerContent
-      className="flex flex-col rounded-t-[10px] h-full  w-full sm:w-[400px] fixed top-20  bottom-0 left-0">
+      className="flex flex-col rounded-t-[10px] max-h-svh w-full sm:w-[400px] fixed sm:top-20 bottom-0 left-0">
       <div className="mx-auto w-full max-w-sm">
         <DrawerHeader>
           <div className={'flex flex-row'}>
