@@ -40,10 +40,8 @@ export function SearchMenu({ open, setOpen }: SearchMenuProps) {
     setOpen(false);
     updateQueryParams({ ...urlQuery, station: station.number });
 
-    if (urlQuery.station) {
-      map?.panTo({ lat: center.lat, lng: center.lng });
-      map?.setZoom(DEFAULT_ZOOM);
-    }
+    map?.panTo({ lat: center.lat, lng: center.lng });
+    map?.setZoom(DEFAULT_ZOOM);
 
     setTimeout(() => {
       map?.panTo({ lat: station.lat, lng: station.lon });
