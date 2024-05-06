@@ -24,7 +24,7 @@ def predict_multiple(station_number: int, n_future: int, background_tasks: Backg
     if n_future > 7:
         raise HTTPException(status_code=400, detail="n_future must be less than 8")
 
-    if station_number < 0 or station_number > 29:
+    if station_number < 0 or station_number > 30:
         raise HTTPException(status_code=400, detail="station_number must be between 0 and 29")
 
     cache_key = (station_number, n_future)
