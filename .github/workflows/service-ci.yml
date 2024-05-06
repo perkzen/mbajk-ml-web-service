@@ -15,6 +15,7 @@ on:
       - 'src/serve/**'
       - '.github/workflows/service-ci.yml'
       - 'Dockerfile'
+  workflow_dispatch:
 
 env:
   WINDOW_SIZE: 24
