@@ -48,7 +48,7 @@ def test_fail_predict_multiple_2():
     response = client.get("/mbajk/predict/30/1")
     assert response.status_code == 400
     assert "detail" in response.json()
-    assert response.json()["detail"] == "station_number must be between 0 and 28"
+    assert response.json()["detail"] == "station_number must be between 0 and 29"
 
 
 def test_predict_multiple():
