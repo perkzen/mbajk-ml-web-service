@@ -62,7 +62,7 @@ jobs:
 
       - name: DVC pull
         run: |
-          dvc pull -r origin
+          dvc pull -r origin --force
 
       - name: Run Tests
         run: |
@@ -147,7 +147,7 @@ jobs:
 
       - name: DVC pull
         run: |
-          dvc pull -r origin
+          dvc pull -r origin --force
 
       - name: Run Tests
         run: |
@@ -232,7 +232,7 @@ jobs:
 
       - name: DVC pull
         run: |
-          dvc pull -r origin
+          dvc pull -r origin --force
 
       - name: Process data
         run: |
@@ -314,7 +314,7 @@ jobs:
 
       - name: DVC pull
         run: |
-          dvc pull -r origin
+          dvc pull -r origin --force
 
       - name: Get reference data
         run: |
@@ -417,7 +417,7 @@ jobs:
 
       - name: DVC pull
         run: |
-          dvc pull -r origin
+          dvc pull -r origin --force
 
       - name: Run split data
         run: |
