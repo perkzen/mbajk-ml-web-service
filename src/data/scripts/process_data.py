@@ -1,4 +1,6 @@
 import os
+import dagshub.auth
+import mlflow
 import numpy as np
 import pandas as pd
 from multiprocessing import Pool
@@ -6,6 +8,7 @@ from typing import Tuple
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import MinMaxScaler
+from src.config import settings
 from src.data.data_manager import DataManager
 from src.utils.decorators import execution_timer
 from mlflow.sklearn import log_model as log_sklearn_model
