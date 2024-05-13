@@ -52,7 +52,7 @@ class DataFetcher:
         return self.__map_to_weather_data(parsed_data)
 
     def get_weather_forecast_for_next_n_hours(self, hours: int = 1) -> List[Weather]:
-        now = datetime.now()
+        now = datetime.now(self.timezone)
         current_hour = now.hour
 
         measurements_in_one_day = 24
