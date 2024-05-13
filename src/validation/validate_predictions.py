@@ -1,11 +1,8 @@
 import json
 import os
-import dagshub
-import dagshub.auth as dh_auth
-
+import dagshub.auth
 import numpy as np
 from sqlalchemy.orm import sessionmaker
-
 from src.data.data_manager import DataManager
 from src.serve.database import create_database_engine
 from src.serve.models.prediction import Prediction
@@ -14,7 +11,7 @@ from src.config import settings
 
 
 def main():
-    dh_auth.add_app_token(token=settings.dagshub_user_token)
+    dagshub.auth.add_app_token(token=settings.dagshub_user_token)
     dagshub.init("mbajk-ml-web-service", "perkzen", mlflow=True)
     mlflow.set_tracking_uri(settings.mlflow_tracking_uri)
 
